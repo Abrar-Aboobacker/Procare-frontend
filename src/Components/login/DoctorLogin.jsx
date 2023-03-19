@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { Link } from 'react-router-dom';
 const DoctorLogin = () => {
   return (
     <div>
@@ -28,7 +29,9 @@ const DoctorLogin = () => {
         <TextField sx={{backgroundColor:"white"}} margin="normal" type={"email"} label="Email" variant="outlined" />
         <TextField sx={{backgroundColor:"white"}} margin="normal" type={"password"}  label="Password" variant="outlined" />
         <Button variant="contained" color="warning" sx={{ marginTop:3, borderRadius:3}}>Login</Button>
+       <Link className='Link' to={"/signup"}>Ckick to signup</Link>
       </Box>
+      
     </form>
   </div>
   )
