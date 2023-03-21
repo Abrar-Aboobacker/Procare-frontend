@@ -3,18 +3,13 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 const DoctorLogin = () => {
-  const userRef = useRef()
+
 
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  useEffect(()=>{
-    userRef.current.focus();
-  },[])
-  useEffect(()=>{
-    axios.post('')
-  },[email,password])
+ 
   return (
     <div>
     <form action="">

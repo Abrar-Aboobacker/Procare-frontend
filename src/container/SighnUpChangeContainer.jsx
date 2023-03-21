@@ -5,7 +5,7 @@ import DoctorSignUp from '../Components/signup/DoctorSignUp\'';
 import UserSignUp from '../Components/signup/UserSignUp';
 
 const SighnUpChangeContainer = () => {
-  const [value, setValue]=useState(0)
+  const [value, setValue]=useState("0")
   const handleChange = (event, value) => {
       setValue(value);
     };

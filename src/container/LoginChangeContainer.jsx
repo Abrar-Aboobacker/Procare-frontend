@@ -5,7 +5,7 @@ import DoctorLogin from "../Components/login/DoctorLogin";
 import UserLogin from "../Components/login/UserLogin";
 
 const LoginChangeContainer = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("0");
   const handleChange = (event, value) => {
     setValue(value);
   };
@@ -29,12 +29,13 @@ const LoginChangeContainer = () => {
         >
           <UserLogin />
         </TabPanel>
-
         <TabPanel
           sx={{ padding: 0, marginTop: "0", borderRadius: 5 }}
-          value="1">
-          <DoctorLogin />
+          value="1"
+        >
+          <DoctorLogin/>
         </TabPanel>
+     
       </Paper>
     </TabContext>
   );

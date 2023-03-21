@@ -1,12 +1,13 @@
-import React, {  useState } from 'react'
+import React, {  useContext, useState } from 'react'
 import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from '../../axios/axios'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import { AppContext } from '../../context/AppContext';
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {adminLoginStatus,setAdminLoginStatus}= useContext(AppContext)
   const navigate = useNavigate()
  
 
@@ -23,6 +24,7 @@ const AdminLogin = () => {
         console.log(response.data.data+"ddddddd");
         toast.success(response.data.message)
         localStorage.setItem("token", response.data.data)
+        setAdminLoginStatus(true)
         navigate('/admin_dashboard')
       }else{
         console.log("heree");
