@@ -24,6 +24,7 @@ const DoctorSignUp = () => {
   const [phone , setPhone]=useState("")
   const [password , setPassword]=useState("")
   const [cpassword , setcpassword]=useState("")
+  const [about , setAbout]=useState("")
   const [filez,setFile] = useState(null);
  
   // console.log(filez+"ehaaaaa");
@@ -86,6 +87,7 @@ const DoctorSignUp = () => {
         cpassword:cpassword,
         phone:phone,
         file:imgBase,
+        about:about
       })
       if(response.data.success){
         toast.success(response.data.message)
@@ -139,6 +141,7 @@ const DoctorSignUp = () => {
               type={"text"}
               name="name"
               value={name}
+              size="small"
               onChange={(e)=>setName(e.target.value)}
               // onChange={handleChange}
               label="Full Name"
@@ -151,6 +154,7 @@ const DoctorSignUp = () => {
               margin="normal"
               name='email'
               type={"email"}
+              size="small"
               onChange={(e)=>setEmail(e.target.value)}
               // onChange={handleChange}
               value={email}
@@ -163,6 +167,7 @@ const DoctorSignUp = () => {
               sx={{ backgroundColor: "white" }}
               margin="normal"
               name='phone'
+              size="small"
               value={phone}
               // onChange={handleChange}
               onChange={(e)=>setPhone(e.target.value)}
@@ -178,6 +183,7 @@ const DoctorSignUp = () => {
               margin="normal"
               // accept= 'image/*'
               type="file"
+              size="small"
               onChange={(e)=>setFile(e.target.files[0])}
               label="upload your Certificate"
               variant="outlined"
@@ -192,6 +198,7 @@ const DoctorSignUp = () => {
               onChange={(e)=>setPassword(e.target.value)}
               type={"password"}
               name="password"
+              size="small"
               label="Password"
               variant="outlined"
             />
@@ -202,6 +209,7 @@ const DoctorSignUp = () => {
               margin="normal"
               type={"password"}
               name='cpassword'
+              size="small"
               // value={value.cpassword}
               // onChange={handleChange}
               value={cpassword}
@@ -218,6 +226,8 @@ const DoctorSignUp = () => {
               sx={{ backgroundColor: "white" }}
               margin="normal"
               type={"text"}
+              value={about}
+              onChange={(e)=>setAbout(e.target.value)}
               label="Write About Your Self"
               variant="outlined"
             />
