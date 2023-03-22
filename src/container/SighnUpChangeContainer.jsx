@@ -1,8 +1,8 @@
 import { TabContext, TabPanel } from '@mui/lab';
 import { Paper, Tab, Tabs } from '@mui/material';
 import React, { useState } from 'react'
-import DoctorSignUp from '../Components/signup/DoctorSignUp\'';
-import UserSignUp from '../Components/signup/UserSignUp';
+import DoctorSignUp from '../Components/signup/DoctorSignUp';
+import UserSignUp from '../Components/signup/UserSignUp'
 
 const SighnUpChangeContainer = () => {
   const [value, setValue]=useState("0")
