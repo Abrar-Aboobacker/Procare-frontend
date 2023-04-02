@@ -4,33 +4,39 @@ import axios from '../../axios/axios'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
+import { useSelector,useDispatch } from 'react-redux';
+import {  } from 'react-redux';
+import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import { setAdmin } from '../../redux/AdminSlice';
 const AdminLogin = () => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {adminLoginStatus,setAdminLoginStatus}= useContext(AppContext)
   const navigate = useNavigate()
- 
 
   const handleLogin = async (e)=>{
     e.preventDefault();
     console.log("hy");
     try {
+      dispatch(showLoading())
       const response = await axios.post("/admin/admin_login",{
         email:email,
         password:password
       })
+      dispatch(hideLoading())
       console.log(e);
       if(response.data.success){
         console.log(response.data.data+"ddddddd");
         toast.success(response.data.message)
-        localStorage.setItem("token", response.data.data)
-        setAdminLoginStatus(true)
+        localStorage.setItem("admintoken", response.data.data)
+        dispatch(setAdmin(response.data.adminz))
         navigate('/admin_dashboard')
       }else{
         console.log("heree");
         toast.error(response.data.message)
       }
     } catch (error) {
+      dispatch(hideLoading())
       toast.error("something went wrong" )
     }
   }

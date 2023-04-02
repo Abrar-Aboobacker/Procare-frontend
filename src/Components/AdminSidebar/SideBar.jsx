@@ -18,6 +18,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { useNavigate } from 'react-router-dom';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Badge } from '@mui/material';
+import { useSelector } from 'react-redux';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -28,7 +31,10 @@ const openedMixin = (theme) => ({
   }),
   overflowX: 'hidden',
 });
-
+const StyledToolbar = styled(Toolbar)({
+  display: "flex",
+  justifyContent: "space-between",
+});
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -86,6 +92,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+  const {admin}=useSelector((state)=>state.admin)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
@@ -101,7 +108,8 @@ export default function MiniDrawer() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar sx={{backgroundColor:"#FF90AB"}} position="fixed" open={open}>
-        <Toolbar>
+        <StyledToolbar>
+          <Box sx={{display:'flex',justifyContent:"space-around",alignItems:"center"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -117,7 +125,18 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div">
             ProCare
           </Typography>
-        </Toolbar>
+          </Box>
+          <Box sx={{display:'flex',justifyContent:"end",alignItems:"center"}}>
+          
+          <Box sx={{marginRight:2}}>
+          <Badge badgeContent={admin&& admin.notification.length} color="primary">
+          <NotificationsIcon/>
+            </Badge>
+            
+          </Box>
+
+          </Box>
+        </StyledToolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>

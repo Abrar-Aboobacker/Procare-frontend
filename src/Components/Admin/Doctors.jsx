@@ -1,6 +1,6 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled} from "@mui/material";
 import React from "react";
-import Sidebar from "./../SideBar";
+import Sidebar from "../AdminSidebar/SideBar";
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

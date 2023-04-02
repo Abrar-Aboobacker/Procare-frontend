@@ -3,29 +3,35 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { Link,  useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import { setDoctor } from '../../redux/DoctorSlice';
 const DoctorLogin = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const handleLogin = async (e)=>{
     e.preventDefault();
-    console.log("hy");
     try {
+      dispatch(showLoading())
       const response = await axios.post("/doctor/doctor_signin",{
         email:email,
         password:password
       })
-      console.log(e);
+      dispatch(hideLoading())
       if(response.data.success){
         console.log(response.data.data+"ddddddd");
         toast.success(response.data.message)
         localStorage.setItem("token", response.data.data)
-        navigate('/')
+        dispatch(setDoctor(response.data.doctorz))
+        navigate('/doctor_moreinfo')
       }else{
         console.log("heree");
         toast.error(response.data.message)
       }
     } catch (error) {
+      dispatch(hideLoading())
       toast.error("something went wrong" )
     }
   }

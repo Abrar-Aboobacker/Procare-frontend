@@ -1,13 +1,13 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-const AdminPubllicRoute = (props) => {
+const DoctorPublicRoute = (props) => {
     if(localStorage.getItem('token')){
-        return <Navigate to ='/admin_dashboard' />
+        return <Navigate to ='/doctor_moreinfo' />
        
     }else{
         return props.children
     }
 }
 
-export default AdminPubllicRoute
+export default DoctorPublicRoute
