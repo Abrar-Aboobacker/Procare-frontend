@@ -17,7 +17,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -129,8 +129,8 @@ export default function MiniDrawer() {
           <Box sx={{display:'flex',justifyContent:"end",alignItems:"center"}}>
           
           <Box sx={{marginRight:2}}>
-          <Badge badgeContent={admin&& admin.notification.length} color="primary">
-          <NotificationsIcon/>
+          <Badge badgeContent={admin&& admin.notification? admin.notification.length:null} color="primary">
+         <Link to={"/admin_notification"}> <NotificationsIcon sx={{color:'white'}}/> </Link>
             </Badge>
             
           </Box>
