@@ -19,6 +19,7 @@ import { CircularProgress } from "@mui/material";
 import  './index.css'
 import DoctorInfo from "./Components/Doctor/DoctorInfo";
 import Notification from "./Components/Admin/Notification";
+import NewDoctor from "./Components/Admin/NewDoctor";
 function App() {
  
   const [progress, setProgress] = React.useState(0);
@@ -54,7 +55,8 @@ function App() {
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
         <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>
         <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
-        <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification></Notification></AdminProtectedRoutes>}/>
+        <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
+        <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
         <Route path="/doctor_moreinfo" element={<DoctorProtectedRoutes><DoctorInfo/></DoctorProtectedRoutes>} />
         <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
       </Routes>

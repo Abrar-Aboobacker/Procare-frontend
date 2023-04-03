@@ -27,10 +27,6 @@ const Notification = () => {
     setValue(value);
   };
 
-//   const getAdmin = async ()=>{
-  
-// }
-
    useEffect( ()=>{
     try {
         dispatch(showLoading())

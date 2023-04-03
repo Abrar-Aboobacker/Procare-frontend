@@ -193,7 +193,7 @@ export default function MiniDrawer() {
         </List>
 
         <List>
-        <ListItem  disablePadding sx={{ display: 'block' }}>
+        <ListItem onClick={()=>{navigate("/admin_new_doctor")}}   disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
