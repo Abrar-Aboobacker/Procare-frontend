@@ -43,7 +43,9 @@ const Notification = () => {
                 dispatch(setAdmin(response.data.data))
              }else{
                dispatch(hideLoading())
-               //  navigate("/login")
+               console.log("here");
+               toast.error('please login first')
+                navigate("/admin_login")
                 localStorage.clear()
              }
         })
@@ -52,10 +54,10 @@ const Notification = () => {
      } catch (error) {
       console.log(error)
         dispatch(hideLoading())
-      //   navigate("/login")
+        navigate("/admin_login")
         localStorage.clear()
      }
-   },[admin])
+   },[])
   const handleMarkAllRead =async ()=>{
     try {
         dispatch(showLoading())
@@ -79,7 +81,29 @@ const Notification = () => {
         toast.error("something went wrong")
     }
   }
-  const handleDelete = ()=>{}
+  const handleDelete =async ()=>{
+    try {
+        dispatch(showLoading())
+        const response = await axios.post('admin/deleteNotification',{
+            adminId:admin._id,
+        },{
+            headers:{
+                Authorization: "Bearer " + localStorage.getItem("admintoken")
+            }
+        })
+        dispatch(hideLoading())
+        if(response.data.success){
+            toast.success(response.data.message)
+            dispatch(setAdmin(response.data.data))
+        }else{
+            toast.error(response.data.message)
+        }
+    } catch (error) {
+        dispatch(hideLoading())
+        console.log(error);
+        toast.error("something went wrong")
+    }
+  }
   const paperStyle = { width: "100%", margin: "20px auto", border: "none" };
   return (
     <>
@@ -111,15 +135,6 @@ const Notification = () => {
                 Mark All Read
             </Button>
          </Box>
-          {/* {
-            admin? admin?.notification.map(notificationMgs=>(
-                <Box  sx={{cursor:'pointer'}}>
-                    <Box onClick={()=>navigate(notificationMgs.onClickPath)}>
-                        {notificationMgs.message}
-                    </Box>
-                </Box>:<Box></Box>
-            ))
-         }  */}
          {admin && admin.notification ?
     admin.notification.map(notificationMgs => (
         <Box sx={{cursor:'pointer'}}>
@@ -141,6 +156,16 @@ const Notification = () => {
                 Delete All 
             </Button>
          </Box>
+         {admin && admin.seennotification ?
+    admin.seennotification.map(notificationMgs => (
+        <Box sx={{cursor:'pointer'}}>
+            <Box onClick={()=>navigate(notificationMgs.onClickPath)}>
+                {notificationMgs.message}
+            </Box>
+        </Box>
+    )) :
+    <Box></Box>
+}
         </TabPanel>
      
       </Paper>
