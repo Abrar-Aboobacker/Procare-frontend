@@ -333,7 +333,7 @@ import {
   } from "@mui/material";
 import { toast } from 'react-hot-toast';
 import axios from '../../axios/axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 
@@ -447,9 +447,8 @@ const DoctorSignUp = () => {
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
-          marginTop: 0,
+          marginTop: 10,
           padding: 3,
-          height:"80vh",
           borderRadius: 5,
           boxShadow: "5px 5px 10px #ccc ",
           ":hover": {
@@ -457,6 +456,16 @@ const DoctorSignUp = () => {
           },
         }}
       >
+           <Box mt={2}  >
+         <Box display={'flex'} justifyContent={'center'} alignContent={'center'} >
+          <Typography mr={5} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
+           <Link to={"/user_signup"}>User Login</Link> 
+          </Typography>
+          <Typography ml={5} variant='h6' sx={{backgroundColor:"#30349B",paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1,color:"white",borderRadius:"12px",marginBottom:3}}>
+            Doctor Login
+          </Typography>
+         </Box>
+        </Box>
         <Typography variant="h4" padding={3} textAlign="center">
           Signup
         </Typography>
@@ -465,6 +474,7 @@ const DoctorSignUp = () => {
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
+        
           <Grid item sm={6}>
             <TextField
               sx={{ backgroundColor: "white" }}

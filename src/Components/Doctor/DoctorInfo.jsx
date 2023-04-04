@@ -1,15 +1,16 @@
-import { Margin, Padding } from "@mui/icons-material";
+import { Dialpad, Margin, Padding } from "@mui/icons-material";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setDoctor } from "../../redux/DoctorSlice";
 import axios from '../../axios/axios'
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const DoctorInfo = () => {
   const {doctor}=useSelector((state)=>state.doctor)
   const dispatch =useDispatch()
+  const [isActive, setIsActive] = useState(false);
     const [value,setvalue]=useState({
           name:doctor? doctor.name:"",
           email:doctor? doctor?.email:"",
@@ -20,6 +21,27 @@ const DoctorInfo = () => {
           feesPerCunsaltation:doctor? doctor?.feesPerCunsaltation:null,
 
         })
+        const navigate = useNavigate()
+        useEffect(()=>{
+          console.log(doctor.isActive);
+          // if(doctor.isActive)
+          const checkDoctorStatus =async ()=>{
+            try {
+            const response = await axios.get("/doctor/doctorStatus",{
+              headers:{
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }
+            })
+              if(response.data.success){
+                setIsActive(true)
+              }
+            } catch (error) {
+              console.log(error);
+              toast.error("something went wrong")
+            }
+          }
+          checkDoctorStatus()
+        },[])
         const handleChange = (e) => {
   const { name, value } = e.target;
   console.log(value);
@@ -28,11 +50,14 @@ const DoctorInfo = () => {
     [name]: value,
   }));
 };
+if(isActive){
+  navigate('/doctor_profile')
+}
 const handleSubmit = async (e)=>{
   e.preventDefault();
   try {
     dispatch(showLoading())
-    const response = await axios.post("/doctor/doctor_apply",{...value, token:localStorage.getItem('tokken')},{
+    const response = await axios.post("/doctor/doctor_apply",{...value, token:localStorage.getItem('token')},{
                headers:{
                    Authorization: "Bearer " + localStorage.getItem("token")
                }
@@ -40,6 +65,7 @@ const handleSubmit = async (e)=>{
     dispatch(hideLoading())
     if(response.data.success){
       toast.success(response.data.message)
+      dispatch(setDoctor(response.data.data))
     }else{
       console.log("hereee");
       toast.error(response.data.message)
@@ -50,6 +76,7 @@ const handleSubmit = async (e)=>{
     toast.error("something went wrong")
   }
 }
+
   return (
     <>
       <Box

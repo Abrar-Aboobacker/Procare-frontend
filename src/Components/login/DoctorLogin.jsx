@@ -39,6 +39,9 @@ const DoctorLogin = () => {
   return (
     <div>
     <form action="">
+      <Box>
+        
+       
       <Box
         sx={{
           backgroundColor:"#F5FCFF",
@@ -48,24 +51,33 @@ const DoctorLogin = () => {
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
-          marginTop: 0,
+          marginTop:10,
           padding: 3,
           borderRadius:5,
-          height:"70vh",
           boxShadow:"5px 5px 10px #ccc ",
           ":hover":{
               boxShadow:"10px 10px 20px #ccc ",
           }
         }}
       >
+         <Box mt={2}  >
+         <Box display={'flex'} justifyContent={'center'} alignContent={'center'} >
+          <Typography mr={5} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
+           <Link to={"/user_login"}>User Login</Link> 
+          </Typography>
+          <Typography ml={5} variant='h6' sx={{backgroundColor:"#30349B",paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1,color:"white",borderRadius:"12px"}}>
+            Doctor Login
+          </Typography>
+         </Box>
+        </Box>
         <Typography variant="h4" padding={3} textAlign="center">Login</Typography>
         <Typography variant="h6" padding={3} textAlign="center">Welcome Back Doctor</Typography>
-        <TextField sx={{backgroundColor:"white"}} margin="normal" value={email} onChange={(e)=>setEmail(e.target.value)}  type={"email"} label="Email" variant="outlined" />
-        <TextField sx={{backgroundColor:"white"}} margin="normal" value={password} onChange={(e)=>setPassword(e.target.value)}  type={"password"}  label="Password" variant="outlined" />
+        <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" value={email} onChange={(e)=>setEmail(e.target.value)}  type={"email"} label="Email" variant="outlined" />
+        <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" value={password} onChange={(e)=>setPassword(e.target.value)}  type={"password"}  label="Password" variant="outlined" />
         <Button onClick={handleLogin} variant="contained" color="warning" sx={{ marginTop:3, borderRadius:3}}>Login</Button>
-       <Link className='Link' to={"/signup"}>Ckick to signup</Link>
+      <Typography mt={2}>Don't you have an account <Link  to={"/signup"}>Click here</Link> </Typography> 
       </Box>
-      
+      </Box>
     </form>
   </div>
   )

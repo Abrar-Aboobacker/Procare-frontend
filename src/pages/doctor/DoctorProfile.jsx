@@ -1,11 +1,14 @@
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, styled, TextField, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../Components/sidebar/Sidebar'
 import {CameraAlt, Height, Padding} from '@mui/icons-material';
 import { positions } from '@mui/system';
 import axios from '../../axios/axios'
 import { red } from '@mui/material/colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import { toast } from 'react-hot-toast';
+import { setDoctor } from '../../redux/DoctorSlice';
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -16,7 +19,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const DoctorProfile =  () => {
+  const dispatch =useDispatch()
   const {doctor}=useSelector((state)=>state.doctor)
+  const [value,setvalue]=useState({
+          name:doctor? doctor.name:"",
+          email:doctor? doctor?.email:"",
+          phone:doctor? doctor?.phone: null,
+          about:doctor? doctor?.about:"",
+          specialization:doctor? doctor?.specialization:"",
+          experience:doctor? doctor?.experience:null,
+          feesPerCunsaltation:doctor? doctor?.feesPerCunsaltation:null,
+  })
   // const getData=async()=>{
   //   try {
   //     const response = await axios.post("/doctor/doctorInfo",{},{
@@ -35,6 +48,41 @@ const DoctorProfile =  () => {
   // useEffect(()=>{
   //   getData()
   // },[])
+
+  const handleChange = (e) => {
+  
+    const { name, value } = e.target;
+
+    setvalue((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e)=>{
+    console.log(doctor);
+    e.preventDefault();
+    try {
+      dispatch(showLoading())
+      const response = await axios.post("/doctor/doctorProfileEdit",{...value },{
+                 headers:{
+                     Authorization: "Bearer " + localStorage.getItem("token")
+                 }
+              })
+      dispatch(hideLoading())
+      if(response.data.success){
+        toast.success(response.data.message)
+        // dispatch(setDoctor(response.data.data))
+      }else{
+        console.log("hereee");
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      dispatch(hideLoading())
+      console.log(error);
+      toast.error("something went wrong")
+    }
+  }
   return (
     <>
        <Box sx={{ display: 'flex' }}>
@@ -63,29 +111,24 @@ const DoctorProfile =  () => {
       </CardContent>
     </Card>
     </Box>
-   <Box sx={{marginLeft:"6.25rem",marginTop:5}}>
-   <Grid
-          container
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-         
-        >
-          
-          <Grid  item xs={6}>
+   <Box sx={{marginLeft:"4.25rem",marginTop:5, width:"100%"}}>
+          <Typography variant="h5" fontWeight={400}>
+            Personal Information
+          </Typography>
+          <Box  >
             <TextField
-              sx={{ backgroundColor: "white",marginLeft:"10"}}
+              sx={{ backgroundColor: "white",marginLeft:"10", marginRight: 5,}}
               margin="normal"
               type={"text"}
               name="name"
-              // value={name}
+              value={value.name}
+              onChange={handleChange}
               size="small"
               // onChange={(e)=>setName(e.target.value)}
               // onChange={handleChange}
               label="Full Name"
               variant="outlined"
             />
-          </Grid>
-          <Grid  item xs={6}>
             <TextField
               sx={{ backgroundColor: "white" }}
               margin="normal"
@@ -94,71 +137,106 @@ const DoctorProfile =  () => {
               size="small"
               
               // onChange={(e)=>setEmail(e.target.value)}
-              // onChange={handleChange}
-              // value={email}
+              onChange={handleChange}
+              value={value.email}
               label="email"
               variant="outlined"
             />
-          </Grid>
-          <Grid  item xs={6}>
+          </Box>
+          <Box  >
             <TextField
-              sx={{ backgroundColor: "white" }}
+              sx={{ backgroundColor: "white" , marginRight: 5 }}
               margin="normal"
               name='phone'
               size="small"
-              // value={phone}
-              // onChange={handleChange}
-              // onChange={(e)=>setPhone(e.target.value)}
+              value={value.phone}
+              onChange={handleChange}
               type="tel"
               label="Phone No"
               variant="outlined"
             />
-          </Grid>
-          <Grid  item xs={6}>
-            <TextField
-              sx={{ backgroundColor: "white" }}
-              margin="normal"
-              // accept= 'image/*'
-            
-              size="small"
-              // onChange={(e)=>setFile(e.target.files[0])}
-              label="upload your Certificate"
-              variant="outlined"
-            /> 
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              sx={{ backgroundColor: "white" }}
-              margin="normal"
-              // value={password}
-              // onChange={handleChange}
-              // onChange={(e)=>setPassword(e.target.value)}
-              type={"password"}
-              name="password"
-              size="small"
-              label="Password"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid  item xs={6}>
-            <TextField
-              sx={{ backgroundColor: "white" }}
-              margin="normal"
-              type={"password"}
-              name='cpassword'
-              size="small"
-              // value={value.cpassword}
-              // onChange={handleChange}
-              // value={cpassword}
-              // onChange={(e)=>setcpassword(e.target.value)}
-              label="Confirm Password"
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
+             <TextField
+            // fullWidth
+            multiline
+            size="small"
+            name="about"
+            maxRows={5}
+            sx={{ backgroundColor: "white",width:300 }}
+            margin="normal"
+            // type={"text"}
+            value={value.about}
+            // value={value.about}
+            onChange={handleChange}
+            //   onChange={(e)=>setAbout(e.target.value)}
+            label="Write About Your Self"
+            variant="outlined"
+          />
+          </Box>
+          <Typography variant="h5" fontWeight={400}>
+            Professional Information
+          </Typography>
+          <Box>
+
+<TextField
+  sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
+  margin="normal"
+  type={"text"}
+  name="specialization"
+  value ={value.specialization}
+  // value={name}
+  size="small"
+  // onChange={(e)=>setName(e.target.value)}
+  onChange={handleChange}
+  label="Specialization"
+  variant="outlined"
+  />
+  <TextField
+  sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
+  margin="normal"
+  type={"number"}
+  name="experience"
+  value={value.experience}
+  size="small"
+  // onChange={(e)=>setName(e.target.value)}
+  onChange={handleChange}
+  label="Experince"
+  variant="outlined"
+  />
+<TextField
+  sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
+  margin="normal"
+  type={"number"}
+  name="feesPerCunsaltation"
+  value={value.feesPerCunsaltation}
+  size="small"
+  // onChange={(e)=>setName(e.target.value)}
+  onChange={handleChange}
+  label="Fees per consaltation"
+  variant="outlined"
+  />
+  {/* <TextField
+  sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
+  focused
+  margin="normal"
+  type={"datetime-local"}
+  name="name"
+  // value={name}
+  size="small"
+  // onChange={(e)=>setName(e.target.value)}
+  // onChange={handleChange}
+  label="Timing"
+  variant="outlined"
+  /> */}
+  
+  </Box>
+  <Box>
+  </Box>
+         
         <Box sx={{display:"flex",justifyContent: 'center', width:"75%"}}>
           
         <Button
+        type="submit"
+          onClick={handleSubmit}
             variant="contained"
             color="warning"
             sx={{ marginTop: 3, borderRadius: 3 }}

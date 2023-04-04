@@ -7,6 +7,7 @@ import {
     Typography,
   
   } from "@mui/material";
+import { Link } from 'react-router-dom';
 const UserSignUp = () => {
   return (
     <div>
@@ -20,9 +21,8 @@ const UserSignUp = () => {
             alignItems: "center",
             justifyContent: "center",
             margin: "auto",
-            marginTop: 0,
+            marginTop: 10,
             padding: 3,
-            height:"80vh",
             borderRadius: 5,
             boxShadow: "5px 5px 10px #ccc ",
             ":hover": {
@@ -30,6 +30,17 @@ const UserSignUp = () => {
             },
           }}
         >
+          <Box mt={2}  >
+         <Box display={'flex'} justifyContent={'center'} alignContent={'center'} >
+         <Typography mr={5} variant='h6' sx={{backgroundColor:"#30349B",paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1,color:"white",borderRadius:"12px" ,marginBottom:3}}>
+         User Signup
+          </Typography>
+          <Typography ml={5} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
+          <Link to={"/doctor_signup"}>Doctor Signup </Link> 
+          </Typography>
+         
+         </Box>
+        </Box>
           <Typography variant="h4" padding={3} textAlign="center">
             Signup
           </Typography>

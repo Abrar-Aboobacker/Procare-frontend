@@ -51,35 +51,38 @@ const Doctors = () => {
                         <TableCell>Full Name</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Phone No</TableCell>
-                        <TableCell>Document</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell>Experience</TableCell>
+                        {/* <TableCell>Action</TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {doctor.map((value) => (
+                      {doctor&& doctor.map((value) => (
                         <TableRow key={value._id}>
                           <TableCell>{value.name}</TableCell>
                           <TableCell>{value.email}</TableCell>
                           <TableCell>{value?.phone}</TableCell>
-                          <TableCell>{}</TableCell>
-                          <TableCell>
+                          <TableCell>{value.experience}</TableCell>
+                          {/* <TableCell>
+                            {doctor&& doctor.isActive==="active"?(
                             <Button
-                              variant="contained"
-                              color="success"
-                              sx={{ marginRight: 2 }}
-                              
-                            >
-                              Accept
-                            </Button>
+                            variant="contained"
+                            color="error"
+                          >
+                            Block
+                          </Button>
+                            ):
                             <Button
-                              variant="contained"
-                              color="error"
-                              sx={{ marginRight: 2 }}
-                              
-                            >
-                              Reject
-                            </Button>
-                          </TableCell>
+                            variant="contained"
+                            color="success"
+                           
+                            
+                          >
+                            Unblock
+                          </Button>
+                           
+                          }
+                            
+                          </TableCell> */}
                         </TableRow>
                       ))}
                     </TableBody>

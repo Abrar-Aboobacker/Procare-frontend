@@ -20,6 +20,10 @@ import  './index.css'
 import DoctorInfo from "./Components/Doctor/DoctorInfo";
 import Notification from "./Components/Admin/Notification";
 import NewDoctor from "./Components/Admin/NewDoctor";
+import UserLogin from "./Components/login/UserLogin";
+import DoctorLogin from "./Components/login/DoctorLogin";
+import UserSignUp from './Components/signup/UserSignUp';
+import DoctorSignUp from './Components/signup/DoctorSignUp';
 function App() {
  
   const [progress, setProgress] = React.useState(0);
@@ -50,8 +54,10 @@ function App() {
   reverseOrder={false}
 />
       <Routes>
-        <Route exact  path="/login"  element={<DoctorPublicRoute><LoginChangeContainer/></DoctorPublicRoute>}/>
-        <Route path="/signup" element={<SighnUpChangeContainer/>}/>
+        <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
+        <Route path="/user_login" element={<UserLogin/>}/>
+        <Route path="/user_signup" element={<UserSignUp/>}/>
+        <Route path="/doctor_signup" element={<DoctorSignUp/>}/>
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
         <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>
         <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
