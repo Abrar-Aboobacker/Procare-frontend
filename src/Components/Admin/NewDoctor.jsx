@@ -87,6 +87,24 @@ const NewDoctor = () => {
       toast.error("something went wrong");
     }
   };
+  const rejectHandler = async (doctorId)=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.post("/admin/rejectDoctor",{doctorId:doctorId},{headers: {
+        Authorization: "Bearer " + localStorage.getItem("admintoken"),
+      },})
+      dispatch(hideLoading())
+      if(response.data.success){
+        toast.success(response.data.message)
+      }else{
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  }
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -131,6 +149,7 @@ const NewDoctor = () => {
                               variant="contained"
                               color="error"
                               sx={{ marginRight: 2 }}
+                              onClick={()=>rejectHandler(value._id)}
                             >
                               Reject
                             </Button>
