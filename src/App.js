@@ -22,6 +22,7 @@ import UserLogin from "./Components/login/UserLogin";
 import DoctorLogin from "./Components/login/DoctorLogin";
 import UserSignUp from './Components/signup/UserSignUp';
 import DoctorSignUp from './Components/signup/DoctorSignUp';
+import Otp from "./Components/user/Otp";
 function App() {
  
   const [progress, setProgress] = React.useState(0);
@@ -55,7 +56,7 @@ function App() {
         {/* User Routes */}
         <Route path="/user_login" element={<UserLogin/>}/>
         <Route path="/user_signup" element={<UserSignUp/>}/>
-
+        <Route path="/user_otp" element={<Otp/>}/>
         {/* Doctor Routes */}
         <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
@@ -68,7 +69,7 @@ function App() {
         <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
         <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
         <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
-        
+
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>

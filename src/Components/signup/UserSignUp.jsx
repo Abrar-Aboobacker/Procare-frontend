@@ -37,7 +37,7 @@ const UserSignUp = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
-        navigate('/user_login')
+        navigate('/user_otp')
 
       }else{
         toast.error(response.data.message)
