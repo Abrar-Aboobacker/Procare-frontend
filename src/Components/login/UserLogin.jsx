@@ -41,7 +41,7 @@ const UserLogin = () => {
         <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" type={"email"} label="Email" variant="outlined" />
         <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" type={"password"}  label="Password" variant="outlined" />
         <Button  variant="contained" color="warning" sx={{ marginTop:3, borderRadius:3}}>Login</Button>
-        <Typography mt={2}>Are you new user?<Link to={"/signup"}>click Here </Link></Typography>
+        <Typography mt={2}>Are you new user?<Link to={"/user_signup"}>click Here </Link></Typography>
       </Box>
     </form>
   </div>

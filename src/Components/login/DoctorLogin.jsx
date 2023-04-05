@@ -75,7 +75,7 @@ const DoctorLogin = () => {
         <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" value={email} onChange={(e)=>setEmail(e.target.value)}  type={"email"} label="Email" variant="outlined" />
         <TextField size='small' fullWidth sx={{backgroundColor:"white"}} margin="normal" value={password} onChange={(e)=>setPassword(e.target.value)}  type={"password"}  label="Password" variant="outlined" />
         <Button onClick={handleLogin} variant="contained" color="warning" sx={{ marginTop:3, borderRadius:3}}>Login</Button>
-      <Typography mt={2}>Don't you have an account <Link  to={"/signup"}>Click here</Link> </Typography> 
+      <Typography mt={2}>Don't you have an account <Link  to={"/doctor_signup"}>Click here</Link> </Typography> 
       </Box>
       </Box>
     </form>

@@ -421,7 +421,7 @@ const DoctorSignUp = () => {
       dispatch(hideLoading())
       if(response.data.success){
         toast.success(response.data.message)
-        navigate('/login')
+        navigate('/doctor_login')
       }else{
         console.log("heree");
         toast.error(response.data.message)

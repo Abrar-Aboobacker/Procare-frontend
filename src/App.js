@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginChangeContainer from "./container/LoginChangeContainer";
-import SighnUpChangeContainer from "./container/SighnUpChangeContainer";
 import AdminLogin from "./Components/login/AdminLogin";
 import Dashboard from "./Components/Admin/Dashboard";
 import Doctors from "./Components/Admin/Doctors";
@@ -54,17 +52,23 @@ function App() {
   reverseOrder={false}
 />
       <Routes>
-        <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
+        {/* User Routes */}
         <Route path="/user_login" element={<UserLogin/>}/>
         <Route path="/user_signup" element={<UserSignUp/>}/>
-        <Route path="/doctor_signup" element={<DoctorSignUp/>}/>
+
+        {/* Doctor Routes */}
+        <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
+        <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
+        <Route path="/doctor_moreinfo" element={<DoctorProtectedRoutes><DoctorInfo/></DoctorProtectedRoutes>} />
+        <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
+
+          {/* Admin Routes */}
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
         <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>
         <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
         <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
         <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
-        <Route path="/doctor_moreinfo" element={<DoctorProtectedRoutes><DoctorInfo/></DoctorProtectedRoutes>} />
-        <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
+        
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>
