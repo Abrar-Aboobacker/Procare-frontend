@@ -1,5 +1,5 @@
-import * as Yup from "yup";
 
+import * as Yup from "yup";
 export const userSchema = Yup.object().shape({
   fName: Yup.string()
     .min(2, "Your Name is too Short")

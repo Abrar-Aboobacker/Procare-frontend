@@ -23,6 +23,8 @@ import DoctorLogin from "./Components/login/DoctorLogin";
 import UserSignUp from './Components/signup/UserSignUp';
 import DoctorSignUp from './Components/signup/DoctorSignUp';
 import Otp from "./Components/user/Otp";
+import Home from "./Components/user/Home";
+
 function App() {
  
   const [progress, setProgress] = React.useState(0);
@@ -57,6 +59,7 @@ function App() {
         <Route path="/user_login" element={<UserLogin/>}/>
         <Route path="/user_signup" element={<UserSignUp/>}/>
         <Route path="/user_otp" element={<Otp/>}/>
+        <Route path="/" element={<Home/>}/>
         {/* Doctor Routes */}
         <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
