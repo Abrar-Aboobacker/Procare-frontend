@@ -21,6 +21,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -103,7 +104,6 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -216,7 +216,7 @@ export default function MiniDrawer() {
         </List>
 
         <List>
-        <ListItem  disablePadding sx={{ display: 'block' }}>
+        <ListItem onClick={()=>{navigate("/admin_users")}}  disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,

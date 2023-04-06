@@ -24,20 +24,21 @@ import UserSignUp from './Components/signup/UserSignUp';
 import DoctorSignUp from './Components/signup/DoctorSignUp';
 import Otp from "./Components/user/Otp";
 import Home from "./Components/user/Home";
+import Users from "./Components/Admin/Users";
 
 function App() {
  
   const [progress, setProgress] = React.useState(0);
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 800);
+  // React.useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+  //   }, 800);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, []);
 
   const {loading}= useSelector(state=>state.alerts)
  
@@ -72,7 +73,7 @@ function App() {
         <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
         <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
         <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
-
+        <Route path="/admin_users" element={<AdminProtectedRoutes><Users/></AdminProtectedRoutes>}/>
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>

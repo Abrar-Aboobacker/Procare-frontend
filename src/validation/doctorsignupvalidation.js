@@ -16,9 +16,10 @@ export const DoctorSchema = Yup.object().shape({
     .required("Please enter your password"),
     cpassword: Yup.string()
 .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-  phone: Yup.string()
+  phone: Yup.string().required("Please enter your phone number")
     .matches(
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
     "please enter a valid number"
   ),
+  about:Yup.string().required('Please write your self').min(20,"20 letters minimum required")
 });

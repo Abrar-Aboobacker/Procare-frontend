@@ -19,8 +19,9 @@ const DoctorInfo = () => {
           specialization:doctor? doctor?.specialization:"",
           experience:doctor? doctor?.experience:null,
           feesPerCunsaltation:doctor? doctor?.feesPerCunsaltation:null,
-
         })
+        const [filez,setFile]= useState('')
+        // console.log(filez+"kkkkkkkkkkkkk");
         const navigate = useNavigate()
         useEffect(()=>{
           console.log(doctor.isActive);
@@ -30,6 +31,7 @@ const DoctorInfo = () => {
             const response = await axios.get("/doctor/doctorStatus",{
               headers:{
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+                
             }
             })
               if(response.data.success){
@@ -57,15 +59,16 @@ const handleSubmit = async (e)=>{
   e.preventDefault();
   try {
     dispatch(showLoading())
-    const response = await axios.post("/doctor/doctor_apply",{...value, token:localStorage.getItem('token')},{
+    const response = await axios.post("/doctor/doctor_apply",{...value,file:filez, token:localStorage.getItem('token')},{
                headers:{
-                   Authorization: "Bearer " + localStorage.getItem("token")
+                   Authorization: "Bearer " + localStorage.getItem("token"),
+                   "Content-Type": "multipart/form-data",
                }
             })
     dispatch(hideLoading())
     if(response.data.success){
       toast.success(response.data.message)
-      dispatch(setDoctor(response.data.data))
+      // dispatch(setDoctor(response.data.data))
     }else{
       console.log("hereee");
       toast.error(response.data.message)
@@ -79,6 +82,7 @@ const handleSubmit = async (e)=>{
 
   return (
     <>
+    <form action="" onSubmit={handleSubmit}>
       <Box
         height="100vh"
         display="flex"
@@ -225,7 +229,8 @@ const handleSubmit = async (e)=>{
               // accept= 'image/*'
               type="file"
               size="small"
-            //   onChange={(e)=>setFile(e.target.files[0])}
+              name="filez"
+              onChange={(e)=>{console.log(e.target.files[0]);setFile(e.target.files[0])}}
               label="upload your Certificate"
               variant="outlined"
             /> 
@@ -233,7 +238,8 @@ const handleSubmit = async (e)=>{
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
             type="submit"
-            onClick={handleSubmit}
+            name="Submit"
+            // onClick={handleSubmit}
               variant="contained"
               color="warning"
               sx={{ marginTop: 3, borderRadius: 3 }}
@@ -243,6 +249,7 @@ const handleSubmit = async (e)=>{
           </Box>
         </Box>
       </Box>
+      </form>
     </>
   );
 };

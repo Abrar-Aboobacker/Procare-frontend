@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import axios from "../../axios/axios";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const NewDoctor = () => {
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -130,12 +131,13 @@ const NewDoctor = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
+                      
                       {doctor.map((value) => (
                         <TableRow key={value._id}>
                           <TableCell>{value.name}</TableCell>
                           <TableCell>{value.email}</TableCell>
                           <TableCell>{value?.phone}</TableCell>
-                          <TableCell>{}</TableCell>
+                          <TableCell><Link to={`http://localhost:3001/${value.file}`}>link to document</Link></TableCell>
                           <TableCell>
                             <Button
                               variant="contained"
