@@ -3,6 +3,7 @@ import Sidebar from "../AdminSidebar/SideBar";
 import {
   Box,
   Button,
+  Modal,
   Paper,
   Table,
   TableBody,
@@ -10,6 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -19,6 +21,11 @@ import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
 const NewDoctor = () => {
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
@@ -29,27 +36,21 @@ const NewDoctor = () => {
     ...theme.mixins.toolbar,
   }));
   const [doctor, setDoctor] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [reason, setReason] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const dispatch = useDispatch();
-  //table
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   const getDoctor = async () => {
     try {
-      const response = await axios.get("/admin/getNewDoctors", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-        },
-      });
+      const response = await axios.get(
+        "/admin/getNewDoctors",
+        
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+          },
+        }
+      );
 
       if (response.data.success) {
         setDoctor(response.data.data);
@@ -68,7 +69,7 @@ const NewDoctor = () => {
       const response = await axios.post(
         "/admin/approvingDoctor",
         {
-          doctorId: doctorId,
+          doctorId: doctorId
         },
         {
           headers: {
@@ -88,24 +89,35 @@ const NewDoctor = () => {
       toast.error("something went wrong");
     }
   };
-  const rejectHandler = async (doctorId)=>{
+
+  const modalHandler = (userId) => {
+    setSelectedUserId(userId);
+    setOpen(true);
+  };
+  const rejectHandler = async (doctorId) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/admin/rejectDoctor",{doctorId:doctorId},{headers: {
-        Authorization: "Bearer " + localStorage.getItem("admintoken"),
-      },})
-      dispatch(hideLoading())
-      if(response.data.success){
-        toast.success(response.data.message)
-      }else{
-        toast.error(response.data.message)
+      const response = await axios.post(
+        "/admin/rejectDoctor",
+        { doctorId: doctorId,reason: reason },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("admintoken"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
       toast.error("something went wrong");
     }
-  }
+  };
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -126,18 +138,23 @@ const NewDoctor = () => {
                         <TableCell>Full Name</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Phone No</TableCell>
+                        <TableCell>Status</TableCell>
                         <TableCell>Document</TableCell>
                         <TableCell>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      
                       {doctor.map((value) => (
                         <TableRow key={value._id}>
                           <TableCell>{value.name}</TableCell>
                           <TableCell>{value.email}</TableCell>
                           <TableCell>{value?.phone}</TableCell>
-                          <TableCell><Link to={`http://localhost:3001/${value.file}`}>link to document</Link></TableCell>
+                          <TableCell>{value?.isActive}</TableCell>
+                          <TableCell>
+                            <Link to={`http://localhost:3001/${value.file}`}>
+                              link to document
+                            </Link>
+                          </TableCell>
                           <TableCell>
                             <Button
                               variant="contained"
@@ -151,10 +168,64 @@ const NewDoctor = () => {
                               variant="contained"
                               color="error"
                               sx={{ marginRight: 2 }}
-                              onClick={()=>rejectHandler(value._id)}
+                              onClick={() => modalHandler(value._id)}
+                              // onClick={(e) => setOpen(true)}
                             >
                               Reject
                             </Button>
+                            <StyledModal
+                              open={open}
+                              onClose={(e) => setOpen(false)}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                            >
+                              <Box
+                                width={400}
+                                height={280}
+                                bgcolor={"background.default"}
+                                color={"text.primary"}
+                                p={3}
+                                borderRadius={5}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  color="gray"
+                                  textAlign="center"
+                                  marginBottom={3}
+                                >
+                                  what is the reason for the application
+                                  rejection
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  value={reason}
+                                  onChange={(e) => setReason(e.target.value)}
+                                  fullWidth
+                                  size="small"
+                                  sx={{ backgroundColor: "white" }}
+                                  label="enter reason"
+                                  variant="outlined"
+                                />
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"center"}
+                                  alignItems={"center"}
+                                  marginTop={3}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={() => {
+                                      rejectHandler(selectedUserId);
+                                      setSelectedUserId(null);
+                                      setOpen(false);
+                                    }}
+                                  >
+                                    Submit
+                                  </Button>
+                                </Box>
+                              </Box>
+                            </StyledModal>
                           </TableCell>
                         </TableRow>
                       ))}

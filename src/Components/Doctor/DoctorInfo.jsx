@@ -1,6 +1,5 @@
-import { Dialpad, Margin, Padding } from "@mui/icons-material";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDoctor } from "../../redux/DoctorSlice";
 import axios from '../../axios/axios'
@@ -10,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const DoctorInfo = () => {
   const {doctor}=useSelector((state)=>state.doctor)
   const dispatch =useDispatch()
-  const [isActive, setIsActive] = useState(false);
     const [value,setvalue]=useState({
           name:doctor? doctor.name:"",
           email:doctor? doctor?.email:"",
@@ -21,29 +19,27 @@ const DoctorInfo = () => {
           feesPerCunsaltation:doctor? doctor?.feesPerCunsaltation:null,
         })
         const [filez,setFile]= useState('')
-        // console.log(filez+"kkkkkkkkkkkkk");
         const navigate = useNavigate()
-        useEffect(()=>{
-          console.log(doctor.isActive);
-          // if(doctor.isActive)
-          const checkDoctorStatus =async ()=>{
-            try {
-            const response = await axios.get("/doctor/doctorStatus",{
-              headers:{
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+        // useEffect(()=>{
+        //   const checkDoctorStatus =async ()=>{
+        //     try {
+        //     const response = await axios.get("/doctor/doctorStatus",{
+        //       headers:{
+        //         Authorization: `Bearer ${localStorage.getItem("doctorwaitingtoken")}`,
                 
-            }
-            })
-              if(response.data.success){
-                setIsActive(true)
-              }
-            } catch (error) {
-              console.log(error);
-              toast.error("something went wrong")
-            }
-          }
-          checkDoctorStatus()
-        },[])
+        //     }
+        //     })
+        //       if(response.data.success){
+        //         setIsActive(true)
+        //         // navigate('/doctor_profile')
+        //       }
+        //     } catch (error) {
+        //       console.log(error);
+        //       toast.error("something went wrong")
+        //     }
+        //   }
+        //   checkDoctorStatus()
+        // },[])
         const handleChange = (e) => {
   const { name, value } = e.target;
   console.log(value);
@@ -52,23 +48,22 @@ const DoctorInfo = () => {
     [name]: value,
   }));
 };
-if(isActive){
-  navigate('/doctor_profile')
-}
 const handleSubmit = async (e)=>{
   e.preventDefault();
   try {
     dispatch(showLoading())
-    const response = await axios.post("/doctor/doctor_apply",{...value,file:filez, token:localStorage.getItem('token')},{
+    const response = await axios.post("/doctor/doctor_apply",{...value,file:filez},{
                headers:{
-                   Authorization: "Bearer " + localStorage.getItem("token"),
+                   Authorization: "Bearer " + localStorage.getItem("doctorwaitingtoken"),
                    "Content-Type": "multipart/form-data",
                }
             })
     dispatch(hideLoading())
     if(response.data.success){
       toast.success(response.data.message)
-      // dispatch(setDoctor(response.data.data))
+      console.log(response.data.data);
+      dispatch(setDoctor(response.data.data))
+      navigate('/doctor_waiting_page')
     }else{
       console.log("hereee");
       toast.error(response.data.message)
@@ -175,7 +170,7 @@ const handleSubmit = async (e)=>{
             margin="normal"
             type={"text"}
             name="specialization"
-            // value={name}
+            value={value.specialization}
             size="small"
             // onChange={(e)=>setName(e.target.value)}
             onChange={handleChange}
@@ -230,7 +225,7 @@ const handleSubmit = async (e)=>{
               type="file"
               size="small"
               name="filez"
-              onChange={(e)=>{console.log(e.target.files[0]);setFile(e.target.files[0])}}
+              onChange={(e)=>{setFile(e.target.files[0])}}
               label="upload your Certificate"
               variant="outlined"
             /> 

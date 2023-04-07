@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminLogin from "./Components/login/AdminLogin";
 import Dashboard from "./Components/Admin/Dashboard";
 import Doctors from "./Components/Admin/Doctors";
 import { Toaster } from "react-hot-toast";
-import axios from "./axios/axios";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { AppContext } from "./context/AppContext";
 import AdminProtectedRoutes from "./protectedRoutes/AdminProtectedRoutes";
 import AdminPubllicRoute from './publicRoutes/AdminPubllicRoute';
-// import Sidebar from './Components/sidebar/Sidebar'
 import DoctorProfile from "./pages/doctor/DoctorProfile";
 import DoctorPublicRoute from "./publicRoutes/DoctorPublicRoute";
 import DoctorProtectedRoutes from "./protectedRoutes/DoctorProtectedRoutes";
@@ -25,6 +23,10 @@ import DoctorSignUp from './Components/signup/DoctorSignUp';
 import Otp from "./Components/user/Otp";
 import Home from "./Components/user/Home";
 import Users from "./Components/Admin/Users";
+import DoctorWaitingPage from "./Components/Doctor/DoctorWaitingPage";
+import DoctorRejectUi from "./Components/Doctor/DoctorRejectUi";
+import DoctorWaitingPublicRoutes from "./publicRoutes/DoctorWaitingPublicRoutes";
+import DoctorWaitingProtectedRoutes from "./protectedRoutes/DoctorWaitingProtectedRoutes";
 
 function App() {
  
@@ -63,10 +65,11 @@ function App() {
         <Route path="/" element={<Home/>}/>
         {/* Doctor Routes */}
         <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
-        <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
-        <Route path="/doctor_moreinfo" element={<DoctorProtectedRoutes><DoctorInfo/></DoctorProtectedRoutes>} />
+        <Route path="/doctor_signup" element={<DoctorWaitingPublicRoutes><DoctorSignUp/></DoctorWaitingPublicRoutes>}/> 
+        <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorInfo/></DoctorWaitingProtectedRoutes>} />
         <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
-
+        <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>
+        <Route path="/doctor_reject" element={<DoctorWaitingProtectedRoutes><DoctorRejectUi/></DoctorWaitingProtectedRoutes>}/>
           {/* Admin Routes */}
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
         <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>

@@ -8,7 +8,6 @@ import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { setDoctor } from '../../redux/DoctorSlice';
 const DoctorLogin = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const handleLogin = async (e)=>{
@@ -21,11 +20,9 @@ const DoctorLogin = () => {
       })
       dispatch(hideLoading())
       if(response.data.success){
-        console.log(response.data.data+"ddddddd");
         toast.success(response.data.message)
         localStorage.setItem("token", response.data.data)
         dispatch(setDoctor(response.data.doctorz))
-        navigate('/doctor_moreinfo')
       }else{
         console.log("heree");
         toast.error(response.data.message)

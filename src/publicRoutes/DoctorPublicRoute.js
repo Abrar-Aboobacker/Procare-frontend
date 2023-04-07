@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 
 const DoctorPublicRoute = (props) => {
     if(localStorage.getItem('token')){
-        return <Navigate to ='/doctor_moreinfo' />
+        return <Navigate to ='/' />
        
     }else{
         return props.children

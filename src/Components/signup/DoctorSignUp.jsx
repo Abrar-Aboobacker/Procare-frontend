@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { useFormik } from 'formik';
 import { DoctorSchema } from '../../validation/doctorsignupvalidation';
+import { setDoctor } from '../../redux/DoctorSlice';
 
 const DoctorSignUp = () => {
   const dispatch = useDispatch()
@@ -37,7 +38,10 @@ const DoctorSignUp = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
-        navigate('/doctor_login')
+        localStorage.setItem("doctorwaitingtoken", response.data.data)
+        dispatch(setDoctor(response.data.newDoctor))
+        console.log('hereeeeeeeeeeeeeee');
+        navigate('/doctor_moreinfo')
 
       }else{
         toast.error(response.data.message)
@@ -48,72 +52,6 @@ const DoctorSignUp = () => {
      }
    }
   })
-//   // const [value,setvalue]=useState({
-//   //   name:"",
-//   //   email:"",
-//   //   phone:null,
-//   //   password:"",
-//   //   cpassword:""
-//   // })
-//   const [name , setName]=useState("")
-//   const [email , setEmail]=useState("")
-//   const [phone , setPhone]=useState("")
-//   const [password , setPassword]=useState("")
-//   const [cpassword , setcpassword]=useState("")
-//   const [about , setAbout]=useState("")
-//   const [filez,setFile] = useState(null);
- 
-//   // console.log(filez+"ehaaaaa");
-//   const toBase64 = filez => new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(filez);
-//     reader.onload = () => resolve(reader.result);
-//     reader.onerror = error => reject(error);
-// }).catch((err)=>{
-//   console.log(err)
-// })
-//   const handleSignup = async (e)=>{
-//     e.preventDefault();
-//     if(
-//       // value.name===""||
-//       // value.password===""||
-//       // value.phone===""||
-//       // value.email===""
-//       name===""
-//     ){
-//       toast.error("All fields required");
-//     }else{
-//     try {
-//       dispatch(showLoading())
-//       const imgBase = await toBase64(filez)
-//       console.log(imgBase+"podaaaaaaaa");
-//       const response = await axios.post("/doctor/doctor_signup",{
-//         // value,file:imgBase
-//         name:name,
-//         email:email,
-//         password:password,
-//         cpassword:cpassword,
-//         phone:phone,
-//         file:imgBase,
-//         about:about
-//       })
-//       dispatch(hideLoading())
-//       if(response.data.success){
-//         toast.success(response.data.message)
-//         navigate('/doctor_login')
-//       }else{
-//         console.log("heree");
-//         toast.error(response.data.message)
-//       }
-//     } catch (error) {
-//       dispatch(hideLoading())
-//       console.log(error);
-//       toast.error("something went wrong" )
-//     }
-//   }
-//   }
-
-
   return (
     <div>
     <form onSubmit={formik.handleSubmit}>
@@ -160,14 +98,11 @@ const DoctorSignUp = () => {
               margin="normal"
               type={"text"}
               name="name"
-              // value={name}
               size="small"
               value={formik.values.name}
                 error={formik.errors.name}
                 helperText={formik.errors.name}
                 onChange={formik.handleChange}
-              // onChange={(e)=>setName(e.target.value)}
-              // onChange={handleChange}
               label="Full Name"
               variant="outlined"
             />
