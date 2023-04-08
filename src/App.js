@@ -27,6 +27,7 @@ import DoctorWaitingPage from "./Components/Doctor/DoctorWaitingPage";
 import DoctorRejectUi from "./Components/Doctor/DoctorRejectUi";
 import DoctorWaitingPublicRoutes from "./publicRoutes/DoctorWaitingPublicRoutes";
 import DoctorWaitingProtectedRoutes from "./protectedRoutes/DoctorWaitingProtectedRoutes";
+import DoctorOtp from "./Components/Doctor/DoctorOtp";
 
 function App() {
  
@@ -65,7 +66,8 @@ function App() {
         <Route path="/" element={<Home/>}/>
         {/* Doctor Routes */}
         <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
-        <Route path="/doctor_signup" element={<DoctorWaitingPublicRoutes><DoctorSignUp/></DoctorWaitingPublicRoutes>}/> 
+        <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
+        <Route path="/doctor_otp" element={<DoctorOtp/>}/>
         <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorInfo/></DoctorWaitingProtectedRoutes>} />
         <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
         <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>

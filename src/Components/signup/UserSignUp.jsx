@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import axios from '../../axios/axios';
 import { hideLoading } from '../../redux/alertsSlice';
 import { toast } from 'react-hot-toast';
+import { setUser } from '../../redux/UserSlice';
 
 const UserSignUp = () => {
   const dispatch = useDispatch()
@@ -37,12 +38,14 @@ const UserSignUp = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
+        dispatch(setUser(values))
         navigate('/user_otp')
 
       }else{
         toast.error(response.data.message)
       }
     } catch (error) {
+      console.log(error);
       helpers.setErrors({submit:error.message})
       toast.error("something went wrong")
      }

@@ -29,7 +29,6 @@ const DoctorSignUp = () => {
     },
     validationSchema:DoctorSchema,
      onSubmit:async (values,helpers)=>{
-      console.log(values);
     try {
       dispatch(showLoading())
       const response = await axios.post("/doctor/doctor_signup",{
@@ -38,10 +37,9 @@ const DoctorSignUp = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
-        localStorage.setItem("doctorwaitingtoken", response.data.data)
-        dispatch(setDoctor(response.data.newDoctor))
-        console.log('hereeeeeeeeeeeeeee');
-        navigate('/doctor_moreinfo')
+        // localStorage.setItem("doctorwaitingtoken", response.data.data)
+        dispatch(setDoctor(values))
+        navigate('/doctor_otp')
 
       }else{
         toast.error(response.data.message)
