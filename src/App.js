@@ -21,13 +21,13 @@ import DoctorLogin from "./Components/login/DoctorLogin";
 import UserSignUp from './Components/signup/UserSignUp';
 import DoctorSignUp from './Components/signup/DoctorSignUp';
 import Otp from "./Components/user/Otp";
-import Home from "./Components/user/Home";
 import Users from "./Components/Admin/Users";
 import DoctorWaitingPage from "./Components/Doctor/DoctorWaitingPage";
 import DoctorRejectUi from "./Components/Doctor/DoctorRejectUi";
 import DoctorWaitingPublicRoutes from "./publicRoutes/DoctorWaitingPublicRoutes";
 import DoctorWaitingProtectedRoutes from "./protectedRoutes/DoctorWaitingProtectedRoutes";
 import DoctorOtp from "./Components/Doctor/DoctorOtp";
+import Home from "./pages/user/Home";
 
 function App() {
  
