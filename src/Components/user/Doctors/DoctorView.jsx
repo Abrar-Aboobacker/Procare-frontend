@@ -2,9 +2,6 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } fr
 import React, { useEffect, useRef, useState } from 'react'
 import profile from'../../../Assets/PngItem_4554771.png'
 import axios from'../../../axios/axios'
-import clsx from 'clsx'
-import useLazyLoad from '../../../lazy load/useLazyLoad'
-import { LoadingPosts } from '../../../lazy load/LoadingPosts'
 import Pagination from './Pagination'
 
 const DoctorView = () => {
