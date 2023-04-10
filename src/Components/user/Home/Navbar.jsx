@@ -15,14 +15,14 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Margin } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [auth, setAuth] = React.useState(true);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate =useNavigate
+  const navigate =useNavigate()
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -130,26 +130,29 @@ const Navbar = () => {
                   marginRight: 5,
                 }}
               >
+                <Link to={'/doctors'}>
                 <Typography
-                  sx={{ color: "#1959FD" }}
+                  sx={{ color: "#1959FD",cursor: "pointer"}}
                   variant="h6"
                   component="div"
+                  // onClick={()=>navigate('/doctors')}
                 >
                   Doctors
                 </Typography>
+                </Link>
                 <Typography
                   sx={{ color: "#1959FD" }}
                   variant="h6"
                   component="div"
                 >
-                  Notification
+                 About Us
                 </Typography>
                 <Typography
-                  sx={{ color: "#1959FD" }}
+                  sx={{ color: "black" }}
                   variant="h6"
                   component="div"
                 >
-                  About Us
+                   <NotificationsIcon/>
                 </Typography>
                 {/* <Typography sx={{color:'#1959FD'}} variant="h6" component="div" >
             Photos
