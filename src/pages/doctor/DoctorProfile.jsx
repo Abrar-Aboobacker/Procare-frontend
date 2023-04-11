@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { toast } from 'react-hot-toast';
 import { setDoctor } from '../../redux/DoctorSlice';
+import { baseURL } from '../../constants/constant';
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -29,7 +30,25 @@ const DoctorProfile =  () => {
           specialization:doctor? doctor?.specialization:"",
           experience:doctor? doctor?.experience:null,
           feesPerCunsaltation:doctor? doctor?.feesPerCunsaltation:null,
+          qualification:doctor? doctor?.qualification:""
   })
+const [image,setImage]=useState()
+const handleFileUpload = (event) => {
+  const selectedFile = event.target.files[0];
+  const allowedExtensions = /(\.png|\.jpg|\.jpeg)$/i;
+  // validate file
+  if (!allowedExtensions.exec(selectedFile.name)) {
+    toast.error('Please upload a PNG, JPG, or JPEG image.');
+    setImage('');
+    return;
+  } else if (selectedFile.size > 1 * 1024 * 1024) {
+    toast.error('Please upload a file smaller than 1MB.');
+    setImage('');
+    return;
+  } else {
+    setImage(selectedFile);
+    }
+  };
   // const getData=async()=>{
   //   try {
   //     const response = await axios.post("/doctor/doctorInfo",{},{
@@ -64,15 +83,16 @@ const DoctorProfile =  () => {
     e.preventDefault();
     try {
       dispatch(showLoading())
-      const response = await axios.post("/doctor/doctorProfileEdit",{...value },{
+      const response = await axios.post("/doctor/doctorProfileEdit",{...value,profile:image },{
                  headers:{
-                     Authorization: "Bearer " + localStorage.getItem("token")
+                     Authorization: "Bearer " + localStorage.getItem("token"),
+                     "Content-Type": "multipart/form-data",
                  }
               })
       dispatch(hideLoading())
       if(response.data.success){
         toast.success(response.data.message)
-        // dispatch(setDoctor(response.data.data))
+        dispatch(setDoctor(response.data.data))
       }else{
         console.log("hereee");
         toast.error(response.data.message)
@@ -93,14 +113,32 @@ const DoctorProfile =  () => {
         <Box sx={{display:'flex',backgroundColor:"#E9FBFF",height:"100vh"}}>
           <Box sx={{marginTop:5}}>
         <Card elevation={0} sx={{ maxWidth:400,width:400 ,backgroundColor:"#E9FBFF"  }}>
+        <label htmlFor="fileInput">
           <Box sx={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <Avatar sx={{height:200,width:200}}  src="/broken-image.jpg" />
+          <Avatar sx={{height:200,width:200}}    src={
+              image
+                ? URL.createObjectURL(image)
+                : `${baseURL}${doctor.profile}
+            `
+            }
+ />
           </Box>
-          
+          </label>
+          <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        onChange={handleFileUpload}
+        style={{ display: 'none' }}
+      />
       <CardContent>
+      
       <Box sx={{display:"flex",alignItems:"center",justifyContent:"center",marginTop:2}}>
-      <Button variant="contained" color='warning' sx={{marginBottom:2}}>Edit Profile<  CameraAlt sx={{marginLeft:2,color:'white'}}/> </Button>
+      <Button onClick={handleSubmit} variant="contained" color='warning' sx={{marginBottom:2}}>Edit Profile<  CameraAlt sx={{marginLeft:2,color:'white'}}/> </Button>
           </Box>
+    
+     
+    
        
           <Box sx={{display:"flex",alignItems:"center",justifyContent:"center"}}>
           <Typography variant="h5" color="text.secondary">
@@ -214,19 +252,17 @@ const DoctorProfile =  () => {
   label="Fees per consaltation"
   variant="outlined"
   />
-  {/* <TextField
+  <TextField
   sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
-  focused
   margin="normal"
-  type={"datetime-local"}
-  name="name"
-  // value={name}
+  type={"text"}
+  name="qualificaiton"
+  value={value.qualification}
   size="small"
-  // onChange={(e)=>setName(e.target.value)}
-  // onChange={handleChange}
-  label="Timing"
+  onChange={handleChange}
+  label="Qualification"
   variant="outlined"
-  /> */}
+  />
   
   </Box>
   <Box>
@@ -255,3 +291,6 @@ const DoctorProfile =  () => {
 }
 
 export default DoctorProfile
+
+
+
