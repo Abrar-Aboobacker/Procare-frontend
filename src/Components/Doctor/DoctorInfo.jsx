@@ -200,21 +200,7 @@ const handleSubmit = async (e)=>{
             onChange={handleChange}
             label="Fees per consaltation"
             variant="outlined"
-            />
-            {/* <TextField
-            sx={{ backgroundColor: "white", marginLeft: "10", marginRight: 5 }}
-            focused
-            margin="normal"
-            type={"datetime-local"}
-            name="name"
-            // value={name}
-            size="small"
-            // onChange={(e)=>setName(e.target.value)}
-            // onChange={handleChange}
-            label="Timing"
-            variant="outlined"
-            /> */}
-            
+            />     
             </Box>
             <Box>
             <TextField

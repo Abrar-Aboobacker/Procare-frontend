@@ -10,7 +10,7 @@ const DoctorsList = () => {
     <>
       <Navbar/>
       <DoctorBanner/>
-      <Filter/>
+      {/* <Filter/> */}
       <DoctorView/>
       <Footer/>
     </>

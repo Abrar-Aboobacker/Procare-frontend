@@ -26,7 +26,6 @@ const AdminLogin = () => {
       dispatch(hideLoading())
       console.log(e);
       if(response.data.success){
-        console.log(response.data.data+"ddddddd");
         toast.success(response.data.message)
         localStorage.setItem("admintoken", response.data.data)
         dispatch(setAdmin(response.data.adminz))

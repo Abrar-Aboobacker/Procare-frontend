@@ -1,6 +1,5 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import profile from'../../../Assets/PngItem_4554771.png'
 import axios from'../../../axios/axios'
 import Pagination from './Pagination'
 import { baseURL } from '../../../constants/constant'
@@ -9,9 +8,10 @@ const DoctorView = () => {
   const [doctor,setDoctor]=useState([])
   const  [currentPage,setCurrentPage]=useState(1)
   const [postsPerPage,setPostsPerPage]=useState(6)
+  const [serachTerm,setSearchTerm] = useState('')
   const getDoctor =async () =>{
     try {
-      const response = await axios.get("allDoctors",{
+      const response = await axios.get("/allDoctors",{
       })
       if(response.data.success){
         setDoctor(response.data.data)
@@ -25,11 +25,48 @@ const DoctorView = () => {
   }, []);
   const lastPostIndex = currentPage* postsPerPage
   const firstPostIndex = lastPostIndex - postsPerPage
-  const currentDoctors = doctor.slice(firstPostIndex,lastPostIndex)
- 
+  
+  // const currentDoctors = sortedDoctors.slice(firstPostIndex, lastPostIndex)
+  const isTimeExpired = (time) => {
+    if (!time || !time.start) return false // If no start time, then not expired
+    const startTime = new Date(time.start)
+    const currentTime = new Date()
+    return currentTime.getTime() > startTime.getTime()
+  }
+  const sortedDoctors = doctor.sort((a, b) => new Date(a?.time?.start) - new Date(b?.time?.start))
+  // const filteredDoctors = currentDoctors.filter((value) => !isTimeExpired(value.time))
   const paginate = pageNumber => setCurrentPage(pageNumber);
+  const filteredDoctors = sortedDoctors.filter((doctor) => {
+    const isExpired = isTimeExpired(doctor.time);
+    const matchesSearchTerm =
+      doctor.name.toLowerCase().includes(serachTerm.toLowerCase()) ||
+      doctor.email.toLowerCase().includes(serachTerm.toLowerCase());
+    return !isExpired && matchesSearchTerm;
+  });
+  
+  const currentDoctors = filteredDoctors.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage
+  );
+  
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
+  };
   return (
     <>
+    <Box sx={{backgroundColor:'#F0E9FF',height:100}}>
+    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+    <TextField
+    type='search'
+    size='small'
+    label='search'
+    margin='normal'
+    onChange={handleSearchTermChange}
+    sx={{backgroundColor:'white',width:500}}
+    />
+    </Box>
+    </Box>
     <Box sx={{display:'flex',justifyContent:'center',flexWrap:'wrap',gap:5}}>
         {currentDoctors.map((value)=>(
           
@@ -51,6 +88,14 @@ const DoctorView = () => {
             <Typography>
             {value.about}
             </Typography>
+            <Typography>
+          
+                    
+                      {value?.time?.start && new Date(value.time.start).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' })} {' '}
+                      {value?.time?.start && new Date(value.time.start).toLocaleTimeString()}
+                  
+                 
+                  </Typography>
           </Box>
         </CardContent>
         <CardActions>

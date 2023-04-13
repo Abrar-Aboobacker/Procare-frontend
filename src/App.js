@@ -29,6 +29,7 @@ import DoctorWaitingProtectedRoutes from "./protectedRoutes/DoctorWaitingProtect
 import DoctorOtp from "./Components/Doctor/DoctorOtp";
 import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
+import ErrorPage from "./pages/404/ErrorPage";
 
 function App() {
  
@@ -60,6 +61,7 @@ function App() {
   reverseOrder={false}
 />
       <Routes>
+        <Route path='*' element = {<ErrorPage/>}/>
         {/* User Routes */}
         <Route path="/user_login" element={<UserLogin/>}/>
         <Route path="/user_signup" element={<UserSignUp/>}/>

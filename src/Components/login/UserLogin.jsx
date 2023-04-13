@@ -7,6 +7,7 @@ import axios from '../../axios/axios';
 import { userLoginSchema } from "../../validation/userLoginValidation";
 import { hideLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
+import { setUser } from "../../redux/UserSlice";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,8 +25,9 @@ const UserLogin = () => {
         });
         dispatch(hideLoading());
         if (response.data.success) {
-          console.log("hy");
           toast.success(response.data.message);
+          localStorage.setItem("usertoken", response.data.data)
+        dispatch(setUser(response.data.userz))
           navigate("/");
         } else {
           toast.error(response.data.message);

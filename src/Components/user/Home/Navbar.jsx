@@ -17,16 +17,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const [auth, setAuth] = React.useState(true);
+const {user} = useSelector((state)=>state.user)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate =useNavigate()
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
+  
+console.log(user);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -161,7 +159,7 @@ const Navbar = () => {
             Photos
           </Typography> */}
               </Box>
-
+          {user&& user?(
               <Box>
                 <IconButton
                   size="large"
@@ -192,6 +190,28 @@ const Navbar = () => {
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                 </Menu>
               </Box>
+          ):(<Box>
+            <Typography onClick={handleMenu} sx={{color:'#1959FD'}}>Login</Typography>
+            <Menu
+                  id="menu-appba"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem  onClick={handleClose}><Link to={'/user_login'}>User Login</Link></MenuItem>
+                  <MenuItem onClick={handleClose}><Link to={'/doctor_login'}>Doctor Login</Link></MenuItem>
+                </Menu>
+          </Box>
+          )}
             </Box>
           </Toolbar>
         </AppBar>
