@@ -30,6 +30,7 @@ import DoctorOtp from "./Components/Doctor/DoctorOtp";
 import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
+import PriceListing from "./pages/user/PriceListing";
 
 function App() {
  
@@ -68,6 +69,7 @@ function App() {
         <Route path="/user_otp" element={<Otp/>}/>
         <Route path="/" element={<Home/>}/>
         <Route path='/doctors'element={<DoctorsList/>}/>
+        <Route path='/plan_pricing' element={<PriceListing/>}/>
         {/* Doctor Routes */}
         <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
