@@ -3,11 +3,8 @@ import {
   Box,
   Button,
   Drawer,
-  FormControlLabel,
-  FormGroup,
   Menu,
   MenuItem,
-  Switch,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -16,15 +13,16 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../redux/UserSlice";
 
 const Navbar = () => {
+ const dispatch =useDispatch()
 const {user} = useSelector((state)=>state.user)
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   
-console.log(user);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,21 +33,14 @@ console.log(user);
   const handleCloseDrawer = () => {
     setOpen(false);
   };
+  const handleLogout = () => {
+    localStorage.removeItem('usertoken');
+    dispatch(setUser(null))
+    setAnchorEl(null);
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        {/* <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
         <AppBar
           sx={{ backgroundColor: "#E9FBFF",position: "sticky" }}
           elevation={0}
@@ -128,12 +119,20 @@ console.log(user);
                   marginRight: 5,
                 }}
               >
+                 <Link to={'/plan_pricing'}>
+                <Typography
+                  sx={{ color: "#1959FD",cursor: "pointer"}}
+                  variant="h6"
+                  component="div"
+                >
+                  Plan & pricing
+                </Typography>
+                </Link>
                 <Link to={'/doctors'}>
                 <Typography
                   sx={{ color: "#1959FD",cursor: "pointer"}}
                   variant="h6"
                   component="div"
-                  // onClick={()=>navigate('/doctors')}
                 >
                   Doctors
                 </Typography>
@@ -152,12 +151,6 @@ console.log(user);
                 >
                    <NotificationsIcon/>
                 </Typography>
-                {/* <Typography sx={{color:'#1959FD'}} variant="h6" component="div" >
-            Photos
-          </Typography>
-          <Typography sx={{color:'#1959FD'}} variant="h6" component="div" >
-            Photos
-          </Typography> */}
               </Box>
           {user&& user?(
               <Box>
@@ -187,11 +180,11 @@ console.log(user);
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </Box>
           ):(<Box>
-            <Typography onClick={handleMenu} sx={{color:'#1959FD'}}>Login</Typography>
+            <Typography onClick={handleMenu} sx={{color:'#1959FD',cursor:"pointer"}}>Login</Typography>
             <Menu
                   id="menu-appba"
                   anchorEl={anchorEl}

@@ -31,6 +31,8 @@ import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
+import Pricing from "./Components/Admin/Pricing";
+import Doctor_profile from "./pages/user/Doctor_profile";
 
 function App() {
  
@@ -69,9 +71,10 @@ function App() {
         <Route path="/user_otp" element={<Otp/>}/>
         <Route path="/" element={<Home/>}/>
         <Route path='/doctors'element={<DoctorsList/>}/>
+        <Route path='/doctor_details/:id'element={<Doctor_profile/>} />
         <Route path='/plan_pricing' element={<PriceListing/>}/>
         {/* Doctor Routes */}
-        <Route exact  path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
+        <Route path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
         <Route path="/doctor_otp" element={<DoctorOtp/>}/>
         <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorInfo/></DoctorWaitingProtectedRoutes>} />
@@ -85,6 +88,7 @@ function App() {
         <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
         <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
         <Route path="/admin_users" element={<AdminProtectedRoutes><Users/></AdminProtectedRoutes>}/>
+        <Route path="/admin_pricing" element={<AdminProtectedRoutes><Pricing/></AdminProtectedRoutes>}/>
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>
