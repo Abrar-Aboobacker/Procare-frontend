@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   Typography,
@@ -41,7 +42,7 @@ const DoctorProfilePage = ({ id }) => {
                 <Card
                   elevation={4}
                   sx={{
-                    maxWidth: 4450000000,
+                    maxWidth: 445,
                     backgroundColor: "#eff2f7",
                     width: { xs: "320px" },
                   }}
@@ -63,16 +64,29 @@ const DoctorProfilePage = ({ id }) => {
                       gutterBottom
                       variant="h5"
                       component="div"
-                      sx={{ textAlign: "center" }}
+                      sx={{ textAlign: "center", fontWeight: 500 }}
                     >
                       {doctor?.name}
                     </Typography>
 
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ textAlign: "center", fontWeight: 500 }}
+                    >
                       {doctor?.qualification}
                     </Typography>
                   </CardContent>
                 </Card>
+                <Box display={"flex"} justifyContent={"center"} mt={5}>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    sx={{ borderRadius: 3 }}
+                  >
+                    Book Now
+                  </Button>
+                </Box>
               </Box>
               <Box sx={{ flex: { md: "0 0 75%" } }}>
                 <Box
@@ -84,12 +98,21 @@ const DoctorProfilePage = ({ id }) => {
                   }}
                 >
                   <Box sx={{ flex: "0 0 50%", maxWidth: "50%" }}>
-                    <Typography>Qualification</Typography>
-                    <Typography> {doctor?.qualification}</Typography>
+                    <Typography variant="h6" sx={{ fontSize: 18 }}>
+                      Qualification
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontSize: 18 }}>
+                      {" "}
+                      {doctor?.qualification}
+                    </Typography>
                   </Box>
                   <Box sx={{ flex: "0 0 50%", maxWidth: "50%" }}>
-                    <Typography>Languages Spoken</Typography>
-                    <Typography>{doctor?.language}</Typography>
+                    <Typography variant="h6" sx={{ fontSize: 18 }}>
+                      Languages Spoken
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontSize: 18 }}>
+                      {doctor?.language}
+                    </Typography>
                   </Box>
                 </Box>
 
@@ -102,12 +125,20 @@ const DoctorProfilePage = ({ id }) => {
                   }}
                 >
                   <Box sx={{ flex: "0 0 50%" }}>
-                    <Typography>Specialization</Typography>
-                    <Typography>{doctor?.specialization}</Typography>
+                    <Typography variant="h6" sx={{ fontSize: 18 }}>
+                      Specialization
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontSize: 18 }}>
+                      {doctor?.specialization}
+                    </Typography>
                   </Box>
                   <Box sx={{ flex: "0 0 50%" }}>
-                    <Typography>Experience</Typography>
-                    <Typography>{doctor?.experience}</Typography>
+                    <Typography variant="h6" sx={{ fontSize: 18 }}>
+                      Experience
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontSize: 18 }}>
+                      {doctor?.experience}
+                    </Typography>
                   </Box>
                 </Box>
 
@@ -120,8 +151,10 @@ const DoctorProfilePage = ({ id }) => {
                   }}
                 >
                   <Box sx={{ flex: "0 0 50%" }}>
-                    <Typography>Next Availability</Typography>
-                    <Typography>
+                    <Typography variant="h6" sx={{ fontSize: 18 }}>
+                      Next Availability
+                    </Typography>
+                    <Typography variant="body1" sx={{ fontSize: 18 }}>
                       {doctor && doctor?.time && doctor?.time?.start
                         ? doctor?.time?.start
                         : "time is not updated"}
@@ -139,8 +172,12 @@ const DoctorProfilePage = ({ id }) => {
                 >
                   <Box sx={{ flex: "0 0 100%", maxWidth: "100%" }}>
                     <Box mt={"10px"}>
-                      <Typography>About</Typography>
-                      <Typography>{doctor?.about}</Typography>
+                      <Typography variant="h6" sx={{ fontSize: 18 }}>
+                        About
+                      </Typography>
+                      <Typography variant="body1" sx={{ fontSize: 18 }}>
+                        {doctor?.about}
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>

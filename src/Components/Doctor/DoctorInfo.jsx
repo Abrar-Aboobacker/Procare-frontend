@@ -234,7 +234,6 @@ const DoctorInfo = () => {
                 <Button
                 type="submit"
                 name="Submit"
-                // onClick={handleSubmit}
                 variant="contained"
                 color="warning"
                 sx={{ marginTop: 3, borderRadius: 3 }}

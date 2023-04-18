@@ -19,6 +19,7 @@ const DoctorView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const [serachTerm, setSearchTerm] = useState("");
+  const [showMore, setShowMore] = useState(false);
   const getDoctor = async () => {
     try {
       const response = await axios.get("/allDoctors", {});
@@ -123,7 +124,7 @@ const DoctorView = () => {
             </Box>
             <CardContent>
               <Box>
-                <Typography>{value.about}</Typography>
+                <Typography>{ `${value?.about?.slice(0, 100)}...`}</Typography>
                 <Typography>
                   {value?.time?.start &&
                     new Date(value.time.start).toLocaleDateString("en-GB", {
