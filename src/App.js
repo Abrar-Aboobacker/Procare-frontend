@@ -13,7 +13,6 @@ import DoctorPublicRoute from "./publicRoutes/DoctorPublicRoute";
 import DoctorProtectedRoutes from "./protectedRoutes/DoctorProtectedRoutes";
 import { CircularProgress } from "@mui/material";
 import  './index.css'
-import DoctorInfo from "./Components/Doctor/DoctorInfo";
 import Notification from "./Components/Admin/Notification";
 import NewDoctor from "./Components/Admin/NewDoctor";
 import UserLogin from "./Components/login/UserLogin";
@@ -33,20 +32,13 @@ import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
 import Pricing from "./Components/Admin/Pricing";
 import Doctor_profile from "./pages/user/Doctor_profile";
+import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 
 function App() {
  
   const [progress, setProgress] = React.useState(0);
 
-  // React.useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-  //   }, 800);
 
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
 
   const {loading}= useSelector(state=>state.alerts)
  
@@ -77,7 +69,7 @@ function App() {
         <Route path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
         <Route path="/doctor_otp" element={<DoctorOtp/>}/>
-        <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorInfo/></DoctorWaitingProtectedRoutes>} />
+        <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorMoreInfo/></DoctorWaitingProtectedRoutes>} />
         <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
         <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>
         <Route path="/doctor_reject" element={<DoctorWaitingProtectedRoutes><DoctorRejectUi/></DoctorWaitingProtectedRoutes>}/>

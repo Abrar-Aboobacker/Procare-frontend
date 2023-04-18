@@ -13,11 +13,12 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/UserSlice";
 
 const Navbar = () => {
+
  const dispatch =useDispatch()
 const {user} = useSelector((state)=>state.user)
   const [open, setOpen] = useState(false);
@@ -184,7 +185,7 @@ const {user} = useSelector((state)=>state.user)
                 </Menu>
               </Box>
           ):(<Box>
-            <Typography onClick={handleMenu} sx={{color:'#1959FD',cursor:"pointer"}}>Login</Typography>
+            <Typography onClick={handleMenu} sx={{color:'#1959FD'}}>Login</Typography>
             <Menu
                   id="menu-appba"
                   anchorEl={anchorEl}
