@@ -6,7 +6,7 @@ import axios from "../../axios/axios";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-const DoctorInfo2 = () => {
+const DoctorInfo = () => {
     const { doctor } = useSelector((state) => state.doctor);
     const dispatch = useDispatch();
     const [value, setvalue] = useState({
@@ -248,4 +248,4 @@ const DoctorInfo2 = () => {
   );
 };
 
-export default DoctorInfo2;
+export default DoctorInfo;
