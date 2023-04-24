@@ -33,6 +33,9 @@ import PriceListing from "./pages/user/PriceListing";
 import Pricing from "./Components/Admin/Pricing";
 import Doctor_profile from "./pages/user/Doctor_profile";
 import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
+import UserProfilePage from "./pages/user/UserProfilePage";
+import BookingPage from "./pages/user/BookingPage";
+import DoctorProfile2 from "./pages/doctor/DoctorProfile2";
 
 function App() {
  
@@ -65,12 +68,14 @@ function App() {
         <Route path='/doctors'element={<DoctorsList/>}/>
         <Route path='/doctor_details/:id'element={<Doctor_profile/>} />
         <Route path='/plan_pricing' element={<PriceListing/>}/>
+        <Route path='/user_profile' element={<UserProfilePage/>}/>
+        <Route path='/doctor_appointment/:id' element={<BookingPage/>}/>
         {/* Doctor Routes */}
         <Route path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 
         <Route path="/doctor_otp" element={<DoctorOtp/>}/>
         <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorMoreInfo/></DoctorWaitingProtectedRoutes>} />
-        <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile/></DoctorProtectedRoutes>} />
+        <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile2/></DoctorProtectedRoutes>} />
         <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>
         <Route path="/doctor_reject" element={<DoctorWaitingProtectedRoutes><DoctorRejectUi/></DoctorWaitingProtectedRoutes>}/>
           {/* Admin Routes */}

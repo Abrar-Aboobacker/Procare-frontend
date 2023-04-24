@@ -124,7 +124,7 @@ const DoctorView = () => {
             </Box>
             <CardContent>
               <Box>
-                <Typography>{ `${value?.about?.slice(0, 100)}...`}</Typography>
+                <Typography>{`${value?.about?.slice(0, 100)}...`}</Typography>
                 <Typography>
                   {value?.time?.start &&
                     new Date(value.time.start).toLocaleDateString("en-GB", {
@@ -142,7 +142,9 @@ const DoctorView = () => {
               <Link to={`/doctor_details/${value._id}`}>
                 <Button size="small">View Profile</Button>
               </Link>
+              <Link to={`/doctor_appointment/${value._id}`} >
               <Button size="small">Book Now</Button>
+              </Link>
             </CardActions>
           </Card>
         ))}

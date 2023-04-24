@@ -2,12 +2,15 @@ import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import DoctorNavbar from '../DoctorNav/DoctorNavbar'
+import Footer from '../user/Home/Footer'
 
 const DoctorRejectUi = () => {
     const {doctor}=useSelector((state)=>state.doctor)
     console.log(doctor);
   return (
-    <div>
+    <>
+    <DoctorNavbar/>
       <Box sx={{display:'flex',backgroundColor:"#E9FBFF",height:"100vh"}}>
       <Box
         sx={{
@@ -34,7 +37,8 @@ const DoctorRejectUi = () => {
         </Box>
       </Box>
     </Box>
-    </div>
+    <Footer/>
+    </>
   )
 }
 

@@ -23,6 +23,9 @@ import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { setDoctor } from "../../redux/DoctorSlice";
 import { baseURL } from "../../constants/constant";
+import moment from "moment";
+import DoctorNavbar from "../../Components/DoctorNav/DoctorNavbar";
+import Footer from "../../Components/user/Home/Footer";
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -187,6 +190,7 @@ const DoctorProfile = () => {
   };
   return (
     <>
+    <DoctorNavbar/>
       <Box sx={{ display: "flex" }}>
         <Sidebar />
 
@@ -195,7 +199,7 @@ const DoctorProfile = () => {
           <Box
             sx={{
               display: "flex",
-              backgroundColor: "#E9FBFF",
+              // backgroundColor: "#E9FBFF",
               height: "100vh",
             }}
           >
@@ -428,7 +432,8 @@ const DoctorProfile = () => {
                       focused
                       margin="normal"
                       value={startTime}
-                      onChange={(e)=>setStartTime(e.target.value)}                      fullWidth
+                      onChange={(e)=>setStartTime(e.target.value)}
+                      fullWidth
                       size="small"
                       sx={{ backgroundColor: "white" }}
                       label="enter start time"
@@ -501,6 +506,7 @@ const DoctorProfile = () => {
           </Box>
         </Box>
       </Box>
+      <Footer/>
     </>
   );
 };

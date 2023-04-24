@@ -5,6 +5,8 @@ import axios from '../../axios/axios'
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setDoctor } from "../../redux/DoctorSlice";
+import DoctorNavbar from "../DoctorNav/DoctorNavbar";
+import Footer from "../user/Home/Footer";
 const DoctorWaitingPage = () => {
     const [isActive, setIsActive] = useState(false);
     const [reject,setReject] = useState(false);
@@ -37,7 +39,8 @@ const DoctorWaitingPage = () => {
         checkDoctorStatus()
       },[])
   return (
-    
+    <>
+    <DoctorNavbar/>
     <Box sx={{display:'flex',backgroundColor:"#E9FBFF",height:"100vh"}}>
       <Box
         sx={{
@@ -63,6 +66,8 @@ const DoctorWaitingPage = () => {
         </Box>
       </Box>
     </Box>
+    <Footer/>
+    </>
   );
 };
 

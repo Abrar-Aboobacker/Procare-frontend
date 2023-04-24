@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Drawer,
@@ -11,16 +12,18 @@ import {
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/UserSlice";
+import { Height } from "@mui/icons-material";
+import { baseURL } from "../../../constants/constant";
 
 const Navbar = () => {
 
  const dispatch =useDispatch()
 const {user} = useSelector((state)=>state.user)
+console.log(user);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   
@@ -107,7 +110,6 @@ const {user} = useSelector((state)=>state.user)
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "1.25rem",
                 justifyContent: "space-between",
               }}
             >
@@ -117,7 +119,7 @@ const {user} = useSelector((state)=>state.user)
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: "2.25rem",
-                  marginRight: 5,
+                  marginRight: 3,
                 }}
               >
                  <Link to={'/plan_pricing'}>
@@ -146,7 +148,7 @@ const {user} = useSelector((state)=>state.user)
                  About Us
                 </Typography>
                 <Typography
-                  sx={{ color: "black" }}
+                  sx={{ color: "black",mt:1 }}
                   variant="h6"
                   component="div"
                 >
@@ -163,7 +165,7 @@ const {user} = useSelector((state)=>state.user)
                   onClick={handleMenu}
                   color="black"
                 >
-                  <AccountCircle />
+                  <Avatar sx={{height:30,width:30}} alt={user?.fName} src={`${baseURL}${user?.profile}`} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -175,12 +177,12 @@ const {user} = useSelector((state)=>state.user)
                   keepMounted
                   transformOrigin={{
                     vertical: "top",
-                    horizontal: "right",
+                    horizontal: "right"
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}><Link style={{color:'black',fontSize:18}} to={'/user_profile'}>Profile</Link></MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </Box>
@@ -201,8 +203,8 @@ const {user} = useSelector((state)=>state.user)
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem  onClick={handleClose}><Link to={'/user_login'}>User Login</Link></MenuItem>
-                  <MenuItem onClick={handleClose}><Link to={'/doctor_login'}>Doctor Login</Link></MenuItem>
+                  <MenuItem  onClick={handleClose}><Link style={{color:'black',fontSize:18}} to={'/user_login'}>User Login</Link></MenuItem>
+                  <MenuItem onClick={handleClose}><Link style={{color:'black',fontSize:18}} to={'/doctor_login'}>Doctor Login</Link></MenuItem>
                 </Menu>
           </Box>
           )}
