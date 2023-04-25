@@ -36,6 +36,7 @@ import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import BookingPage from "./pages/user/BookingPage";
 import DoctorProfile2 from "./pages/doctor/DoctorProfile2";
+import DoctorAppointmentHistory from "./Components/DoctorProfile/DoctorAppointmentHistory";
 
 function App() {
  
@@ -76,6 +77,7 @@ function App() {
         <Route path="/doctor_otp" element={<DoctorOtp/>}/>
         <Route path="/doctor_moreinfo" element={<DoctorWaitingProtectedRoutes><DoctorMoreInfo/></DoctorWaitingProtectedRoutes>} />
         <Route path="/doctor_profile" element={<DoctorProtectedRoutes><DoctorProfile2/></DoctorProtectedRoutes>} />
+        <Route path="/Doctor/AppointmentHistory"element={<DoctorProtectedRoutes><DoctorAppointmentHistory/></DoctorProtectedRoutes>}/>
         <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>
         <Route path="/doctor_reject" element={<DoctorWaitingProtectedRoutes><DoctorRejectUi/></DoctorWaitingProtectedRoutes>}/>
           {/* Admin Routes */}

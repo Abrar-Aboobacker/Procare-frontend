@@ -21,7 +21,9 @@ import { toast } from "react-hot-toast";
 import Calendar from "react-calendar";
 import moment from "moment";
 import "react-calendar/dist/Calendar.css";
+import { useNavigate } from "react-router-dom";
 const DoctorProfilePage = ({ id }) => {
+  const navigate = useNavigate()
   const StyledModal = styled(Modal)({
     display: "flex",
     alignItems: "center",
@@ -35,13 +37,13 @@ const DoctorProfilePage = ({ id }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [token, setToken] = useState(null);
   const [schedulTime, setSchedulTime] = useState("");
-  const user = localStorage.getItem("usertoken");
-  const usertoken = user.usertoken;
+  // const user = localStorage.getItem("usertoken");
+  // const usertoken = user.usertoken;
   const fetchDctorDetails = async () => {
     try {
       const response = await axios.get(`/singleDoctorDetails/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       if (response.data.success) {
@@ -50,15 +52,33 @@ const DoctorProfilePage = ({ id }) => {
       }
     } catch (error) {
       console.log(error);
+
     }
   };
   useEffect(() => {
     fetchDctorDetails();
-  }, [usertoken]);
-
-  const modalHandler = () => {
-    setOpen(true);
-  };
+  }, []);
+  const fetchIsPlanIsPresent = async ()=>{
+    try {
+      const response = await axios.get("/isPlanPresent", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+        },
+      })
+      if(response.data.success){
+        toast.error("please purchase a plan")
+        navigate('/plan_pricing')
+      }else{
+        setOpen(true)
+      }
+    } catch (error) {
+      toast.error("You Need to  login first")
+      navigate('/user_login')
+    }
+  }
+  useEffect(()=>{
+    fetchIsPlanIsPresent()
+  },[])
   function tileDisabled({ activeStartDate, date, view }) {
     if (date < new Date()) {
       return true;
@@ -88,7 +108,7 @@ const DoctorProfilePage = ({ id }) => {
   const handleAppointment = (event) => {
     try {
       event.preventDefault();
-      console.log(selectedTime);
+      // console.log(selectedTime);
 
       axios
         .post(
@@ -115,12 +135,13 @@ const DoctorProfilePage = ({ id }) => {
             // setShowPaypal(true);
             toast.success(result.message);
           } else {
-            toast.error(result.message).then(() => {});
+            console.log('ju');
+            toast.error(result.message,{duration:6000});
           }
         });
     } catch (error) {
-      console.log(error);
-      toast.error("Somthing went wrong!");
+      toast.error("You Need to  login first")
+      navigate('/user_login')
     }
   };
   function handleDateChange(date) {
@@ -203,7 +224,7 @@ const DoctorProfilePage = ({ id }) => {
                     variant="contained"
                     color="warning"
                     sx={{ borderRadius: 3 }}
-                    onClick={() => modalHandler()}
+                    onClick={fetchIsPlanIsPresent}
                   >
                     Book Now
                   </Button>

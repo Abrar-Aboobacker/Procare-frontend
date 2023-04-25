@@ -17,6 +17,8 @@ import { toast } from "react-hot-toast";
 import axios from "../../axios/axios";
 import { baseURL } from "../../constants/constant";
 import { setDoctor } from "../../redux/DoctorSlice";
+import DoctorAppointmentList from "./../../Components/DoctorProfile/DoctorAppointmentList";
+import DoctorAppointmentHistory from "../../Components/DoctorProfile/DoctorAppointmentHistory";
 const DoctorProfileView = () => {
   const { doctor } = useSelector((state) => state.doctor);
   const dispatch = useDispatch();
@@ -207,7 +209,12 @@ const DoctorProfileView = () => {
               <TabPanel value="2">
                 <DoctorShedule />
               </TabPanel>
-              <TabPanel value="3">Item Three</TabPanel>
+              <TabPanel value="3">
+                <DoctorAppointmentList />
+              </TabPanel>
+              <TabPanel >
+                <DoctorAppointmentHistory/>
+              </TabPanel>
             </TabContext>
           </Box>
         </Box>
