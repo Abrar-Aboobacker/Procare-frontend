@@ -19,7 +19,6 @@ const UserLogin = () => {
     validationSchema: userLoginSchema,
     onSubmit: async (values, helpers) => {
       try {
-        console.log(values);
         const response = await axios.post("/userLogin", {
           values,
         });

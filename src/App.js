@@ -37,6 +37,8 @@ import UserProfilePage from "./pages/user/UserProfilePage";
 import BookingPage from "./pages/user/BookingPage";
 import DoctorProfile2 from "./pages/doctor/DoctorProfile2";
 import DoctorAppointmentHistory from "./Components/DoctorProfile/DoctorAppointmentHistory";
+import UserAppointment from "./Components/user/UserProfile/UserAppointment";
+import UserAppointmentHistory from "./Components/user/UserProfile/UserAppointmentHistory";
 
 function App() {
  
@@ -71,6 +73,8 @@ function App() {
         <Route path='/plan_pricing' element={<PriceListing/>}/>
         <Route path='/user_profile' element={<UserProfilePage/>}/>
         <Route path='/doctor_appointment/:id' element={<BookingPage/>}/>
+        <Route path='/user/Appointment' element={<UserAppointment/>}/>
+        <Route path ='/user/AppointmentHistory' element={<UserAppointmentHistory/>}/>
         {/* Doctor Routes */}
         <Route path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 

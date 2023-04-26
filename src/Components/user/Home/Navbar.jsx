@@ -13,17 +13,16 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/UserSlice";
 import { Height } from "@mui/icons-material";
 import { baseURL } from "../../../constants/constant";
 
 const Navbar = () => {
-
+const navigate=useNavigate()
  const dispatch =useDispatch()
 const {user} = useSelector((state)=>state.user)
-console.log(user);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   
@@ -41,6 +40,7 @@ console.log(user);
     localStorage.removeItem('usertoken');
     dispatch(setUser(null))
     setAnchorEl(null);
+    navigate("/")
   };
   return (
     <>

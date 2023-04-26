@@ -98,7 +98,7 @@ const DoctorProfileView = () => {
                     src={
                       image
                         ? URL.createObjectURL(image)
-                        : `${baseURL}${doctor.profile}
+                        : `${baseURL}${doctor?.profile}
                     `
                     }
                   />
@@ -136,7 +136,7 @@ const DoctorProfileView = () => {
                     color="text.secondary"
                     textAlign={"center"}
                   >
-                    {doctor?.name}
+                   Dr.{doctor?.name}
                   </Typography>
                 </Box>
                 <Box
