@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,24 @@ import { setUser } from "../../redux/UserSlice";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const getUserInfo =async ()=>{
+    try {
+        const response = await axios.get("/userInfo",{
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+            }
+        })
+        if(response.data.success){
+            // setAppointments(response.data.appointmentHistory)
+           navigate('/') 
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+useEffect(()=>{
+  getUserInfo()
+},[])
   const formik = useFormik({
     initialValues: {
       email: "",

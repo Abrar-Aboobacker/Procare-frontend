@@ -17,11 +17,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonIcon from '@mui/icons-material/Person';
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {setAdmin} from "../../redux/AdminSlice"
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,6 +101,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer() {
   const {admin}=useSelector((state)=>state.admin)
+  const dispatch = useDispatch()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
@@ -103,6 +111,11 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('admintoken');
+    dispatch(setAdmin(null))
+    navigate("/admin_login")
   };
   return (
     <Box sx={{ display: 'flex' }}>
@@ -162,7 +175,7 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                 <InboxIcon />
+                 <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -185,7 +198,7 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                 <InboxIcon />
+                 <LocalHospitalIcon />
                 </ListItemIcon>
                 <ListItemText primary="Doctors" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -208,7 +221,7 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                 <InboxIcon />
+                 <PersonAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="New Doctors" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -231,9 +244,77 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                 <InboxIcon />
+                 <PersonIcon />
                 </ListItemIcon>
                 <ListItemText primary="Users" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+        </List>
+
+        <List>
+        <ListItem onClick={()=>{navigate("/admin_pricing")}}  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                 <PriceChangeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Plans" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+        </List>
+
+        <List>
+        <ListItem onClick={()=>{navigate("/admin_Appointment_page")}}  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                 <DateRangeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Appointments" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+        </List>
+        <List>
+        <ListItem onClick={handleLogout}  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                 <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Appointments" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>

@@ -39,6 +39,7 @@ import DoctorProfile2 from "./pages/doctor/DoctorProfile2";
 import DoctorAppointmentHistory from "./Components/DoctorProfile/DoctorAppointmentHistory";
 import UserAppointment from "./Components/user/UserProfile/UserAppointment";
 import UserAppointmentHistory from "./Components/user/UserProfile/UserAppointmentHistory";
+import AppointmentHistory from "./pages/admin/AppointmentHistory";
 
 function App() {
  
@@ -92,6 +93,7 @@ function App() {
         <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
         <Route path="/admin_users" element={<AdminProtectedRoutes><Users/></AdminProtectedRoutes>}/>
         <Route path="/admin_pricing" element={<AdminProtectedRoutes><Pricing/></AdminProtectedRoutes>}/>
+        <Route path="/admin_Appointment_page" element={<AdminProtectedRoutes><AppointmentHistory/></AdminProtectedRoutes>}/>
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>

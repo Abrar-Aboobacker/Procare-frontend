@@ -16,7 +16,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/UserSlice";
-import { Height } from "@mui/icons-material";
 import { baseURL } from "../../../constants/constant";
 
 const Navbar = () => {

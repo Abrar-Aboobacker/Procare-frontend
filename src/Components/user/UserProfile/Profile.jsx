@@ -119,7 +119,7 @@ const Profile = () => {
                     textAlign={"center"}
                     mt={2}
                   >
-                    {`${user?.fName} ${user.lName}`}
+                    {`${user?.fName} ${user?.lName}`}
                   </Typography>
                 </Box>
                 <Box
