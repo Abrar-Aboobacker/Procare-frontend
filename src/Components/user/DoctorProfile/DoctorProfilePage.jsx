@@ -32,7 +32,7 @@ const DoctorProfilePage = ({ id }) => {
   const [doctor, setDoctor] = useState(null);
   const [open, setOpen] = useState(false);
   const [availableDays, setavailableDays] = useState([]);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
   const [availability, setAvailability] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [token, setToken] = useState(null);
@@ -66,7 +66,7 @@ const DoctorProfilePage = ({ id }) => {
         },
       })
       if(response.data.success){
-        toast.error("please purchase a plan")
+        toast.error(response.data.message)
         navigate('/plan_pricing')
       }else{
         setOpen(true)
@@ -76,9 +76,9 @@ const DoctorProfilePage = ({ id }) => {
       navigate('/user_login')
     }
   }
-  useEffect(()=>{
-    fetchIsPlanIsPresent()
-  },[])
+  // useEffect(()=>{
+  //   fetchIsPlanIsPresent()
+  // },[])
   function tileDisabled({ activeStartDate, date, view }) {
     if (date < new Date()) {
       return true;
@@ -108,8 +108,6 @@ const DoctorProfilePage = ({ id }) => {
   const handleAppointment = (event) => {
     try {
       event.preventDefault();
-      // console.log(selectedTime);
-
       axios
         .post(
           "/verifyAppointment",
@@ -128,14 +126,13 @@ const DoctorProfilePage = ({ id }) => {
         )
         .then((response) => {
           const result = response.data;
-
+          console.log(result);
           if (result.success) {
             setToken(result.token);
             setSchedulTime(result.schedulTime);
             // setShowPaypal(true);
             toast.success(result.message);
           } else {
-            console.log('ju');
             toast.error(result.message,{duration:6000});
           }
         });

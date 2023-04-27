@@ -3,17 +3,29 @@ import {
     Box,
     Button,
     Drawer,
+    Menu,
     Toolbar,
     Typography,
   } from "@mui/material";
   import React, { useState } from "react";
   import IconButton from "@mui/material/IconButton";
   import MenuIcon from "@mui/icons-material/Menu";
-  
+import { Link, useNavigate } from "react-router-dom";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from "react-redux";
+import { setDoctor } from "../../redux/DoctorSlice";
 const DoctorNavbar = () => { 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
       const [open, setOpen] = useState(false);                                                                                                                                                                                                                                  
       const handleCloseDrawer = () => {
         setOpen(false);
+      };
+      const handleLogout = () => {
+        localStorage.removeItem('token');
+        dispatch(setDoctor(null))
+        // navigate("/Doctor_login")
       };
   return (
     <>
@@ -78,6 +90,37 @@ const DoctorNavbar = () => {
               >
                 ProCare
               </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box
+                sx={{
+                  display: { sm: "flex", xs: "none" },
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "2.25rem",
+                  marginRight: 3,
+                }}
+              >
+               <Link to='/doctor_notification'>
+                <Typography
+                  sx={{ color: "black",mt:1,cursor:"pointer" }}
+                  variant="h6"
+                  component="div"
+                  
+                >
+                   <NotificationsIcon/>
+                </Typography>
+                </Link>
+                <Typography onClick={handleLogout} sx={{ color: "black",mt:1,cursor:"pointer", }}>
+                  <LogoutIcon/>
+                </Typography>
+              </Box>
             </Box>
           </Toolbar>
         </AppBar>

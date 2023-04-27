@@ -40,6 +40,7 @@ import DoctorAppointmentHistory from "./Components/DoctorProfile/DoctorAppointme
 import UserAppointment from "./Components/user/UserProfile/UserAppointment";
 import UserAppointmentHistory from "./Components/user/UserProfile/UserAppointmentHistory";
 import AppointmentHistory from "./pages/admin/AppointmentHistory";
+import DoctorNotificationPage from "./pages/doctor/DoctorNotificationPage";
 
 function App() {
  
@@ -85,6 +86,7 @@ function App() {
         <Route path="/Doctor/AppointmentHistory"element={<DoctorProtectedRoutes><DoctorAppointmentHistory/></DoctorProtectedRoutes>}/>
         <Route path="/doctor_waiting_page" element={<DoctorWaitingProtectedRoutes><DoctorWaitingPage/></DoctorWaitingProtectedRoutes>}/>
         <Route path="/doctor_reject" element={<DoctorWaitingProtectedRoutes><DoctorRejectUi/></DoctorWaitingProtectedRoutes>}/>
+        <Route path="/doctor_notification" element={<DoctorProtectedRoutes><DoctorNotificationPage/></DoctorProtectedRoutes>}/>
           {/* Admin Routes */}
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
         <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>
