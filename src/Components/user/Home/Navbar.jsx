@@ -139,13 +139,14 @@ const {user} = useSelector((state)=>state.user)
                   Doctors
                 </Typography>
                 </Link>
-                <Typography
+                {/* <Typography
                   sx={{ color: "#1959FD" }}
                   variant="h6"
                   component="div"
                 >
                  About Us
-                </Typography>
+                </Typography> */}
+                <Link to={'/user_notification'}>
                 <Typography
                   sx={{ color: "black",mt:1 }}
                   variant="h6"
@@ -153,6 +154,7 @@ const {user} = useSelector((state)=>state.user)
                 >
                    <NotificationsIcon/>
                 </Typography>
+                </Link>
               </Box>
           {user&& user?(
               <Box>

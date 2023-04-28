@@ -69,6 +69,7 @@ useEffect(()=>{
             margin: "auto",
             padding: 3,
             marginTop: 10,
+            mb:10,
             borderRadius: 5,
             boxShadow: "5px 5px 10px #ccc ",
             ":hover": {

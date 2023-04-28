@@ -1,13 +1,13 @@
-import { TabContext, TabPanel } from '@mui/lab'
-import { Box, Button, Paper, Tab, Tabs, Typography } from '@mui/material'
+import { TabContext, TabPanel } from '@mui/lab';
+import { Box, Button, Paper, Tab, Tabs, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import axios from '../../axios/axios'
-import { toast } from 'react-hot-toast'
-import { hideLoading, showLoading } from '../../redux/alertsSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { setDoctor } from '../../redux/DoctorSlice'
-const DoctorNotificationView = () => {
-    const {doctor}=useSelector((state)=>state.doctor)
+import { toast } from 'react-hot-toast';
+import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import { useNavigate } from 'react-router-dom';
+const UserNotificationView = () => {
+  const navigate = useNavigate()
     const paperStyle = { width: "100%", margin: "20px auto", border: "none" };
     const dispatch = useDispatch()
     const [value, setValue] = useState("0");
@@ -17,16 +17,37 @@ const DoctorNotificationView = () => {
     const handleChange = (event, value) => {
         setValue(value);
       };
+      const getUserInfo =async ()=>{
+        try {
+            const response = await axios.get("/userInfo",{
+                headers:{
+                    Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+                }
+            })
+            if(!response.data.success){
+                // setAppointments(response.data.appointmentHistory)
+                // navigate('/user_login')
+            }else{
+              
+            }
+        } catch (error) {
+            // console.log(error)
+            navigate('/user_login')
+        }
+    }
+    useEffect(()=>{
+      getUserInfo()
+    },[])
       const getAllnotification = async () => {
-        const response = await axios.get("/doctor/getAllnotification", {
+        const response = await axios.get("/getAllnotification", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
           },
         });
     
         if (response.data.success) {
-          setNotification(response.data.doctorNotifications);
-          setseenNotification(response.data.doctorSeenNotification);
+          setNotification(response.data.userNotification);
+          setseenNotification(response.data.userSeenNotification);
         } else {
           toast.error(response.data.message);
         }
@@ -38,17 +59,17 @@ const DoctorNotificationView = () => {
         try {
         //   dispatch(showLoading());
           const response = await axios.post(
-            "doctor/markAllNotification",{},
+            "markAllNotification",{},
             {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + localStorage.getItem("usertoken"),
               },
             }
           );
         //   dispatch(hideLoading());
           if (response.data.success) {
             toast.success(response.data.message);
-            dispatch(setDoctor(response.data.data));
+            // setDoctor(response.data.data);
             setRefresh(!refresh);
           } else {
             toast.error(response.data.message);
@@ -63,17 +84,17 @@ const DoctorNotificationView = () => {
         try {
           dispatch(showLoading());
           const response = await axios.post(
-            "doctor/deleteNotification",{},
+            "deleteNotification",{},
             {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + localStorage.getItem("usertoken"),
               },
             }
           );
           dispatch(hideLoading());
           if (response.data.success) {
             toast.success(response.data.message);
-           dispatch(setDoctor(response.data.data));
+            // setDoctor(response.data.data);
             setRefresh(!refresh);
           } else {
             toast.error(response.data.message);
@@ -86,7 +107,7 @@ const DoctorNotificationView = () => {
       };
   return (
     <>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <TabContext value={value}>
             <Paper elevation={0} style={paperStyle}>
               <Box display={"flex"} justifyContent={"space-around"}>
@@ -164,9 +185,8 @@ const DoctorNotificationView = () => {
             </Paper>
           </TabContext>
         </Box>
-      <section></section>
     </>
   )
 }
 
-export default DoctorNotificationView
+export default UserNotificationView

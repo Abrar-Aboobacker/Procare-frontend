@@ -14,6 +14,8 @@ import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { useFormik } from 'formik';
 import { DoctorSchema } from '../../validation/doctorsignupvalidation';
 import { setDoctor } from '../../redux/DoctorSlice';
+import DoctorNavbar from '../DoctorNav/DoctorNavbar';
+import Footer from '../user/Home/Footer';
 
 const DoctorSignUp = () => {
   const dispatch = useDispatch()
@@ -52,6 +54,7 @@ const DoctorSignUp = () => {
   })
   return (
     <div>
+      <DoctorNavbar/>
     <form onSubmit={formik.handleSubmit}>
       <Box
         sx={{
@@ -63,6 +66,7 @@ const DoctorSignUp = () => {
           justifyContent: "center",
           margin: "auto",
           marginTop: 10,
+          mb:10,
           padding: 3,
           borderRadius: 5,
           boxShadow: "5px 5px 10px #ccc ",
@@ -194,6 +198,7 @@ const DoctorSignUp = () => {
         </Button>
       </Box>
     </form>
+    <Footer/>
   </div>
   )
 }

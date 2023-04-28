@@ -16,6 +16,8 @@ import axios from '../../axios/axios';
 import { hideLoading } from '../../redux/alertsSlice';
 import { toast } from 'react-hot-toast';
 import { setUser } from '../../redux/UserSlice';
+import Navbar from '../user/Home/Navbar';
+import Footer from '../user/Home/Footer';
 
 const UserSignUp = () => {
   const dispatch = useDispatch()
@@ -53,6 +55,7 @@ const UserSignUp = () => {
   })
   return (
     <div>
+      <Navbar/>
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
@@ -64,6 +67,7 @@ const UserSignUp = () => {
             justifyContent: "center",
             margin: "auto",
             marginTop: 10,
+            mb:10,
             padding: 3,
             borderRadius: 5,
             boxShadow: "5px 5px 10px #ccc ",
@@ -189,6 +193,7 @@ const UserSignUp = () => {
           </Button>
         </Box>
       </form>
+      <Footer/>
     </div>
   )
 }

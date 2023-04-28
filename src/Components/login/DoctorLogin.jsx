@@ -6,6 +6,8 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { setDoctor } from '../../redux/DoctorSlice';
+import DoctorNavbar from '../DoctorNav/DoctorNavbar';
+import Footer from '../user/Home/Footer';
 const DoctorLogin = () => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
@@ -35,6 +37,7 @@ const DoctorLogin = () => {
  
   return (
     <div>
+      <DoctorNavbar/>
     <form action="">
       <Box>
         
@@ -49,6 +52,7 @@ const DoctorLogin = () => {
           justifyContent: "center",
           margin: "auto",
           marginTop:10,
+          mb:10,
           padding: 3,
           borderRadius:5,
           boxShadow:"5px 5px 10px #ccc ",
@@ -76,6 +80,7 @@ const DoctorLogin = () => {
       </Box>
       </Box>
     </form>
+    <Footer/>
   </div>
   )
 }
