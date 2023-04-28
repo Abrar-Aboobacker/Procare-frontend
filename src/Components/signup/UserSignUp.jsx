@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Box,
     Button,
@@ -22,6 +22,11 @@ import Footer from '../user/Home/Footer';
 const UserSignUp = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  useEffect(()=>{
+    if(localStorage.getItem('usertoken')){
+      navigate('/')
+    }
+  },[])
   const formik = useFormik({
     initialValues: {
       fName: '',

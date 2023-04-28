@@ -4,28 +4,15 @@ import Footer from '../../Components/user/Home/Footer'
 import ProfilePage from '../../Components/user/UserProfile/ProfilePage'
 import axios from '../../axios/axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 const UserProfilePage = () => {
  const  navigate = useNavigate()
-  const getUserInfo =async ()=>{
-    try {
-        const response = await axios.get("/userInfo",{
-            headers:{
-                Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
-            }
-        })
-        if(!response.data.success){
-            // setAppointments(response.data.appointmentHistory)
-            // navigate('/user_login')
-        }else{
-          
-        }
-    } catch (error) {
-        console.log(error)
-        navigate('/user_login')
-    }
-}
+
 useEffect(()=>{
-  getUserInfo()
+  if(!localStorage.getItem('usertoken')){
+    navigate('/user_login');
+    toast.error("Please Login")
+  }
 },[])
   return (
     <>

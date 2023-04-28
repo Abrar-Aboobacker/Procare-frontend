@@ -17,27 +17,33 @@ const UserNotificationView = () => {
     const handleChange = (event, value) => {
         setValue(value);
       };
-      const getUserInfo =async ()=>{
-        try {
-            const response = await axios.get("/userInfo",{
-                headers:{
-                    Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
-                }
-            })
-            if(!response.data.success){
-                // setAppointments(response.data.appointmentHistory)
-                // navigate('/user_login')
-            }else{
-              
-            }
-        } catch (error) {
-            // console.log(error)
-            navigate('/user_login')
+      useEffect(()=>{
+        if(!localStorage.getItem('usertoken')){
+          navigate('/user_login')
+          toast.error("You need to login first")
         }
-    }
-    useEffect(()=>{
-      getUserInfo()
-    },[])
+      },[])
+    //   const getUserInfo =async ()=>{
+    //     try {
+    //         const response = await axios.get("/userInfo",{
+    //             headers:{
+    //                 Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
+    //             }
+    //         })
+    //         if(!response.data.success){
+    //             // setAppointments(response.data.appointmentHistory)
+    //             // navigate('/user_login')
+    //         }else{
+              
+    //         }
+    //     } catch (error) {
+    //         // console.log(error)
+    //         navigate('/user_login')
+    //     }
+    // }
+    // useEffect(()=>{
+    //   getUserInfo()
+    // },[])
       const getAllnotification = async () => {
         const response = await axios.get("/getAllnotification", {
           headers: {

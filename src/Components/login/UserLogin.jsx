@@ -11,24 +11,11 @@ import { setUser } from "../../redux/UserSlice";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const getUserInfo =async ()=>{
-    try {
-        const response = await axios.get("/userInfo",{
-            headers:{
-                Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
-            }
-        })
-        if(response.data.success){
-            // setAppointments(response.data.appointmentHistory)
-           navigate('/') 
-        }
-    } catch (error) {
-        console.log(error)
+  useEffect(()=>{
+    if(localStorage.getItem('usertoken')){
+      navigate('/')
     }
-}
-useEffect(()=>{
-  getUserInfo()
-},[])
+  },[])
   const formik = useFormik({
     initialValues: {
       email: "",

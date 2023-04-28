@@ -5,8 +5,18 @@ import Profile from './Profile'
 import moment from 'moment'
 import Footer from '../Home/Footer'
 import axios from '../../../axios/axios'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
+
 const UserAppointmentHistory = () => {
     const [Appointments, setAppointments] = useState([]);
+    const navigate = useNavigate();
+    useEffect(()=>{
+      if(!localStorage.getItem('usertoken')){
+        navigate('/user_login')
+        toast.error("You need to login first")
+      }
+    },[])
     const getHistory =async ()=>{
         try {
             const response = await axios.get("/getAppointmentHistory",{
