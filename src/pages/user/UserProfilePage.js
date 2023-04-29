@@ -13,7 +13,7 @@ useEffect(()=>{
     navigate('/user_login');
     toast.error("Please Login")
   }
-},[])
+},[navigate])
   return (
     <>
     <Navbar/>

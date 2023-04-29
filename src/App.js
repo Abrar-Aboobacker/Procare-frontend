@@ -43,6 +43,7 @@ import AppointmentHistory from "./pages/admin/AppointmentHistory";
 import DoctorNotificationPage from "./pages/doctor/DoctorNotificationPage";
 import UserNotification from "./pages/user/UserNotification";
 import UserLoginPage from "./pages/user/UserLoginPage";
+import UserChat from "./Components/user/UserProfile/UserChat";
 
 function App() {
  
@@ -80,6 +81,7 @@ function App() {
         <Route path='/user/Appointment' element={<UserAppointment/>}/>
         <Route path ='/user/AppointmentHistory' element={<UserAppointmentHistory/>}/>
         <Route path="/user_notification" element={<UserNotification/>}/>
+        <Route path ='user_chat' element={<UserChat/>}/>
         {/* Doctor Routes */}
         <Route path="/doctor_login"  element={<DoctorPublicRoute><DoctorLogin/></DoctorPublicRoute>}/>
         <Route path="/doctor_signup" element={<DoctorSignUp/>}/> 

@@ -152,6 +152,13 @@ const Profile = () => {
                           </Typography>
                           </Link>
                         </Box>
+                        <Box display={'flex'} justifyContent={'center'}>
+                            <Link to={'/user_chat'}>
+                          <Typography sx={{mt:5,fontSize:20,color:'black'}}>
+                            CHAT
+                          </Typography>
+                          </Link>
+                        </Box>
                       </Box>
                     </TabContext>
                   </Box>
