@@ -18,22 +18,30 @@ import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
 import Navbar from "../Home/Navbar";
 import Footer from "../Home/Footer";
-import axios from "../../../axios/axios";
 import { baseURL } from "../../../constants/constant";
 import robot from "../../../Assets/robot.gif";
 import { useSelector } from "react-redux";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import Picker from "emoji-picker-react";
-import "./UserChat.css";
+import axios from "../../../axios/axios"
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 const UserChat = () => {
+    const navigate  = useNavigate()
   const { user } = useSelector((state) => state.user);
   const [doctorLists, setDoctorLists] = useState([]);
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState('');
+  const [messages,setMessages]=useState([])
+  useEffect(()=>{
+    if(!localStorage.getItem('usertoken')){
+      navigate('/user_login')
+      toast.error("You need to login first")
+    }
+  },[])
   useEffect(() => {
-    console.log(currentChat);
     axios
       .get("/getChatContacts", {
         headers: {
@@ -46,7 +54,19 @@ const UserChat = () => {
         }
       });
   }, []);
-
+  const getAllMessages=async()=>{
+    const response = await axios.post('/message/getAllMessages',{
+        from:user._id,
+        to:currentChat._id
+    })
+    console.log(response);
+    if(response.data.success){
+        setMessages(response.data.projectedMessages)
+    }
+  }
+  useEffect(()=>{
+    getAllMessages()
+  },[currentChat])
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
@@ -55,7 +75,11 @@ const UserChat = () => {
     handleChatChange(contact);
   };
   const handleSendMessage = async (message) => {
-    alert(message)
+    await axios.post ('/message/addMessage',{
+        from:user._id,
+        to:currentChat._id,
+        messages:msg
+    })
   };
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
@@ -199,23 +223,35 @@ const UserChat = () => {
                       </Box>
                     ) : (
                       <>
-                        <ListItem key="1">
-                          <Grid container>
-                            <Grid item xs={12}>
-                              <ListItemText
-                                align="right"
-                                primary="Hey man, What's up ?"
-                              ></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <ListItemText
-                                align="right"
-                                secondary="09:30"
-                              ></ListItemText>
-                            </Grid>
-                          </Grid>
-                        </ListItem>
-                        <ListItem key="2">
+                      {
+                       Array.isArray(messages) && messages.map((message)=>{
+                        
+                            return(
+                                <ListItem key="1">
+                                <Grid container>
+                                  <Grid item xs={12}>
+                                    {/* <ListItemText
+                                      sx={{display:"block" ,backgroundColor:message.fromSelf?"red":'black'}}
+                                      align={message.fromSelf ? "right" : "left"}
+                                      primary={message.message}
+                                    ></ListItemText> */}
+                                    <Box sx={{display:"flex",justifyContent:message.fromSelf?"flex-end":"flex-start"}}>
+                                    <Typography sx={{backgroundColor:message.fromSelf?"#fcfbd4":'#f2f2f2',pt:1,pb:1,pr:3,pl:3,borderRadius:3}}>{message.message}</Typography> 
+                                    </Box>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <ListItemText
+                                      align={message.fromSelf ? "right" : "left"}
+                                      secondary={message.time}
+                                    ></ListItemText>
+                                  </Grid>
+                                </Grid>
+                              </ListItem>
+                            )
+                        })
+                      }
+                       
+                        {/* <ListItem key="2">
                           <Grid container>
                             <Grid item xs={12}>
                               <ListItemText
@@ -246,7 +282,7 @@ const UserChat = () => {
                               ></ListItemText>
                             </Grid>
                           </Grid>
-                        </ListItem>
+                        </ListItem> */}
                       </>
                     )}
                   </List>

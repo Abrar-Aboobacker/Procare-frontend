@@ -19,6 +19,7 @@ import { baseURL } from "../../constants/constant";
 import { setDoctor } from "../../redux/DoctorSlice";
 import DoctorAppointmentList from "./../../Components/DoctorProfile/DoctorAppointmentList";
 import DoctorAppointmentHistory from "../../Components/DoctorProfile/DoctorAppointmentHistory";
+import DoctorChatPage from "../../Components/DoctorProfile/DoctorChatPage";
 const DoctorProfileView = () => {
   const { doctor } = useSelector((state) => state.doctor);
   const dispatch = useDispatch();
@@ -194,6 +195,18 @@ const DoctorProfileView = () => {
                             value="3"
                           />
                         </TabList>
+                        <TabList onChange={handleChange}>
+                          <Tab
+                            sx={{
+                              ml: "27%",
+                              mt: 3,
+                              fontWeight: 500,
+                              fontSize: 20,
+                            }}
+                            label="CHAT"
+                            value="4"
+                          />
+                        </TabList>
                       </Box>
                     </TabContext>
                   </Box>
@@ -212,8 +225,8 @@ const DoctorProfileView = () => {
               <TabPanel value="3">
                 <DoctorAppointmentList />
               </TabPanel>
-              <TabPanel >
-                <DoctorAppointmentHistory/>
+              <TabPanel value="4">
+                <DoctorChatPage/>
               </TabPanel>
             </TabContext>
           </Box>
