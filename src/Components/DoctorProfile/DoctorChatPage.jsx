@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,9 +9,11 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import Picker from "emoji-picker-react";
 import { baseURL } from '../../constants/constant';
 import SendIcon from "@mui/icons-material/Send";
-
+import { io } from "socket.io-client";
+import {v4 as uuidv4} from "uuid"
+import moment from "moment"
 const DoctorChatPage = () => {
-    const navigate  = useNavigate()
+  const socket = useRef()
     const { doctor } = useSelector((state) => state.doctor);
     const [userLists, setUserList] = useState([]);
     const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -19,6 +21,8 @@ const DoctorChatPage = () => {
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [msg, setMsg] = useState('');
     const [messages,setMessages]=useState([])
+    const [arrivalMessage,setArrivalMessage] = useState(null)
+    const scrollRef = useRef()
     useEffect(() => {
       axios
         .get("/doctor/getChatContacts", {
@@ -32,19 +36,41 @@ const DoctorChatPage = () => {
           }
         });
     }, []);
+    useEffect(()=>{
+      if(doctor){
+        socket.current = io(baseURL)
+        socket.current.emit("add-user",doctor._id)
+      }
+    },[doctor])
     const getAllMessages=async()=>{
-      const response = await axios.post('/message/getAllMessages',{
-          from:doctor._id,
-          to:currentChat._id
-      })
-      console.log(response);
-      if(response.data.success){
-          setMessages(response.data.projectedMessages)
+      if(currentChat){
+
+        const response = await axios.post('/message/getAllMessages',{
+            from:doctor._id,
+            to:currentChat._id
+        })
+        console.log(response);
+        if(response.data.success){
+            setMessages(response.data.projectedMessages)
+        }
       }
     }
     useEffect(()=>{
       getAllMessages()
     },[currentChat])
+    useEffect(()=>{
+      if(socket.current){
+        socket.current.on("msg-recieve",(msg)=>{
+          setArrivalMessage({fromSelf:false,message:msg})
+        })
+      }
+    },[])
+    useEffect(()=>{
+      arrivalMessage&& setMessages((prev)=>[...prev,arrivalMessage])
+    },[arrivalMessage])
+    useEffect(()=>{
+      scrollRef.current?.scrollIntoView({behaviour:"smooth"})
+    },[messages])
     const handleChatChange = (chat) => {
       setCurrentChat(chat);
     };
@@ -52,18 +78,25 @@ const DoctorChatPage = () => {
       setCurrentSelected(index);
       handleChatChange(contact);
     };
-    const handleSendMessage = async (message) => {
+    const handleSendMessage = async (msg) => {
       await axios.post ('/message/addMessage',{
           from:doctor._id,
           to:currentChat._id,
           messages:msg
       })
+      socket.current.emit("send-msg",{
+        to:currentChat._id,
+        from:doctor._id,
+        message:msg
+      })
+      const msgs = [...messages]
+      msgs.push({fromSelf:true,message:msg,time:moment(Date().toLocaleString()).format('LLL')})
+      setMessages(msgs)
     };
     const handleEmojiPickerHideShow = () => {
       setShowEmojiPicker(!showEmojiPicker);
     };
     const handleEmojiClick = ( emoji) => {
-      console.log(emoji);
       setMsg((prevInput) => prevInput + emoji.emoji);
       setShowEmojiPicker(false)
     };
@@ -198,10 +231,10 @@ const DoctorChatPage = () => {
                         
                             return(
                                 <ListItem key="1">
-                                <Grid container>
+                                <Grid  container>
                                   <Grid item xs={12}>
-                                     <Box sx={{display:"flex",justifyContent:message.fromSelf?"flex-end":"flex-start"}}>
-                                    <Typography sx={{backgroundColor:message.fromSelf?"#fcfbd4":'#f2f2f2',pt:1,pb:1,pr:3,pl:3,borderRadius:3}}>{message.message}</Typography> 
+                                     <Box ref={scrollRef} key={uuidv4()}  sx={{display:"flex",justifyContent:message.fromSelf?"flex-end":"flex-start"}}>
+                                    <Typography  sx={{backgroundColor:message.fromSelf?"#fcfbd4":'#f2f2f2',pt:1,pb:1,pr:3,pl:3,borderRadius:3}}>{message.message}</Typography> 
                                     </Box>
                                     {/* <Typography sx={{alignItems:"right"}}>{message.message}</Typography> */}
                                   </Grid>

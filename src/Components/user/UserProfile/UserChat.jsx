@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import Profile from "./Profile";
 import Navbar from "../Home/Navbar";
 import Footer from "../Home/Footer";
@@ -26,7 +26,11 @@ import Picker from "emoji-picker-react";
 import axios from "../../../axios/axios"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { io } from "socket.io-client";
+import {v4 as uuidv4} from "uuid"
+import moment from 'moment'
 const UserChat = () => {
+  const socket = useRef()
     const navigate  = useNavigate()
   const { user } = useSelector((state) => state.user);
   const [doctorLists, setDoctorLists] = useState([]);
@@ -35,12 +39,20 @@ const UserChat = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState('');
   const [messages,setMessages]=useState([])
+  const [arrivalMessage,setArrivalMessage] = useState(null)
+  const scrollRef = useRef()
   useEffect(()=>{
     if(!localStorage.getItem('usertoken')){
       navigate('/user_login')
       toast.error("You need to login first")
     }
   },[])
+  useEffect(()=>{
+    if(user){
+      socket.current = io(baseURL)
+      socket.current.emit("add-user",user._id)
+    }
+  },[user])
   useEffect(() => {
     axios
       .get("/getChatContacts", {
@@ -55,37 +67,59 @@ const UserChat = () => {
       });
   }, []);
   const getAllMessages=async()=>{
-    const response = await axios.post('/message/getAllMessages',{
-        from:user._id,
-        to:currentChat._id
-    })
-    console.log(response);
-    if(response.data.success){
-        setMessages(response.data.projectedMessages)
+    if(currentChat){
+      const response = await axios.post('/message/getAllMessages',{
+      from:user._id,
+          to:currentChat._id
+      })
+      console.log(response);
+      if(response.data.success){
+          setMessages(response.data.projectedMessages)
+      }
     }
   }
   useEffect(()=>{
     getAllMessages()
   },[currentChat])
+    useEffect(()=>{
+      if(socket.current){
+        socket.current.on("msg-recieve",(msg)=>{
+          setArrivalMessage({fromSelf:false,message:msg})
+        })
+      }
+    },[])
+    useEffect(()=>{
+      arrivalMessage&& setMessages((prev)=>[...prev,arrivalMessage])
+    },[arrivalMessage])
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+  useEffect(()=>{
+    scrollRef.current?.scrollIntoView({behaviour:"smooth"})
+  },[messages])
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     handleChatChange(contact);
   };
-  const handleSendMessage = async (message) => {
+  const handleSendMessage = async (msg) => {
     await axios.post ('/message/addMessage',{
         from:user._id,
         to:currentChat._id,
         messages:msg
     })
+    socket.current.emit("send-msg",{
+      to:currentChat._id,
+      from:user._id,
+      message:msg
+    })
+    const msgs = [...messages]
+    msgs.push({fromSelf:true,message:msg,time:moment(Date().toLocaleString()).format('LLL')})
+    setMessages(msgs)
   };
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
   const handleEmojiClick = ( emoji) => {
-    console.log(emoji);
     setMsg((prevInput) => prevInput + emoji.emoji);
     setShowEmojiPicker(false)
   };
@@ -228,14 +262,9 @@ const UserChat = () => {
                         
                             return(
                                 <ListItem key="1">
-                                <Grid container>
+                                <Grid ref={scrollRef} key={uuidv4()} container>
                                   <Grid item xs={12}>
-                                    {/* <ListItemText
-                                      sx={{display:"block" ,backgroundColor:message.fromSelf?"red":'black'}}
-                                      align={message.fromSelf ? "right" : "left"}
-                                      primary={message.message}
-                                    ></ListItemText> */}
-                                    <Box sx={{display:"flex",justifyContent:message.fromSelf?"flex-end":"flex-start"}}>
+                                    <Box   sx={{display:"flex",justifyContent:message.fromSelf?"flex-end":"flex-start"}}>
                                     <Typography sx={{backgroundColor:message.fromSelf?"#fcfbd4":'#f2f2f2',pt:1,pb:1,pr:3,pl:3,borderRadius:3}}>{message.message}</Typography> 
                                     </Box>
                                   </Grid>
