@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, createTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
@@ -8,6 +8,7 @@ import { userLoginSchema } from "../../validation/userLoginValidation";
 import { hideLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { setUser } from "../../redux/UserSlice";
+
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,13 +51,13 @@ const UserLogin = () => {
             backgroundColor: "#F5FCFF",
             display: "flex",
             flexDirection: "column",
+            width:{xs:"75%",sm:500},
             maxWidth: 500,
             alignItems: "center",
             justifyContent: "center",
             margin: "auto",
             padding: 3,
-            marginTop: 10,
-            mb:10,
+            marginY: {xs:10,sm:14.5,md:26.3,lg:10},
             borderRadius: 5,
             boxShadow: "5px 5px 10px #ccc ",
             ":hover": {
@@ -71,7 +72,7 @@ const UserLogin = () => {
               alignContent={"center"}
             >
               <Typography
-                mr={5}
+                mr={{sm:2,md:5}}
                 variant="h6"
                 sx={{
                   backgroundColor: "#30349B",

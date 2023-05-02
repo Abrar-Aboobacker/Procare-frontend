@@ -80,17 +80,35 @@ const {user} = useSelector((state)=>state.user)
                     gap={333}
                     sx={{ width: 200 }}
                   >
-                    <Typography variant="h6" margin={2}>
+                     <Typography
+                sx={{
+                  color: "#FD810F",
+                  m:2,
+                }}
+                variant="h5"
+              >
+                ProCare
+              </Typography>
+                    <Link to={'/'}>
+                    <Typography sx={{color:'black'}} variant="h6" margin={2}>
+                      Home
+                    </Typography>
+                    </Link>
+                    <Link to={'/doctors'}>
+                    <Typography sx={{color:'black'}} variant="h6" margin={2}>
                       Doctors
                     </Typography>
-                    <Typography variant="h6" margin={2}>
-                      Notification
+                    </Link>
+                    <Link to={'/plan_pricing'}>
+                    <Typography sx={{color:'black'}} variant="h6" margin={2}>
+                    Plan & pricing
                     </Typography>
-                    <Typography variant="h6" margin={2}>
-                      About Us
+                    </Link>
+                    <Link to={'/user_profile'}>
+                    <Typography sx={{color:'black'}} variant="h6" margin={2}>
+                      Profile
                     </Typography>
-                    <Typography>hy</Typography>
-                    <Typography>hy</Typography>
+                    </Link>
                   </Box>
                 </Drawer>
               </IconButton>
@@ -148,7 +166,27 @@ const {user} = useSelector((state)=>state.user)
                 </Typography> */}
                 <Link to={'/user_notification'}>
                 <Typography
-                  sx={{ color: "black",mt:1 }}
+                  sx={{ color: "black",mt:1}}
+                  variant="h6"
+                  component="div"
+                >
+                   <NotificationsIcon/>
+                </Typography>
+                </Link>
+              </Box>
+
+              <Box
+                sx={{
+                  display: { sm: "none", xs: "flex" },
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "2.25rem",
+                  marginRight: 3,
+                }}
+              >
+                <Link to={'/user_notification'}>
+                <Typography
+                  sx={{ color: "black",mt:1}}
                   variant="h6"
                   component="div"
                 >
@@ -157,7 +195,9 @@ const {user} = useSelector((state)=>state.user)
                 </Link>
               </Box>
           {user&& user?(
-              <Box>
+              <Box
+              sx={{display: { sm: "flex", xs: "none" },}}
+              >
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -187,7 +227,9 @@ const {user} = useSelector((state)=>state.user)
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </Box>
-          ):(<Box>
+          ):(<Box 
+            sx={{display: { sm: "flex", xs: "none" },}}
+          >
             <Typography onClick={handleMenu} sx={{color:'#1959FD'}}>Login</Typography>
             <Menu
                   id="menu-appba"

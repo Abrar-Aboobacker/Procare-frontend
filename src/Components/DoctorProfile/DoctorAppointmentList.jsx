@@ -100,7 +100,7 @@ const DoctorAppointmentList = () => {
     
   return (
     <>
-      <Box sx={{width:'130%'}}>
+      <Box sx={{width: {xs:"92vw",sm:"96%",md:"45vw",lg:"60vw",xl:"65vw"}, mb:3,my:{xs:5,sm:5,md:28,lg:5}}}>
       <Typography variant="h5" sx={{ marginBottom: 5, fontWeight: 500 }}>
            New Appointments
           </Typography>

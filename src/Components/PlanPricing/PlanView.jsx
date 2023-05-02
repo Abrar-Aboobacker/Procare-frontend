@@ -87,18 +87,18 @@ const PlanView = () => {
           alignContent: "center",
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 500, mt: 10 }}>
+        <Typography variant="h4" sx={{ fontWeight: 500, mt: 10,fontSize:{xs:'20px',sm:"35px"} }}>
           Find A Plan That's good for you
         </Typography>
       </Box>
-      <hr
+      {/* <hr
         style={{ width: "25%", marginLeft: 560, marginTop: 20, borderWidth: 2 }}
-      />
+      /> */}
 
       <Box marginTop={5}>
         <Box sx={{display:"flex",justifyContent:'center',flexWrap:'wrap',gap:5}}>
           {plan.map((value)=>(
-              <Card elevation={2} sx={{width:400,marginBottom:20}}>
+              <Card elevation={5} sx={{width:{xs:"95%"},maxWidth:400,marginBottom:{xs:5,sm:5}}}>
               <CardContent >
                   <Box textAlign={"center"}>
                 <Typography  variant="h5" sx={{fontWeight:500,mb:2,color:'#FD810F'}} >

@@ -62,8 +62,9 @@ const Profile = () => {
               elevation={2}
               sx={{
                 maxWidth: 400,
-                width: 400,
+                width: {xs:"98%",sm:400},
                 backgroundColor: "#eff2f7",
+                marginX:{xs:0,sm:20,md:0},
                 pt: 5,
               }}
             >

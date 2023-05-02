@@ -75,15 +75,17 @@ const DoctorProfileView = () => {
   return (
     <>
       <Box>
-        <Box sx={{ display: { xs: "block", sm: "flex" } }}>
-          <Box sx={{ mt: 5, ml: 3 }}>
+        <Box sx={{ display: { xs: "block", sm: "block",md:"flex" } }}>
+          <Box sx={{mt: {xs:5,sm:5,md:25,lg:10,xl:5}, mx:{xs:0,sm:3} }}>
             <Card
               elevation={2}
               sx={{
                 maxWidth: 400,
-                width: 400,
+                width: {xs:"98%",sm:400,},
                 backgroundColor: "#eff2f7",
                 pt: 5,
+                marginX:{xs:0,sm:20,md:0},
+                ml:{xs:1}
               }}
             >
               <label htmlFor="fileInput">

@@ -134,7 +134,7 @@ const DoctorShedule = () => {
   };
   return (
     <>
-      <Box width={"1000px"} mt={8}>
+      <Box sx={{width: {xs:"99%",sm:"96%",md:"100%",lg:"1000px",xl:"1000px"}, mb:3,my:{xs:5,sm:5,md:28,lg:5}}}>
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Button
             onClick={() => modalHandler()}
@@ -284,27 +284,6 @@ const DoctorShedule = () => {
                       </Box>
                     ))}
                     </TableCell>
-                    {/* <TableCell>
-                            {doctor&& doctor.isActive==="active"?(
-                            <Button
-                            variant="contained"
-                            color="error"
-                          >
-                            Block
-                          </Button>
-                            ):
-                            <Button
-                            variant="contained"
-                            color="success"
-                           
-                            
-                          >
-                            Unblock
-                          </Button>
-                           
-                          }
-                            
-                          </TableCell> */}
                   </TableRow>
                    ))}  
                 </TableBody>

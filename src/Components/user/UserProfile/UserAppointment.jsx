@@ -85,12 +85,12 @@ const UserAppointment = () => {
     <>
       <Navbar />
       <Box>
-        <Box sx={{ display: { xs: "block", sm: "flex" } }}>
-          <Box sx={{ mt: 5, ml: 3, mb: 2 }}>
+        <Box sx={{ display: { xs: "block", sm: "block",md:'flex'} }}>
+          <Box sx={{ my:{xs:5,sm:5,md:21,lg:5}, ml: 3,  }}>
             <Profile />
           </Box>
-          <Box sx={{ width: "70%", ml: 2, mt: 5 }}>
-            <Typography variant="h5" sx={{ marginBottom: 5, fontWeight: 500 }}>
+          <Box sx={{ width: {xs:"100%",sm:"96%",md:"50%",lg:"64%",xl:"75%"}, ml: 2, mb:3 }}>
+            <Typography variant="h5" sx={{ marginBottom: 5, fontWeight: 500,mt:3 }}>
               New Appointments
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "end" }}>

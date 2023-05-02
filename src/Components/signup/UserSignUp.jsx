@@ -1,78 +1,70 @@
-import React, { useEffect } from 'react'
-import {
-    Box,
-    Button,
-    Grid,
-    TextField,
-    Typography,
-  
-  } from "@mui/material";
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { ValidationError } from 'yup';
-import { userSchema } from '../../validation/userValidation';
-import { useDispatch } from 'react-redux';
-import axios from '../../axios/axios';
-import { hideLoading } from '../../redux/alertsSlice';
-import { toast } from 'react-hot-toast';
-import { setUser } from '../../redux/UserSlice';
-import Navbar from '../user/Home/Navbar';
-import Footer from '../user/Home/Footer';
+import React, { useEffect } from "react";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { ValidationError } from "yup";
+import { userSchema } from "../../validation/userValidation";
+import { useDispatch } from "react-redux";
+import axios from "../../axios/axios";
+import { hideLoading } from "../../redux/alertsSlice";
+import { toast } from "react-hot-toast";
+import { setUser } from "../../redux/UserSlice";
+import Navbar from "../user/Home/Navbar";
+import Footer from "../user/Home/Footer";
 
 const UserSignUp = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  useEffect(()=>{
-    if(localStorage.getItem('usertoken')){
-      navigate('/')
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("usertoken")) {
+      navigate("/");
     }
-  },[])
+  }, []);
   const formik = useFormik({
     initialValues: {
-      fName: '',
-      lName : '',
-      email: '',
-      phone: '',
-      password: '',
-      cpassword:'',
+      fName: "",
+      lName: "",
+      email: "",
+      phone: "",
+      password: "",
+      cpassword: "",
     },
-    validationSchema:userSchema,
-     onSubmit:async (values,helpers)=>{
-    try {
-      const response = await axios.post("/signup",{
-        values
-      })
-      dispatch(hideLoading())
-      if (response.data.success) {
-        toast.success(response.data.message)
-        dispatch(setUser(values))
-        navigate('/user_otp')
-
-      }else{
-        toast.error(response.data.message)
+    validationSchema: userSchema,
+    onSubmit: async (values, helpers) => {
+      try {
+        const response = await axios.post("/signup", {
+          values,
+        });
+        dispatch(hideLoading());
+        if (response.data.success) {
+          toast.success(response.data.message);
+          dispatch(setUser(values));
+          navigate("/user_otp");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        helpers.setErrors({ submit: error.message });
+        toast.error("something went wrong");
       }
-    } catch (error) {
-      console.log(error);
-      helpers.setErrors({submit:error.message})
-      toast.error("something went wrong")
-     }
-   }
-  })
+    },
+  });
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
             backgroundColor: "#F5FCFF",
             display: "flex",
             flexDirection: "column",
+            width:{xs:"75%",sm:500},
             maxWidth: 500,
             alignItems: "center",
             justifyContent: "center",
             margin: "auto",
-            marginTop: 10,
-            mb:10,
+            marginY: {xs:10,sm:14.5,md:26.3,lg:10},
             padding: 3,
             borderRadius: 5,
             boxShadow: "5px 5px 10px #ccc ",
@@ -81,17 +73,42 @@ const UserSignUp = () => {
             },
           }}
         >
-          <Box mt={2}  >
-         <Box display={'flex'} justifyContent={'center'} alignContent={'center'} >
-         <Typography mr={5} variant='h6' sx={{backgroundColor:"#30349B",paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1,color:"white",borderRadius:"12px" ,marginBottom:3}}>
-         User Signup
-          </Typography>
-          <Typography ml={5} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
-          <Link to={"/doctor_signup"}>Doctor Signup </Link> 
-          </Typography>
-         
-         </Box>
-        </Box>
+          <Box mt={2}>
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              alignContent={"center"}
+            >
+              <Typography
+                mr={{ sm: 2, md: 5 }}
+                variant="h6"
+                sx={{
+                  backgroundColor: "#30349B",
+                  paddingTop: 2,
+                  paddingBottom: 2,
+                  paddingRight: 1,
+                  paddingLeft: 1,
+                  color: "white",
+                  borderRadius: "12px",
+        
+                }}
+              >
+                User Signup
+              </Typography>
+              <Typography
+                ml={5}
+                variant="h6"
+                sx={{
+                  paddingTop: 2,
+                  paddingBottom: 2,
+                  paddingRight: 1,
+                  paddingLeft: 1,
+                }}
+              >
+                <Link to={"/doctor_signup"}>Doctor Signup </Link>
+              </Typography>
+            </Box>
+          </Box>
           <Typography variant="h4" padding={3} textAlign="center">
             Signup
           </Typography>
@@ -106,7 +123,7 @@ const UserSignUp = () => {
                 margin="normal"
                 type={"text"}
                 label="Fisrt Name"
-                name='fName'
+                name="fName"
                 value={formik.values.fName}
                 error={formik.errors.fName}
                 helperText={formik.errors.fName}
@@ -122,7 +139,7 @@ const UserSignUp = () => {
                 name="lName"
                 value={formik.values.lName}
                 error={formik.errors.lName}
-                helperText={formik.errors.lName }
+                helperText={formik.errors.lName}
                 onChange={formik.handleChange}
                 label="Last Name"
                 variant="outlined"
@@ -162,7 +179,7 @@ const UserSignUp = () => {
                 margin="normal"
                 type={"password"}
                 label="Password"
-                name='password'
+                name="password"
                 value={formik.values.password}
                 error={formik.errors.password}
                 helperText={formik.errors.password}
@@ -176,7 +193,7 @@ const UserSignUp = () => {
                 sx={{ backgroundColor: "white" }}
                 margin="normal"
                 type={"password"}
-                name='cpassword'
+                name="cpassword"
                 value={formik.values.cpassword}
                 error={formik.errors.cpassword}
                 helperText={formik.errors.cpassword}
@@ -190,17 +207,20 @@ const UserSignUp = () => {
           <Button
             variant="contained"
             color="warning"
-            type='submit'
+            type="submit"
             sx={{ marginTop: 3, borderRadius: 3 }}
             name="submit"
           >
             SignUp
           </Button>
+          <Typography mt={2}>
+            Already Have an Account?<Link to={"/user_login"}>Log in</Link>
+          </Typography>
         </Box>
       </form>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default UserSignUp
+export default UserSignUp;

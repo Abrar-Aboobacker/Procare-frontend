@@ -64,8 +64,9 @@ const ProfileEdit = () => {
             flexWrap:'wrap',
             // flexDirection: "col",
             // maxWidth: 450,
-            width: "96%",
-            height: "100%",
+            width:{ xs:"90%",sm:"96%"},
+            // height: "100%",
+            height: {xs:"80%",sm:"80%",md:"90%",lg:"85%",xl:"80%"},
             alignItems: "center",
             justifyContent: "center",
             margin: "auto",
@@ -85,6 +86,7 @@ const ProfileEdit = () => {
              <TextField
                   sx={{
                     backgroundColor: "white",
+                    mx:{xs:5,sm:8,md:8},
                     marginRight:3,
                   }}
                   margin="normal"
@@ -97,7 +99,7 @@ const ProfileEdit = () => {
                   variant="outlined"
                 />
                 <TextField
-                  sx={{ backgroundColor: "white" }}
+                  sx={{ backgroundColor: "white", mx:{xs:5,sm:8,md:8}, }}
                   margin="normal"
                   name="email"
                   type={"email"}
@@ -108,7 +110,10 @@ const ProfileEdit = () => {
                   variant="outlined"
                 />
                  <TextField
-                  sx={{ backgroundColor: "white", marginLeft:3,marginRight:3 }}
+                  sx={{ backgroundColor: "white", 
+                  // marginLeft:3,marginRight:3
+                  mx:{xs:5,sm:8,md:8}, 
+                }}
                   margin="normal"
                   name="phone"
                   size="small"
@@ -121,7 +126,8 @@ const ProfileEdit = () => {
                    <TextField
                   sx={{
                     backgroundColor: "white",
-                    marginRight:3,
+                    // marginRight:3,
+                    mx:{xs:5,sm:8,md:8},
                   }}
                   margin="normal"
                   type={"text"}
@@ -137,7 +143,10 @@ const ProfileEdit = () => {
                   size="small"
                   name="about"
                   maxRows={5}
-                  sx={{ backgroundColor: "white", width: 300 }}
+                  sx={{ backgroundColor: "white", 
+                  width: 300,
+                  mx:{xs:2,sm:8,md:8},
+                 }}
                   margin="normal"
                   // type={"text"}
                   value={value.about}
@@ -156,8 +165,9 @@ const ProfileEdit = () => {
                          <TextField
                   sx={{
                     backgroundColor: "white",
-                    marginLeft: "10",
-                    marginRight: 5,
+                    // marginLeft: "10",
+                    // marginRight: 5,
+                    mx:{xs:5,sm:8,md:8},
                   }}
                   margin="normal"
                   type={"text"}
@@ -171,8 +181,9 @@ const ProfileEdit = () => {
                 <TextField
                   sx={{
                     backgroundColor: "white",
-                    marginLeft: "10",
-                    marginRight: 5,
+                    // marginLeft: "10",
+                    // marginRight: 5,
+                    mx:{xs:5,sm:8,md:8},
                   }}
                   margin="normal"
                   type={"number"}
@@ -186,8 +197,9 @@ const ProfileEdit = () => {
                 <TextField
                   sx={{
                     backgroundColor: "white",
-                    marginLeft: "10",
-                    marginRight: 5,
+                    // marginLeft: "10",
+                    // marginRight: 5,
+                    mx:{xs:5,sm:8,md:8},
                   }}
                   margin="normal"
                   type={"number"}
@@ -202,8 +214,9 @@ const ProfileEdit = () => {
                 <TextField
                   sx={{
                     backgroundColor: "white",
-                    marginLeft: "10",
-                    marginRight: 5,
+                    // marginLeft: "10",
+                    // marginRight: 5,
+                    mx:{xs:5,sm:8,md:8},
                   }}
                   margin="normal"
                   type={"text"}

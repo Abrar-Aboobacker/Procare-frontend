@@ -164,13 +164,13 @@ const DoctorProfilePage = ({ id }) => {
   }
   return (
     <>
-      <section style={{ marginTop: "50px", marginBottom: "80px" }}>
-        <Box sx={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}>
+      <Box sx={{ marginTop: "50px", marginBottom: "80px" }}>
+        <Box sx={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}>
           <Box
             sx={{
               width: "100%",
-              paddingLeft: "15px",
-              paddingRight: "15px",
+              paddingLeft: {xs:0,sm:"15px"},
+              paddingRight: {xs:0,sm:"15px"},
               marginLeft: "auto",
               marginRight: "auto",
             }}
@@ -182,15 +182,16 @@ const DoctorProfilePage = ({ id }) => {
                   sx={{
                     maxWidth: 445,
                     backgroundColor: "#eff2f7",
-                    width: { xs: "320px" },
+                    marginX:{xs:"2rem",sm:"8rem",md:0},
+                    width: { xs: "97%" },
                   }}
                 >
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <Avatar
                       sx={{
                         objectFit: "cover",
-                        width: "250px",
-                        height: "250px",
+                        width: {xs:"100px",sm:"250px"},
+                        height:  {xs:"100px",sm:"250px"},
                         mt: 5,
                       }}
                       alt={doctor?.name}
@@ -220,8 +221,9 @@ const DoctorProfilePage = ({ id }) => {
                   <Button
                     variant="contained"
                     color="warning"
-                    sx={{ borderRadius: 3 }}
+                    sx={{ borderRadius: 3,ml:{sm:20,md:0} }}
                     onClick={fetchIsPlanIsPresent}
+                    
                   >
                     Book Now
                   </Button>
@@ -232,8 +234,8 @@ const DoctorProfilePage = ({ id }) => {
                     aria-describedby="modal-modal-description"
                   >
                     <Box
-                      width={400}
-                      // height={"100vh"}
+                      width={"80%"}
+                      maxWidth={400}
                       bgcolor={"background.default"}
                       color={"text.primary"}
                       p={3}
@@ -322,7 +324,7 @@ const DoctorProfilePage = ({ id }) => {
                       )}
 
                       <Box
-                        sx={{ display: "flex", justifyContent: "end", mt: 5 }}
+                        sx={{ display: "flex", justifyContent: "end", mt: {xs:5,sm:5,md:0} }}
                       >
                         <Button onClick={(e) => setOpen(false)}>Close</Button>
                       </Box>
@@ -330,16 +332,16 @@ const DoctorProfilePage = ({ id }) => {
                   </StyledModal>
                 </Box>
               </Box>
-              <Box sx={{ flex: { md: "0 0 75%" } }}>
+              <Box sx={{ flex: {  md: "0 0 75%" },mt:{xs:5,sm:5}}}>
                 <Box
                   sx={{
                     display: "flex",
                     flexWrap: "wrap",
-                    marginLeft: 4,
+                    marginLeft: {xs:0,sm:4},
                     marginBottom: "1.5rem",
                   }}
                 >
-                  <Box sx={{ flex: "0 0 50%", maxWidth: "50%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"},ml:{xs:5,sm:0},mb:2 }}>
                     <Typography variant="h6" sx={{ fontSize: 18 }}>
                       Qualification
                     </Typography>
@@ -348,7 +350,7 @@ const DoctorProfilePage = ({ id }) => {
                       {doctor?.qualification}
                     </Typography>
                   </Box>
-                  <Box sx={{ flex: "0 0 50%", maxWidth: "50%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"},ml:{xs:5,sm:0} }}>
                     <Typography variant="h6" sx={{ fontSize: 18 }}>
                       Languages Spoken
                     </Typography>
@@ -366,15 +368,15 @@ const DoctorProfilePage = ({ id }) => {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  <Box sx={{ flex: "0 0 50%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"}, }}>
                     <Typography variant="h6" sx={{ fontSize: 18 }}>
                       Specialization
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: 18 }}>
+                    <Typography variant="body1" sx={{ fontSize: 18, mb:{xs:2} }}>
                       {doctor?.specialization}
                     </Typography>
                   </Box>
-                  <Box sx={{ flex: "0 0 50%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"}, }}>
                     <Typography variant="h6" sx={{ fontSize: 18 }}>
                       Experience
                     </Typography>
@@ -392,7 +394,7 @@ const DoctorProfilePage = ({ id }) => {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  <Box sx={{ flex: "0 0 50%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"}, }}>
                     <Typography variant="h6" sx={{ fontSize: 18 }}>
                       Next Availability
                     </Typography>
@@ -412,7 +414,7 @@ const DoctorProfilePage = ({ id }) => {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  <Box sx={{ flex: "0 0 100%", maxWidth: "100%" }}>
+                  <Box sx={{ flex: {xs:"0 0 100%",sm:"0 0 50%"}, maxWidth: "100%" }}>
                     <Box mt={"10px"}>
                       <Typography variant="h6" sx={{ fontSize: 18 }}>
                         About
@@ -427,7 +429,7 @@ const DoctorProfilePage = ({ id }) => {
             </Box>
           </Box>
         </Box>
-      </section>
+      </Box>
     </>
   );
 };

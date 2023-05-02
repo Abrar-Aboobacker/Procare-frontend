@@ -97,8 +97,8 @@ const ProfilePage = () => {
   return (
     <>
       <Box>
-        <Box sx={{ display: { xs: "block", sm: "flex" } }}>
-          <Box sx={{ mt: 5, ml: 3, mb: 2 }}>
+        <Box sx={{ display: { xs: "block", sm: "block",md:'flex' } }}>
+          <Box sx={{ mt: {xs:5,sm:5,md:25,lg:10,xl:5}, ml: 3, mb: 2 }}>
             <Profile />
           </Box>
           <Box>
@@ -109,8 +109,8 @@ const ProfilePage = () => {
                   flexWrap: "wrap",
                   // flexDirection: "col",
                   // maxWidth: 450,
-                  width: "90%",
-                  height: "80%",
+                  width: "80%",
+                  height: {xs:"80%",sm:"80%",md:"90%",lg:"85%",xl:"80%"},
                   alignItems: "center",
                   justifyContent: "center",
                   margin: "auto",
@@ -132,6 +132,7 @@ const ProfilePage = () => {
                   <TextField
                     sx={{
                       backgroundColor: "white",
+                      mx:{xs:5,sm:8,md:8},
                       marginRight: 3,
                     }}
                     margin="normal"
@@ -144,7 +145,7 @@ const ProfilePage = () => {
                     variant="outlined"
                   />
                   <TextField
-                    sx={{ backgroundColor: "white" }}
+                    sx={{ backgroundColor: "white", mx:{xs:5,sm:0,md:8} }}
                     margin="normal"
                     name="lName"
                     type={"text"}
@@ -157,8 +158,9 @@ const ProfilePage = () => {
                   <TextField
                     sx={{
                       backgroundColor: "white",
-                      marginLeft: 3,
-                      marginRight: 3,
+                      mx:{xs:5,sm:8,md:8}
+                      // marginLeft: 3,
+                      // marginRight: 3,
                     }}
                     margin="normal"
                     name="email"
@@ -173,6 +175,7 @@ const ProfilePage = () => {
                     sx={{
                       backgroundColor: "white",
                       marginRight: 3,
+                      mx:{xs:5,sm:0,md:8},
                     }}
                     margin="normal"
                     type={"tel"}
@@ -188,6 +191,7 @@ const ProfilePage = () => {
                       backgroundColor: "white",
                       marginRight: 3,
                       width: 210,
+                      mx:{xs:5,sm:8,md:8},
                     }}
                     focused
                     margin="normal"
@@ -203,6 +207,7 @@ const ProfilePage = () => {
                     sx={{
                       backgroundColor: "white",
                       marginRight: 3,
+                      mx:{xs:5,sm:0,md:8},
                     }}
                     margin="normal"
                     type={"text"}
@@ -234,8 +239,9 @@ const ProfilePage = () => {
                   <TextField
                     sx={{
                       backgroundColor: "white",
-                      marginLeft: "10",
-                      marginRight: 5,
+                      // marginLeft: "10",
+                      // marginRight: 5,
+                      mx:{xs:5,sm:0,md:8},
                     }}
                     margin="normal"
                     type={"password"}
@@ -251,8 +257,9 @@ const ProfilePage = () => {
                   <TextField
                     sx={{
                       backgroundColor: "white",
-                      marginLeft: "10",
-                      marginRight: 5,
+                      // marginLeft: "10",
+                      // marginRight: 5,
+                      mx:{xs:5,sm:1,md:8},
                     }}
                     margin="normal"
                     type={"password"}
@@ -270,6 +277,7 @@ const ProfilePage = () => {
                       backgroundColor: "white",
                       marginLeft: "10",
                       marginRight: 5,
+                      mx:{xs:5,sm:0,md:8},
                     }}
                     margin="normal"
                     type={"password"}

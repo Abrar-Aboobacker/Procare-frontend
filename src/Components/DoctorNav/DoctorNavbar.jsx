@@ -25,7 +25,6 @@ const DoctorNavbar = () => {
       const handleLogout = () => {
         localStorage.removeItem('token');
         dispatch(setDoctor(null))
-        // navigate("/Doctor_login")
       };
   return (
     <>
@@ -46,7 +45,7 @@ const DoctorNavbar = () => {
                 justifyContent: "space-between",
               }}
             >
-              <IconButton
+              {/* <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
@@ -67,7 +66,7 @@ const DoctorNavbar = () => {
                     sx={{ width: 200 }}
                   >
                     <Typography variant="h6" margin={2}>
-                      Doctors
+                      D
                     </Typography>
                     <Typography variant="h6" margin={2}>
                       Notification
@@ -79,7 +78,7 @@ const DoctorNavbar = () => {
                     <Typography>hy</Typography>
                   </Box>
                 </Drawer>
-              </IconButton>
+              </IconButton> */}
               <Typography
                 sx={{
                   // display:{xs:'none',sm:'block'},
@@ -100,7 +99,7 @@ const DoctorNavbar = () => {
             >
               <Box
                 sx={{
-                  display: { sm: "flex", xs: "none" },
+                  display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: "2.25rem",

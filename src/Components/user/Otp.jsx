@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../../redux/alertsSlice'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { setUser } from '../../redux/UserSlice'
 
 const Otp = () => {
   const { user } = useSelector((state) => state.user);
@@ -52,6 +53,7 @@ const Otp = () => {
           dispatch(hideLoading())
           if (response.data.success) {
             toast.success(response.data.message)
+            dispatch(setUser(null))
             navigate('/user_login')
     
           }else{
@@ -59,7 +61,7 @@ const Otp = () => {
           }
         } catch (error) {
           helpers.setErrors({submit:error.message})
-          toast.error("something went wrong")
+          toast.error("something went wrongg")
          }
        }
       })
@@ -76,11 +78,14 @@ const Otp = () => {
           if (response.data.success) {
             toast.success(response.data.message);
           } else {
+            dispatch(hideLoading());
             toast.error(response.data.message);
           }
         } catch (error) {
+          dispatch(hideLoading());
           console.log(error);
-          toast.error("something went wrong");
+          toast.error("something went wrongg");
+
         }
       };
       return (
@@ -91,6 +96,7 @@ const Otp = () => {
                 backgroundColor: "#F5FCFF",
                 display: "flex",
                 flexDirection: "column",
+                width:{xs:"75%",sm:500},
                 maxWidth: 500,
                 alignItems: "center",
                 justifyContent: "center",

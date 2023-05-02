@@ -47,12 +47,12 @@ const DoctorLogin = () => {
           backgroundColor:"#F5FCFF",
           display: "flex",
           flexDirection: "column",
+          width:{xs:"75%",sm:500},
           maxWidth: 500,
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
-          marginTop:10,
-          mb:10,
+          marginY: {xs:10,sm:14.5,md:26.3,lg:10},
           padding: 3,
           borderRadius:5,
           boxShadow:"5px 5px 10px #ccc ",
@@ -63,7 +63,7 @@ const DoctorLogin = () => {
       >
          <Box mt={2}  >
          <Box display={'flex'} justifyContent={'center'} alignContent={'center'} >
-          <Typography mr={5} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
+          <Typography mr={{sm:2,md:5}} variant='h6' sx={{paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1}} >
            <Link to={"/user_login"}>User Login</Link> 
           </Typography>
           <Typography ml={5} variant='h6' sx={{backgroundColor:"#30349B",paddingTop:2,paddingBottom:2,paddingRight:1,paddingLeft:1,color:"white",borderRadius:"12px"}}>

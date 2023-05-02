@@ -38,11 +38,11 @@ const UserAppointmentHistory = () => {
     <>
     <Navbar/>
     <Box>
-        <Box sx={{ display: { xs: "block", sm: "flex" } }}>
-          <Box sx={{ mt: 5, ml: 3 ,mb:2}}>
+        <Box sx={{ display: { xs: "block",sm: "block",md:'flex' } }}>
+          <Box sx={{ my:{xs:5,sm:5,md:21,lg:5}, ml: 3 ,mb:2}}>
             <Profile/>
           </Box>
-          <Box sx={{width:'69%',ml:2,mt:5,mb:2}}>
+          <Box sx={{width:{xs:'92%',sm:"92%",md:"50%",lg:"65%"},ml:{xs:2,sm:3},my:{xs:5,sm:5,md:20,lg:5} ,mb:2}}>
           <Typography variant="h5" sx={{ marginBottom: 5, fontWeight: 500 }}>
             Appointment History
           </Typography>

@@ -67,7 +67,7 @@ const DoctorView = () => {
   };
   return (
     <>
-      <Box sx={{ backgroundColor: "#F0E9FF", height: 100 }}>
+      <Box sx={{ backgroundColor: "#F0E9FF", height: 100,mt:{xs:14.5,sm:0} }}>
         <Box
           sx={{
             display: "flex",
@@ -96,7 +96,7 @@ const DoctorView = () => {
         {currentDoctors.map((value) => (
           <Card
             elevation={2}
-            sx={{ width: { xs: 400, sm: 350 }, mt: { xs: 10 }, maxWidth: 400 }}
+            sx={{ width: { xs: "95%", sm: 350 }, mt: { xs: 10 }, maxWidth: 400 }}
           >
             <Box
               sx={{

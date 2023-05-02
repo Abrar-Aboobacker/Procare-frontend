@@ -49,19 +49,21 @@ const DoctorOtp = () => {
         const response = await axios.post("/doctor/postDoctorOtp", {
           values
         });
-        dispatch(hideLoading());
+        // dispatch(hideLoading());
         if (response.data.success) {
           toast.success(response.data.message);
           localStorage.setItem("doctorwaitingtoken", response.data.data);
           dispatch(setDoctor(response.data.newDoctor));
           navigate("/doctor_moreinfo");
         } else {
+          
           toast.error(response.data.message);
         }
       } catch (error) {
-        console.log(error);
-        helpers.setErrors({ submit: error.message });
-        toast.error("something went wrong");
+        // console.log(error);
+        console.log('here');
+        // helpers.setErrors({ submit: error.message });
+        toast.error("something went wrong,Please enter your informaiton once more");
       }
     },
   });
@@ -70,11 +72,11 @@ const DoctorOtp = () => {
     setSeconds(30);
 
     try {
-      dispatch(showLoading());
+      // dispatch(showLoading());
       const response = await axios.post("/doctor/resendDoctorOtp", {
         doctorEmail
       });
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
       } else {
@@ -93,6 +95,7 @@ const DoctorOtp = () => {
             backgroundColor: "#F5FCFF",
             display: "flex",
             flexDirection: "column",
+            width:{xs:"75%",sm:500},
             maxWidth: 500,
             alignItems: "center",
             justifyContent: "center",

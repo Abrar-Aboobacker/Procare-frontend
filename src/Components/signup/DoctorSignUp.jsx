@@ -39,7 +39,6 @@ const DoctorSignUp = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
-        // localStorage.setItem("doctorwaitingtoken", response.data.data)
         dispatch(setDoctor(values))
         navigate('/doctor_otp')
 
@@ -61,12 +60,12 @@ const DoctorSignUp = () => {
           backgroundColor: "#F5FCFF",
           display: "flex",
           flexDirection: "column",
+          width:{xs:"75%",sm:500},
           maxWidth: 500,
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
-          marginTop: 10,
-          mb:10,
+          marginY: {xs:10,sm:14.5,md:26.3,lg:10},
           padding: 3,
           borderRadius: 5,
           boxShadow: "5px 5px 10px #ccc ",
@@ -196,6 +195,9 @@ const DoctorSignUp = () => {
           sx={{ marginTop: 3, borderRadius: 3 }}>
           SignUp
         </Button>
+        <Typography mt={2}>
+            Already Have an Account?<Link to={"/doctor_login"}>Log in</Link>
+          </Typography>
       </Box>
     </form>
     <Footer/>
