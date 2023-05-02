@@ -164,7 +164,7 @@ const UserChat = () => {
               ml: { xs: 1, sm: 3 },
               mb: 2,
               // mx:{xs:3},
-              width: { xs: "99%", sm:"95%",md:"70%" },
+              width: { xs: "99%", sm:"95%",md:"70%", },
               // display: "flex",
             }}
           >
@@ -429,7 +429,7 @@ const UserChat = () => {
                             </Box>
                           )}
                         </Box>
-                        <Grid xs={9} sm={10} md={8} lg={9} xl={10.5}>
+                        <Grid xs={9} sm={10} md={8} lg={9} xl={10}>
                           <TextField
                             id="outlined-basic-email"
                             label="Type Something"

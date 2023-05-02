@@ -1,36 +1,28 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminLogin from "./Components/login/AdminLogin";
-import Dashboard from "./Components/Admin/Dashboard";
-import Doctors from "./Components/Admin/Doctors";
 import { Toaster } from "react-hot-toast";
 import {  useSelector } from "react-redux";
 import { AppContext } from "./context/AppContext";
 import AdminProtectedRoutes from "./protectedRoutes/AdminProtectedRoutes";
 import AdminPubllicRoute from './publicRoutes/AdminPubllicRoute';
-import DoctorProfile from "./pages/doctor/DoctorProfile";
 import DoctorPublicRoute from "./publicRoutes/DoctorPublicRoute";
 import DoctorProtectedRoutes from "./protectedRoutes/DoctorProtectedRoutes";
 import { CircularProgress } from "@mui/material";
 import  './index.css'
 import Notification from "./Components/Admin/Notification";
-import NewDoctor from "./Components/Admin/NewDoctor";
-import UserLogin from "./Components/login/UserLogin";
 import DoctorLogin from "./Components/login/DoctorLogin";
 import UserSignUp from './Components/signup/UserSignUp';
 import DoctorSignUp from './Components/signup/DoctorSignUp';
 import Otp from "./Components/user/Otp";
-import Users from "./Components/Admin/Users";
 import DoctorWaitingPage from "./Components/Doctor/DoctorWaitingPage";
 import DoctorRejectUi from "./Components/Doctor/DoctorRejectUi";
-import DoctorWaitingPublicRoutes from "./publicRoutes/DoctorWaitingPublicRoutes";
 import DoctorWaitingProtectedRoutes from "./protectedRoutes/DoctorWaitingProtectedRoutes";
 import DoctorOtp from "./Components/Doctor/DoctorOtp";
 import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
-import Pricing from "./Components/Admin/Pricing";
 import Doctor_profile from "./pages/user/Doctor_profile";
 import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 import UserProfilePage from "./pages/user/UserProfilePage";
@@ -39,11 +31,16 @@ import DoctorProfile2 from "./pages/doctor/DoctorProfile2";
 import DoctorAppointmentHistory from "./Components/DoctorProfile/DoctorAppointmentHistory";
 import UserAppointment from "./Components/user/UserProfile/UserAppointment";
 import UserAppointmentHistory from "./Components/user/UserProfile/UserAppointmentHistory";
-import AppointmentHistory from "./pages/admin/AppointmentHistory";
 import DoctorNotificationPage from "./pages/doctor/DoctorNotificationPage";
 import UserNotification from "./pages/user/UserNotification";
 import UserLoginPage from "./pages/user/UserLoginPage";
 import UserChat from "./Components/user/UserProfile/UserChat";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminDoctorViewPage from "./pages/admin/AdminDoctorViewPage";
+import AdminNewDoctorPage from "./pages/admin/AdminNewDoctorPage";
+import AdminUserPage from "./pages/admin/AdminUserPage";
+import AdminPlanPage from "./pages/admin/AdminPlanPage";
+import AdminAppointmentPage from "./pages/admin/AdminAppointmentPage";
 
 function App() {
  
@@ -94,13 +91,13 @@ function App() {
         <Route path="/doctor_notification" element={<DoctorProtectedRoutes><DoctorNotificationPage/></DoctorProtectedRoutes>}/>
           {/* Admin Routes */}
         <Route path="/admin_login" element={<AdminPubllicRoute><AdminLogin/></AdminPubllicRoute>}/>
-        <Route path="/admin_dashboard" element={<AdminProtectedRoutes><Dashboard/></AdminProtectedRoutes>}/>
-        <Route path="/admin_doctors" element={<AdminProtectedRoutes><Doctors/></AdminProtectedRoutes>}/>
+        <Route path="/admin_dashboard" element={<AdminProtectedRoutes><AdminDashboardPage/></AdminProtectedRoutes>}/>
+        <Route path="/admin_doctors" element={<AdminProtectedRoutes><AdminDoctorViewPage/></AdminProtectedRoutes>}/>
         <Route path="/admin_notification" element={<AdminProtectedRoutes><Notification/></AdminProtectedRoutes>}/>
-        <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><NewDoctor/></AdminProtectedRoutes>}/>
-        <Route path="/admin_users" element={<AdminProtectedRoutes><Users/></AdminProtectedRoutes>}/>
-        <Route path="/admin_pricing" element={<AdminProtectedRoutes><Pricing/></AdminProtectedRoutes>}/>
-        <Route path="/admin_Appointment_page" element={<AdminProtectedRoutes><AppointmentHistory/></AdminProtectedRoutes>}/>
+        <Route path="/admin_new_doctor" element={<AdminProtectedRoutes><AdminNewDoctorPage/></AdminProtectedRoutes>}/>
+        <Route path="/admin_users" element={<AdminProtectedRoutes><AdminUserPage/></AdminProtectedRoutes>}/>
+        <Route path="/admin_pricing" element={<AdminProtectedRoutes><AdminPlanPage/></AdminProtectedRoutes>}/>
+        <Route path="/admin_Appointment_page" element={<AdminProtectedRoutes><AdminAppointmentPage/></AdminProtectedRoutes>}/>
       </Routes>
       </BrowserRouter>
       </AppContext.Provider>

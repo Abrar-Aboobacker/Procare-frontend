@@ -2,6 +2,9 @@ import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableH
 import React, { useEffect, useState } from "react";
 import Sidebar from "../AdminSidebar/SideBar";
 import axios from "../../axios/axios";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/alertsSlice";
+import { toast } from "react-hot-toast";
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -12,7 +15,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
   }));
 const Doctors = () => {
+  const dispatch = useDispatch()
   const [doctor,setDoctor]=useState([])
+  const [refresh, setRefresh] = useState(false);
   const getDoctor =async () =>{
     try {
       const response = await axios.get("admin/getAllDoctors",{
@@ -29,8 +34,63 @@ const Doctors = () => {
   }
   useEffect(() => {
     getDoctor();
-  }, []);
-  const blockHandler =  ()=>{}
+  }, [refresh]);
+  const BlockHandler =  async (doctorId)=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/admin/BlockingDoctor",
+        {
+          doctorId: doctorId
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("admintoken"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setDoctor(response.data.data)
+        setRefresh(!refresh)
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  }
+  const unBlockHadler = async (doctorId)=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/admin/unBlockingDoctor",
+        {
+          doctorId: doctorId
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("admintoken"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setDoctor(response.data.data)
+        setRefresh(!refresh)
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  }
   return (
     <>
      <Box sx={{ display: 'flex' }}>
@@ -52,7 +112,8 @@ const Doctors = () => {
                         <TableCell>Email</TableCell>
                         <TableCell>Phone No</TableCell>
                         <TableCell>Experience</TableCell>
-                        {/* <TableCell>Action</TableCell> */}
+                        <TableCell>Status</TableCell>
+                        <TableCell>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -62,19 +123,21 @@ const Doctors = () => {
                           <TableCell>{value.email}</TableCell>
                           <TableCell>{value?.phone}</TableCell>
                           <TableCell>{value.experience}</TableCell>
-                          {/* <TableCell>
-                            {doctor&& doctor.isActive==="active"?(
+                          <TableCell>{value.isActive}</TableCell>
+                          <TableCell>
+                            { value.isActive==="Active"?
                             <Button
                             variant="contained"
                             color="error"
+                            onClick={()=>BlockHandler(value._id)}
                           >
                             Block
                           </Button>
-                            ):
+                            :
                             <Button
                             variant="contained"
                             color="success"
-                           
+                            onClick={()=>unBlockHadler(value._id)}
                             
                           >
                             Unblock
@@ -82,7 +145,7 @@ const Doctors = () => {
                            
                           }
                             
-                          </TableCell> */}
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

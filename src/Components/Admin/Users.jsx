@@ -1,7 +1,10 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, styled } from '@mui/material'
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Sidebar from "../AdminSidebar/SideBar";
 import axios from "../../axios/axios";
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import { toast } from 'react-hot-toast';
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -12,7 +15,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
   }));
 const Users = () => {
+  const dispatch = useDispatch()
   const [user,setUser]=useState([])
+  const [refresh, setRefresh] = useState(false);
   const getUser =async () =>{
     try {
       const response = await axios.get("admin/getAllUsers",{
@@ -29,7 +34,63 @@ const Users = () => {
   }
    useEffect(() => {
     getUser();
-  }, []);
+  }, [refresh]);
+  const BlockHandler =  async (userId)=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/admin/BlockingUser",
+        {
+          userId: userId
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("admintoken"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setUser(response.data.data)
+        setRefresh(!refresh);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  }
+  const unBlockHadler = async (userId)=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/admin/unBlockingUser",
+        {
+          userId: userId
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("admintoken"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setUser(response.data.data)
+        setRefresh(!refresh);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  }
   return (
     <>
      <Box sx={{ display: 'flex' }}>
@@ -50,8 +111,7 @@ const Users = () => {
                         <TableCell>Full Name</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Phone No</TableCell>
-                        {/* <TableCell>Experience</TableCell> */}
-                        {/* <TableCell>Action</TableCell> */}
+                        <TableCell>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -60,20 +120,20 @@ const Users = () => {
                           <TableCell>{`${value.fName }  ${value.lName}`}</TableCell>
                           <TableCell>{value.email}</TableCell>
                           <TableCell>{value?.phone}</TableCell>
-                          {/* <TableCell>{value.experience}</TableCell> */}
-                          {/* <TableCell>
-                            {doctor&& doctor.isActive==="active"?(
+                          <TableCell>
+                            { value.isActive==true?
                             <Button
                             variant="contained"
                             color="error"
+                            onClick={()=>BlockHandler(value._id)}
                           >
                             Block
                           </Button>
-                            ):
+                            :
                             <Button
                             variant="contained"
                             color="success"
-                           
+                            onClick={()=>unBlockHadler(value._id)}
                             
                           >
                             Unblock
@@ -81,7 +141,7 @@ const Users = () => {
                            
                           }
                             
-                          </TableCell> */}
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

@@ -1,6 +1,9 @@
-import { Box, styled, Typography } from "@mui/material";
-import React from "react";
+import { Box, Paper, styled, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../AdminSidebar/SideBar";
+import GroupsIcon from '@mui/icons-material/Groups';
+import axios from "../../axios/axios"
+import { toast } from "react-hot-toast";
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -11,40 +14,100 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
   }));
 const Dashboard = () => {
+  const [patients, setPatients] = useState("");
+  const [doctors, setDoctors] = useState("");
+  const [totalAppointments, setTotalAppointments] = useState("");
+  const [salesReport, setSalesReport] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/admin/getAdminDashboardDetails", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+        },
+      })
+      .then((response) => {
+        const result = response.data;
+        if (result.success) {
+          setPatients(result.totalPatients);
+          setDoctors(result.totalDoctors);
+          setTotalAppointments(result.totalAppointments);
+          setSalesReport(result.salesReport);
+        } else {
+          toast.error(result.message);
+        }
+      });
+  },[]);
   return (
     <>
      <Box sx={{ display: 'flex' }}>
       <Sidebar />
-      <h1>Dash</h1>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+       <Box>
+        <Typography variant="h4" sx={{ml:10,mt:5}}>Dashboard</Typography>
+        <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-around",mt:5}}>
+          <Box sx={{display:'flex',alignContent:"center", backgroundColor:'#dbdbdb',px:7,py:4,borderRadius:8,":hover":{backgroundColor:'#f2d8e7'},my:5}}>
+            <Box>
+          <GroupsIcon sx={{fontSize:70,ml:-6}}/>
+          </Box>
+          <Box sx={{ml:5}}>
+          <Typography variant="h5" sx={{fontWeight:500}}>Total Users</Typography>
+          <Typography variant="h6" align={'center'}>{patients}</Typography>
+          </Box>
+          </Box>
+          <Box sx={{display:'flex',alignContent:"center", backgroundColor:'#dbdbdb',px:7,py:4,borderRadius:8,":hover":{backgroundColor:'#f2d8e7'},my:5}}>
+            <Box>
+          <GroupsIcon sx={{fontSize:70,ml:-6}}/>
+          </Box>
+          <Box sx={{ml:5}}>
+          <Typography variant="h5" sx={{fontWeight:500}}>Total Doctors</Typography>
+          <Typography variant="h6" align={'center'}>{doctors}</Typography>
+          </Box>
+          </Box>
+          <Box sx={{display:'flex',alignContent:"center", backgroundColor:'#dbdbdb',px:7,py:4,borderRadius:8,":hover":{backgroundColor:'#f2d8e7'},my:5}}>
+            <Box>
+          <GroupsIcon sx={{fontSize:70,ml:-6}}/>
+          </Box>
+          <Box sx={{ml:5}}>
+          <Typography variant="h5" sx={{fontWeight:500}}>Total Appointments</Typography>
+          <Typography variant="h6" align={'center'}>{totalAppointments}</Typography>
+          </Box>
+          </Box>
+        </Box>
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+              <TableContainer stickyHeader aria-label="sticky table">
+                {salesReport && salesReport.length > 0 ? (
+                  <>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Month</TableCell>
+                        <TableCell>Year</TableCell>
+                        <TableCell>Sales</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                       {salesReport&& salesReport.map((value) => ( 
+                         <TableRow key={value._id}
+                         >
+                         <TableCell>{value.month}</TableCell>
+                          <TableCell>{value.year}</TableCell>
+                          <TableCell>{value?.totalsales}</TableCell>
+                        </TableRow>
+                       ))} 
+                    </TableBody>
+                  </>
+                 ) : ( 
+                  <Box display={"flex"} justifyContent={"center"}>
+                    <Typography fontWeight={400} variant="h6">
+                      Currently there is no new application for doctor
+                    </Typography>
+                  </Box>
+                 )} 
+              </TableContainer>
+            </TableContainer>
+          </Paper>
+       </Box>
       </Box>
       </Box>
     </>
