@@ -38,25 +38,26 @@ const DoctorProfilePage = ({ id }) => {
   const [schedulTime, setSchedulTime] = useState("");
   // const user = localStorage.getItem("usertoken");
   // const usertoken = user.usertoken;
-  const fetchDctorDetails = async () => {
-    try {
-      const response = await axios.get(`/singleDoctorDetails/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      if (response.data.success) {
-        setDoctor(response.data.data);
-        setavailableDays(response.data.availableDays);
-      }
-    } catch (error) {
-      console.log(error);
-
-    }
-  };
+  
   useEffect(() => {
+    const fetchDctorDetails = async () => {
+      try {
+        const response = await axios.get(`/singleDoctorDetails/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (response.data.success) {
+          setDoctor(response.data.data);
+          setavailableDays(response.data.availableDays);
+        }
+      } catch (error) {
+        console.log(error);
+  
+      }
+    };
     fetchDctorDetails();
-  },[]);
+  },[id]);
   const fetchIsPlanIsPresent = async ()=>{
     try {
       const response = await axios.get("/isPlanPresent", {
