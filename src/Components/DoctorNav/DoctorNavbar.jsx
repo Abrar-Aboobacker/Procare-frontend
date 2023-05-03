@@ -5,16 +5,18 @@ import {
     Typography,
   } from "@mui/material";
   import React from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from "react-redux";
 import { setDoctor } from "../../redux/DoctorSlice";
 const DoctorNavbar = () => { 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
       const handleLogout = () => {
         localStorage.removeItem('token');
         dispatch(setDoctor(null))
+        navigate('/doctor_login')
       };
   return (
     <>
