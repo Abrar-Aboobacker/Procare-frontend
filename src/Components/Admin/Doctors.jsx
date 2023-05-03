@@ -5,7 +5,6 @@ import axios from "../../axios/axios";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
-const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',

@@ -1,11 +1,7 @@
 import {
-  Avatar,
   Box,
   Button,
-  Card,
-  CardContent,
   Paper,
-  Tab,
   Table,
   TableBody,
   TableCell,
@@ -15,28 +11,25 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { baseURL } from "../../../constants/constant";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import Navbar from "../Home/Navbar";
 import Footer from "../Home/Footer";
 import { toast } from "react-hot-toast";
-import { hideLoading, showLoading } from "../../../redux/alertsSlice";
+import { hideLoading} from "../../../redux/alertsSlice";
 import axios from "../../../axios/axios";
 import moment from "moment";
 const UserAppointment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Appointments, setAppointments] = useState([]);
-  const [image, setImage] = useState();
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     if (!localStorage.getItem("usertoken")) {
       navigate("/user_login");
     }
-  }, []);
+  });
   useEffect(() => {
     // dispatch(showLoading());
     axios
@@ -53,7 +46,10 @@ const UserAppointment = () => {
           toast.error(response.data.message);
         }
       });
-  }, [refresh]);
+  });
+  useEffect(()=>{
+
+  },[refresh])
   const cancelAppointment = (id) => {
     axios
       .post(
@@ -67,13 +63,6 @@ const UserAppointment = () => {
       )
       .then((response) => {
         if (response.data.success) {
-          //   dispatch(
-          //     setLogin({
-          //       client:"client",
-          //     count:response.data.count
-
-          //     })
-          //   );
           toast.success(response.data.message);
           setRefresh(!refresh);
         } else {

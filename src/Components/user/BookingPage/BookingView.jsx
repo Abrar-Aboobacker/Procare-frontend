@@ -23,7 +23,7 @@ const BookingView = ({ id }) => {
   const [doctor, setDoctor] = useState(null);
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const [isAvailable, setIsAvailable] = useState();
+  const [ setIsAvailable] = useState();
   const fetchIsPlanIsPresent = async ()=>{
     try {
       const response = await axios.get("/isPlanPresent", {
@@ -78,36 +78,12 @@ const BookingView = ({ id }) => {
       navigate('/user_login')
     }
   };
-  const handleAvailability = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.post(
-        "/booking_availabilily",
-        { doctorId: id, date, time,doctorInfo: doctor },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("usertoken"),
-          },
-        }
-      );
-      dispatch(hideLoading())
-      if(response.data.success) {
-        setIsAvailable(true)
-        toast.success(response.data.message);
-      }else{
-        toast.success(response.data.message);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      console.log(error);
-    }
-  };
   useEffect(()=>{
     fetchIsPlanIsPresent()
-  },[])
+  },)
   useEffect(() => {
     fetchDctorDetails();
-  }, []);
+  },);
   return (
     <>
       <section style={{ marginTop: "50px", marginBottom: "80px" }}>

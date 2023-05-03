@@ -18,7 +18,6 @@ import axios from "../../axios/axios";
 import { baseURL } from "../../constants/constant";
 import { setDoctor } from "../../redux/DoctorSlice";
 import DoctorAppointmentList from "./../../Components/DoctorProfile/DoctorAppointmentList";
-import DoctorAppointmentHistory from "../../Components/DoctorProfile/DoctorAppointmentHistory";
 import DoctorChatPage from "../../Components/DoctorProfile/DoctorChatPage";
 const DoctorProfileView = () => {
   const { doctor } = useSelector((state) => state.doctor);

@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Card, CardContent, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardContent, Paper,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { baseURL } from '../../constants/constant'
-import { TabContext, TabList } from '@mui/lab'
+import { TabContext } from '@mui/lab'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-hot-toast'
 import { setDoctor } from '../../redux/DoctorSlice'
@@ -15,7 +15,7 @@ const DoctorAppointmentHistory = () => {
     
     const { doctor } = useSelector((state) => state.doctor);
     const dispatch = useDispatch();
-    const [value, setValue] = React.useState("1");
+    const [value] = React.useState("1");
     const [image, setImage] = useState();
     const [Appointments, setAppointments] = useState([]);
     const getHistory =async ()=>{
@@ -35,9 +35,6 @@ const DoctorAppointmentHistory = () => {
     useEffect(()=>{
         getHistory()
     },[])
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-      };
     const handleFileUpload = (event) => {
         const selectedFile = event.target.files[0];
         const allowedExtensions = /(\.png|\.jpg|\.jpeg)$/i;

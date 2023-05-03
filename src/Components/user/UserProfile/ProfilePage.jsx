@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile";
 import axios from '../../../axios/axios'
@@ -20,11 +20,7 @@ const ProfilePage = () => {
     email: user ? user?.email : "",
     dob: user ? user?.dob : "",
     gender: user ? user?.gender : "",
-    // feesPerCunsaltation: user ? user?.feesPerCunsaltation : null,
-    // qualification: user ? user?.qualification : "",
-    // language: user ? user?.language : "",
   });
-  const [image, setImage] = useState();
   const formik = useFormik({
     initialValues: {
       currentPassword: "",

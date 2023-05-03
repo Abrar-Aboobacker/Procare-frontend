@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { ValidationError } from "yup";
 import { userSchema } from "../../validation/userValidation";
 import { useDispatch } from "react-redux";
 import axios from "../../axios/axios";
@@ -19,7 +18,7 @@ const UserSignUp = () => {
     if (localStorage.getItem("usertoken")) {
       navigate("/");
     }
-  }, []);
+  },);
   const formik = useFormik({
     initialValues: {
       fName: "",

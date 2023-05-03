@@ -6,7 +6,6 @@ import moment from 'moment';
 import axios from '../../axios/axios'
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { Link } from 'react-router-dom';
-import { hover } from '@testing-library/user-event/dist/hover';
 const DoctorAppointmentList = () => {
     const dispatch = useDispatch();
     const [Appointments, setAppointments] = useState([]);
@@ -27,7 +26,7 @@ const DoctorAppointmentList = () => {
               toast.error(response.data.message);
             }
           });
-      }, [refresh]);
+      }, [refresh,dispatch]);
 
       const approveAppointment = (id) => {
         axios

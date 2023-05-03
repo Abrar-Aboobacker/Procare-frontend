@@ -19,7 +19,6 @@ const DoctorView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const [serachTerm, setSearchTerm] = useState("");
-  const [showMore, setShowMore] = useState(false);
   const getDoctor = async () => {
     try {
       const response = await axios.get("/allDoctors", {});
@@ -33,8 +32,7 @@ const DoctorView = () => {
   useEffect(() => {
     getDoctor();
   }, []);
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+
 
   // const currentDoctors = sortedDoctors.slice(firstPostIndex, lastPostIndex)
   const isTimeExpired = (time) => {

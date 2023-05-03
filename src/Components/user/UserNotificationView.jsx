@@ -22,28 +22,7 @@ const UserNotificationView = () => {
           navigate('/user_login')
           toast.error("You need to login first")
         }
-      },[])
-    //   const getUserInfo =async ()=>{
-    //     try {
-    //         const response = await axios.get("/userInfo",{
-    //             headers:{
-    //                 Authorization: `Bearer ${localStorage.getItem("usertoken")}`,
-    //             }
-    //         })
-    //         if(!response.data.success){
-    //             // setAppointments(response.data.appointmentHistory)
-    //             // navigate('/user_login')
-    //         }else{
-              
-    //         }
-    //     } catch (error) {
-    //         // console.log(error)
-    //         navigate('/user_login')
-    //     }
-    // }
-    // useEffect(()=>{
-    //   getUserInfo()
-    // },[])
+      })
       const getAllnotification = async () => {
         const response = await axios.get("/getAllnotification", {
           headers: {

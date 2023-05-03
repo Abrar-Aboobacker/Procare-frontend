@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios/axios";
 import { otpSchema } from "../../validation/otpValidation";
-import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { setDoctor } from "../../redux/DoctorSlice";
@@ -38,7 +37,7 @@ const DoctorOtp = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [seconds,minutes]);
   const formik = useFormik({
     initialValues: {
       otpis: "",

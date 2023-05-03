@@ -3,10 +3,7 @@ import {
   Box,
   Button,
   Divider,
-  Drawer,
-  Fab,
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -28,7 +25,7 @@ import { useSelector } from "react-redux";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import Picker from "emoji-picker-react";
 import axios from "../../../axios/axios";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -58,7 +55,7 @@ const UserChat = () => {
       navigate("/user_login");
       toast.error("You need to login first");
     }
-  }, []);
+  });
   useEffect(() => {
     if (user) {
       socket.current = io(baseURL);
@@ -92,7 +89,10 @@ const UserChat = () => {
   };
   useEffect(() => {
     getAllMessages();
-  }, [currentChat]);
+  });
+  useEffect(()=>{
+
+  },[currentChat])
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
@@ -146,9 +146,6 @@ const UserChat = () => {
       handleSendMessage(msg);
       setMsg("");
     }
-  };
-  const handleCloseDrawer = () => {
-    setOpen(false);
   };
   return (
     <>

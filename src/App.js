@@ -23,7 +23,7 @@ import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
-import Doctor_profile from "./pages/user/Doctor_profile";
+import Doctor_Profile from "./pages/user/Doctor_Profile";
 import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import BookingPage from "./pages/user/BookingPage";
@@ -44,7 +44,7 @@ import AdminAppointmentPage from "./pages/admin/AdminAppointmentPage";
 
 function App() {
  
-  const [progress, setProgress] = React.useState(0);
+  const [progress] = React.useState(0);
 
 
 
@@ -71,7 +71,7 @@ function App() {
         <Route path="/user_otp" element={<Otp/>}/>
         <Route path="/" element={<Home/>}/>
         <Route path='/doctors'element={<DoctorsList/>}/>
-        <Route path='/doctor_details/:id'element={<Doctor_profile/>} />
+        <Route path='/doctor_details/:id'element={<Doctor_Profile/>} />
         <Route path='/plan_pricing' element={<PriceListing/>}/>
         <Route path='/user_profile' element={<UserProfilePage/>}/>
         <Route path='/doctor_appointment/:id' element={<BookingPage/>}/>

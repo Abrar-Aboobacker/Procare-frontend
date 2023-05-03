@@ -1,4 +1,4 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import bannerImg from "../../../Assets/PngItem_4554771.png";
 const Banner = () => {

@@ -4,7 +4,7 @@ import Footer from '../../Components/user/Home/Footer'
 import DoctorProfilePage from '../../Components/user/DoctorProfile/DoctorProfilePage'
 import { useParams } from 'react-router-dom'
 
-const Doctor_profile = () => {
+const Doctor_Profile = () => {
   const { id } = useParams();
   console.log(id);
   return (
@@ -16,4 +16,4 @@ const Doctor_profile = () => {
   )
 }
 
-export default Doctor_profile
+export default Doctor_Profile

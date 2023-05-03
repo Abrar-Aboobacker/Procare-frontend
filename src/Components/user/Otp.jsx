@@ -39,7 +39,7 @@ const Otp = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [seconds,minutes]);
     const formik = useFormik({
         initialValues: {
             otpis:''

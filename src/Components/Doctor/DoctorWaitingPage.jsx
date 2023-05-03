@@ -8,8 +8,8 @@ import { setDoctor } from "../../redux/DoctorSlice";
 import DoctorNavbar from "../DoctorNav/DoctorNavbar";
 import Footer from "../user/Home/Footer";
 const DoctorWaitingPage = () => {
-    const [isActive, setIsActive] = useState(false);
-    const [reject,setReject] = useState(false);
+    const [ setIsActive] = useState(false);
+    const [setReject] = useState(false);
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -21,12 +21,12 @@ const DoctorWaitingPage = () => {
               
           }
           })
-            if(response.data.message =='doctor is acitve'){
+            if(response.data.message ==='doctor is acitve'){
               setIsActive(true)
               localStorage.removeItem('doctorwaitingtoken');
               toast.success('Your account approved please login now.')
               navigate('/doctor_login')
-            }else if(response.data.message =="doctor request is rejected"){
+            }else if(response.data.message ==="doctor request is rejected"){
               setReject(true)
               dispatch(setDoctor(response.data.doctorStatus))
               navigate('/doctor_reject')
@@ -37,7 +37,7 @@ const DoctorWaitingPage = () => {
           }
         }
         checkDoctorStatus()
-      },[])
+      },)
   return (
     <>
     <DoctorNavbar/>

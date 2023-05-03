@@ -15,9 +15,7 @@ import {
   styled,
 } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
-import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import axios from "../../axios/axios";
 import robot from "../../Assets/robot.gif";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
@@ -78,14 +76,18 @@ const DoctorChatPage = () => {
   };
   useEffect(() => {
     getAllMessages();
-  }, [currentChat]);
+  });
+  
+  useEffect(()=>{
+
+  },[currentChat])
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
-  }, []);
+  },);
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);

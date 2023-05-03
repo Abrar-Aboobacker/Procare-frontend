@@ -16,7 +16,6 @@ import axios from "../../axios/axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { setAdmin } from "../../redux/AdminSlice";
-const drawerWidth = 240;
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",

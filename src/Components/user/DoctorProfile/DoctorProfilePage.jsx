@@ -9,7 +9,6 @@ import {
   MenuItem,
   Modal,
   Select,
-  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -35,7 +34,7 @@ const DoctorProfilePage = ({ id }) => {
   const [selectedTime, setSelectedTime] = useState("");
   const [availability, setAvailability] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [token, setToken] = useState(null);
+  const [ setToken] = useState(null);
   const [schedulTime, setSchedulTime] = useState("");
   // const user = localStorage.getItem("usertoken");
   // const usertoken = user.usertoken;
@@ -57,7 +56,7 @@ const DoctorProfilePage = ({ id }) => {
   };
   useEffect(() => {
     fetchDctorDetails();
-  }, []);
+  }, );
   const fetchIsPlanIsPresent = async ()=>{
     try {
       const response = await axios.get("/isPlanPresent", {

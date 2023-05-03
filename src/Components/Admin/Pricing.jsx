@@ -28,7 +28,6 @@ const StyledModal = styled(Modal)({
 });
 const Pricing = () => {
     const dispatch = useDispatch()
-  const drawerWidth = 240;
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",

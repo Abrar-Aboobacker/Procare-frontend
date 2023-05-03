@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../axios/axios'
 import { toast } from 'react-hot-toast'
 import { hideLoading, showLoading } from '../../redux/alertsSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setDoctor } from '../../redux/DoctorSlice'
 const DoctorNotificationView = () => {
-    const {doctor}=useSelector((state)=>state.doctor)
     const paperStyle = { width: "100%", margin: "20px auto", border: "none" };
     const dispatch = useDispatch()
     const [value, setValue] = useState("0");

@@ -4,7 +4,6 @@ import Sidebar from "../AdminSidebar/SideBar";
 import GroupsIcon from '@mui/icons-material/Groups';
 import axios from "../../axios/axios"
 import { toast } from "react-hot-toast";
-const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',

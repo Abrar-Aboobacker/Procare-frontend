@@ -16,7 +16,7 @@ const UserAppointmentHistory = () => {
         navigate('/user_login')
         toast.error("You need to login first")
       }
-    },[])
+    })
     const getHistory =async ()=>{
         try {
             const response = await axios.get("/getAppointmentHistory",{

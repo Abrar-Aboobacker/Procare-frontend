@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Card, CardContent, Tab, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardContent, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { baseURL } from '../../../constants/constant';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { TabContext,} from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from '../../../axios/axios'
