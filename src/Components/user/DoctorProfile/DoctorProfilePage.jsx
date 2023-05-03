@@ -127,10 +127,9 @@ const DoctorProfilePage = ({ id }) => {
           const result = response.data;
           console.log(result);
           if (result.success) {
+            toast.success(result.message,{duration:6000});
             setToken(result.token);
-            setSchedulTime(result.schedulTime);
-            // setShowPaypal(true);
-            toast.success(result.message);
+            setSchedulTime(result.schedulTime); 
           } else {
             toast.error(result.message,{duration:6000});
           }
