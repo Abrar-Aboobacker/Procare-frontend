@@ -230,7 +230,7 @@ const {user} = useSelector((state)=>state.user)
           ):(<Box 
             sx={{display: { sm: "flex", xs: "none" },}}
           >
-            <Typography onClick={handleMenu} sx={{color:'#1959FD'}}>Login</Typography>
+            <Typography onClick={handleMenu} sx={{color:'white',backgroundColor:'#1959FD',px:2,py:.5,borderRadius:4,":hover":{color:'#1959FD',backgroundColor:'white'}}}>Login</Typography>
             <Menu
                   id="menu-appba"
                   anchorEl={anchorEl}
