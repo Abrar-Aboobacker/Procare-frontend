@@ -20,6 +20,7 @@ import axios from "../../axios/axios";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { baseURL } from "../../constants/constant";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -151,7 +152,7 @@ const NewDoctor = () => {
                           <TableCell>{value?.phone}</TableCell>
                           <TableCell>{value?.isActive}</TableCell>
                           <TableCell>
-                            <Link to={`http://localhost:3001/${value.file}`}>
+                            <Link to={`${baseURL}${value.file}`}>
                               link to document
                             </Link>
                           </TableCell>
