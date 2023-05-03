@@ -23,7 +23,7 @@ import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
-import Doctor_Profile from "./pages/user/Doctor_Profile";
+import DoctorProfile from "./pages/user/Doctor_Profile";
 import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import BookingPage from "./pages/user/BookingPage";
@@ -71,7 +71,7 @@ function App() {
         <Route path="/user_otp" element={<Otp/>}/>
         <Route path="/" element={<Home/>}/>
         <Route path='/doctors'element={<DoctorsList/>}/>
-        <Route path='/doctor_details/:id'element={<Doctor_Profile/>} />
+        <Route path='/doctor_details/:id'element={<DoctorProfile/>} />
         <Route path='/plan_pricing' element={<PriceListing/>}/>
         <Route path='/user_profile' element={<UserProfilePage/>}/>
         <Route path='/doctor_appointment/:id' element={<BookingPage/>}/>
