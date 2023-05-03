@@ -23,7 +23,7 @@ import Home from "./pages/user/Home";
 import DoctorsList from "./pages/user/DoctorsList";
 import ErrorPage from "./pages/404/ErrorPage";
 import PriceListing from "./pages/user/PriceListing";
-import DoctorProfile from "./pages/user/Doctor_Profile";
+import DoctorProfile from "./pages/user/DoctorProfile";
 import DoctorMoreInfo from "./pages/doctor/DoctorMoreInfo";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import BookingPage from "./pages/user/BookingPage";
