@@ -56,7 +56,7 @@ const DoctorProfilePage = ({ id }) => {
   };
   useEffect(() => {
     fetchDctorDetails();
-  }, );
+  },[]);
   const fetchIsPlanIsPresent = async ()=>{
     try {
       const response = await axios.get("/isPlanPresent", {
