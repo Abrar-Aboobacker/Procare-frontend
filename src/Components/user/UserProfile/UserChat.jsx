@@ -89,10 +89,8 @@ const UserChat = () => {
   };
   useEffect(() => {
     getAllMessages();
-  });
-  useEffect(()=>{
-
-  },[currentChat])
+    // eslint-disable-next-line
+  },[currentChat]);
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {

@@ -57,7 +57,8 @@ const DoctorProfilePage = ({ id }) => {
       }
     };
     fetchDctorDetails();
-  },[id]);
+     // eslint-disable-next-line
+  },[]);
   const fetchIsPlanIsPresent = async ()=>{
     try {
       const response = await axios.get("/isPlanPresent", {
