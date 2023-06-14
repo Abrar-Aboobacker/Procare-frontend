@@ -25,7 +25,7 @@ const PlanView = () => {
                 Authorization: "Bearer " + localStorage.getItem("usertoken"),
             }
          })
-          console.log(res.data);
+          toast.success(res.data.message)
         } catch (error) {
           console.log(error);
         }
