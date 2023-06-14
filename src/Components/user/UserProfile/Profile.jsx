@@ -53,7 +53,7 @@ const Profile = () => {
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
-      toast.error("something went wrong");
+      toast.error("Please Upload a profile picture");
     }
   };
   return (

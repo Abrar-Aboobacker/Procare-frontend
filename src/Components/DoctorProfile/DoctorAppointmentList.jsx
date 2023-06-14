@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import axios from '../../axios/axios'
+// eslint-disable-next-line
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { Link } from 'react-router-dom';
 const DoctorAppointmentList = () => {
@@ -11,7 +12,6 @@ const DoctorAppointmentList = () => {
     const [Appointments, setAppointments] = useState([]);
     const [refresh, setRefresh] = useState(false);
     useEffect(() => {
-        dispatch(showLoading())
         axios
           .get(`/doctor/getAppointments`, {
             headers: {
@@ -20,7 +20,6 @@ const DoctorAppointmentList = () => {
           })
           .then((response) => {
             if (response.data.success) {
-            dispatch(hideLoading())
               setAppointments(response.data.pendingAppointments);
             } else {
               toast.error(response.data.message);
@@ -127,7 +126,7 @@ const DoctorAppointmentList = () => {
                     <TableBody>
                       {Appointments.map((value) => (
                         <TableRow >
-                          <TableCell>{value.client.fName}</TableCell>
+                          <TableCell>{value.client?.fName}</TableCell>
                           <TableCell>{moment(value.date).format("DD-MM-YYYY")}</TableCell>
                           <TableCell>{value.time}</TableCell>
                           <TableCell>{value.status}</TableCell>
